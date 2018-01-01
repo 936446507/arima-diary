@@ -10,3 +10,10 @@ export default {
 }
 </script>
 
+<style>
+body {
+  font-family: "MicroSoft JhengHei";
+  font-size: .25rem;
+  background-color: white;
+}
+</style>
