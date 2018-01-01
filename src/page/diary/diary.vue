@@ -46,12 +46,13 @@
         </div>
       </div>
     </div>
-    
+    <v-comment></v-comment>
   </div>
 </template>
 
 <script>
-import MetaList from '@/components/meta-list'
+import MetaList from '@/components/meta-list/meta-list'
+import Comment from './comment'
 export default {
   data() {
     return {
@@ -60,14 +61,15 @@ export default {
     }
   },
   components: {
-    'meta-list': MetaList
+    'meta-list': MetaList,
+    'v-comment': Comment
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../../assets/style/common.scss';
-.diary-wrap {
+.diary {
   padding: 0 .25rem;
 }
 .diary-header {
@@ -75,13 +77,10 @@ export default {
     font-size: .75rem;
   }
   .user-info-wrap {
+    display: flex;
     width: 100%;
     padding: .25rem 0;
     font-size: 0;
-    &>* {
-      display: inline-block;
-      vertical-align: middle;
-    }
     .user-avatar {
       width: 10%;
       img {
@@ -90,6 +89,8 @@ export default {
       }
     }
     .user-name {
+      flex: 1;
+      align-self: center;
       box-sizing: border-box;
       width:65%;
       padding-left: .25rem;
@@ -97,7 +98,8 @@ export default {
     }
     .fllow-btn {
       width: 25%;
-      padding: .125rem .5rem;
+      height: .75rem;
+      padding: .125rem .25rem;
       color: white;
       border-radius: .25rem;
       font-size: .25rem;
@@ -142,12 +144,9 @@ export default {
     border-bottom: .005rem solid $default-color;
   }
   .detail {
+    display: flex;
     padding: .25rem 0;
     font-size: 0;
-    &>* {
-      display: inline-block;
-      vertical-align: middle;
-    }
     .user-avatar {
       width: 10%;
       img {
@@ -156,9 +155,10 @@ export default {
       }
     }
     .user-info-wrap {
+      flex: 1;
+      align-self: center;
       box-sizing: border-box;
       padding-left: .25rem;
-      width: 65%;
       .user-name {
         font-size: .35rem;
       }
@@ -168,6 +168,7 @@ export default {
     }
     .fllow-btn {
       width: 25%;
+      height: .75rem;
       padding: .125rem .25rem;
       color: white;
       border-radius: .25rem;
