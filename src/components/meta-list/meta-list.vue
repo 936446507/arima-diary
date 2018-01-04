@@ -20,7 +20,7 @@ export default {
 .meta-list {
   display: flex;
   align-items: baseline;
-  font-size: .1rem;
+  font-size: .25rem;
   color: $default-color;
   .meta::after {
     content: '';

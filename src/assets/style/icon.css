@@ -1,0 +1,45 @@
+@font-face {
+  font-family: 'sell-icon';
+  src:  url('../fonts/sell-icon.eot?9s5bj9');
+  src:  url('../fonts/sell-icon.eot?9s5bj9#iefix') format('embedded-opentype'),
+    url('../fonts/sell-icon.ttf?9s5bj9') format('truetype'),
+    url('../fonts/sell-icon.woff?9s5bj9') format('woff'),
+    url('../fonts/sell-icon.svg?9s5bj9#sell-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'sell-icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-input-edit:before {
+  content: "\e900";
+  color: #999;
+}
+.icon-zan:before {
+  content: "\e901";
+}
+.icon-comment:before {
+  content: "\e902";
+}
+.icon-favorite:before {
+  content: "\e903";
+}
+.icon-view:before {
+  content: "\e909";
+}
+.icon-arrow_left:before {
+  content: "\e904";
+}
