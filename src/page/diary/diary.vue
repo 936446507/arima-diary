@@ -4,14 +4,14 @@
       <div class="avatar"><img :src="avatar" alt=""></div>
     </v-header>
     <div class="diary-wrap">
-      <v-scroll class="scroll-wrap" :data="content">
+      <v-scroll class="scroll-wrap" ref="scrollWrap">
         <div class="diary">
-          <!-- 日记头部  作者信息之类 -->
+          <!-- 日記头部  作者信息之类 -->
           <header class="diary-header">
-            <h1 class="title">有馬の日记</h1>
+            <h1 class="title">有馬の日記</h1>
             <div class="user-info-wrap">
-              <div class="user-avatar"><img :src="avatar" alt="有馬の日记"></div>
-              <div class="user-name">有馬の日记</div>
+              <div class="user-avatar"><img :src="avatar" alt="有馬の日記"></div>
+              <div class="user-name">有馬の日記</div>
               <button class="fllow-btn">+ 关注</button>
             </div>
             <div class="diary-info">
@@ -23,40 +23,62 @@
               </meta-list>
             </div>
           </header>
-          <!-- 日记内容 -->
+          <!-- 日記内容 -->
           <main class="diary-content">
-              {{content[0]}}
+            先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
+            首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
+            并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
+            诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
+            作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
+            商业转载请联系作者获得授权，非商业转载请注明出处。
+            先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
+            首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
+            并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
+            诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
+            作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
+            商业转载请联系作者获得授权，非商业转载请注明出处。
+            先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
+            首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
+            并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
+            诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
+            作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
+            商业转载请联系作者获得授权，非商业转载请注明出处。
+            先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
+            首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
+            并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
+            诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
+            作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
+            商业转载请联系作者获得授权，非商业转载请注明出处。
           </main>
           <!-- 关注作者模块 -->
           <div class="fllow-user-wrap">
             <div class="fllow-user">
-              <header class="desc">关注作者，看更多关于TA的好日记</header>
+              <header class="desc">关注作者，看更多关于TA的好日記</header>
               <main class="detail">
                 <div class="user-avatar">
                   <img :src="avatar" alt="">
                 </div>
                 <div class="user-info-wrap">
-                  <h1 class="user-name">有馬の日记</h1>
-                  <h3 class="user-intro">有馬の日记</h3>
+                  <h1 class="user-name">有馬の日記</h1>
+                  <h3 class="user-intro">有馬の日記</h3>
                 </div>
                 <button class="fllow-btn">+ 关注</button>
               </main>
             </div>
           </div>
           <!-- 评论区 -->
-          <div class="comment-wrap">
+          <div class="comment-wrap" ref="commentWrap">
             <!-- 头部信息栏 -->
             <header class="comment-header-meta">
               <span class="comment-num">评论 666</span>
             </header>
-            <comment-list></comment-list>
+            <comment-list v-for="n in 5" :key="n"></comment-list>
             <!-- 没有评论 -->
             <div v-if="false" class="empty-comment">
               <img :src="emptyCommentBg" alt="">
               <p class="desc">我在等着你的评论呢~</p>
             </div>
             </div>
-          
         </div>
       </v-scroll>
       
@@ -64,12 +86,12 @@
     <!-- 底部固定工具条 -->
     <footer-tool class="footer-tool-wrap">
       <!-- 模拟input输入框 -->
-      <div class="imitate-input">
+      <div @click.stop="showTextareaModal" class="imitate-input">
         <i class="icon icon-input-edit"></i>
         <span class="desc">请输入评论</span>
       </div>
       <ul class="icon-list">
-        <li class="icon-item">
+        <li @click.stop="scrollToComment" class="icon-item">
           <i class="icon icon-comment"></i>
           <span class="num">999</span>
         </li>
@@ -79,8 +101,9 @@
         </li>
       </ul>
     </footer-tool>
+    <!-- 评论文本域模态框状态 -->
+    <textarea-modal ref="textareaModal"></textarea-modal>
   </div>
-  
 </template>
 
 <script>
@@ -89,36 +112,52 @@ import Scroll from '@/components/scroll/scroll'
 import MetaList from '@/components/meta-list/meta-list'
 import CommentList from './comment-list'
 import footerTool from './footer-tool'
+import textareaModal from './textarea-modal'
+
 export default {
   data() {
     return {
       avatar: require('@/assets/images/logo.jpg'),
       emptyCommentBg: require('@/assets/images/empty-comment-bg.png'),
-      metaLen: 4,
-      content: [`先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
-          首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
-          并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
-          诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
-          作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
-          商业转载请联系作者获得授权，非商业转载请注明出处。`]
+      // 评论文本域模态框状态
+      isTextareaModalShow: false,
+      actionSheetStatus: false,
+      menu: {
+        menu1: '<textarea style="width: 100%;height: 4rem;border: none;" class="textarea">web</textarea>'
+      }
     }
   },
   mounted() {
     this.$nextTick(() => {
     })
   },
+  methods: {
+    showTextareaModal() {
+      this.$refs.textareaModal.show()
+    },
+    // 滚动到评论区
+    scrollToComment() {
+      this.$refs.scrollWrap.scroll.scrollToElement(this.$refs.commentWrap, 600, false, false)
+    }
+  },
   components: {
     'v-header': Header,
     'v-scroll': Scroll,
     'meta-list': MetaList,
     'comment-list': CommentList,
-    'footer-tool': footerTool
+    'footer-tool': footerTool,
+    'textarea-modal': textareaModal
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../../assets/style/common.scss';
+.textarea {
+  width: 100%;
+  height: 4rem;
+  border: none;
+}
 .diary-header-tool {
   .avatar {
     display: flex;
@@ -132,14 +171,14 @@ export default {
 }
 .diary-wrap {
   position: fixed;
-  top: .8rem;
-  bottom: 1.1rem;
+  top: 1rem;
+  bottom: 1rem;
   width: 100%;
   .scroll-wrap {
     height: 92%;
   }
 }
-// 日记头部
+// 日記头部
 .diary-header {
   padding: 0 .25rem;
   .title {
@@ -176,7 +215,7 @@ export default {
     }
   }
 }
-// 日记内容区
+// 日記内容区
 .diary-content {
   padding: .25rem;
 }
