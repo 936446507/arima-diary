@@ -44,6 +44,14 @@ export default {
     },
     refresh() {
       this.scroll && this.scroll.refresh()
+    },
+    scrollToElement(element, time, offsetX = false, offsetY = false, easing) {
+      /*
+      {Number | Boolean} offsetX 相对于目标元素的横轴偏移量，如果设置为 true，则滚到目标元素的中心位置
+      {Number | Boolean} offsetY 相对于目标元素的纵轴偏移量，如果设置为 true，则滚到目标元素的中心位置
+      {Object} easing 缓动函数，一般不建议修改，如果想修改，参考源码中的 ease.js 里的写法
+      */
+      this.scroll && this.scroll.scrollToElement(element, time, offsetX, offsetY, easing)
     }
   },
   watch: {

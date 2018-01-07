@@ -6,6 +6,7 @@ import router from './router'
 
 import '@/assets/style/reset.css'
 import '@/assets/style/icon.css'
+import 'vue2-animate/dist/vue2-animate.min.css'
 
 Vue.config.productionTip = false
 

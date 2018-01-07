@@ -24,6 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-man:before {
+  content: "\e905";
+}
+.icon-woman:before {
+  content: "\e906";
+}
 .icon-input-edit:before {
   content: "\e900";
   color: #999;
@@ -37,9 +43,18 @@
 .icon-favorite:before {
   content: "\e903";
 }
+.icon-favorited:before {
+  content: "\e90b";
+}
 .icon-view:before {
   content: "\e909";
 }
 .icon-arrow_left:before {
   content: "\e904";
+}
+.icon-plus:before {
+  content: "\ea0a";
+}
+.icon-checkmark:before {
+  content: "\ea10";
 }

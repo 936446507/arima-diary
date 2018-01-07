@@ -19,7 +19,7 @@ const createLintingRule = () => ({
   }
 })
 
-module.exports = {
+let originalConfig =  module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -64,6 +64,10 @@ module.exports = {
         loaders: ["style", "css", "sass"]
       },
       {
+      test: /\.less$/,
+      loader: "style-loader!css-loader!less-loader",
+      },
+      {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
         options: {
@@ -94,3 +98,11 @@ module.exports = {
     child_process: 'empty'
   }
 }
+
+const vuxLoader = require('vux-loader')
+const webpackConfig = originalConfig 
+// 原来的 module.exports 代码赋值给变量 webpackConfig
+
+module.exports = vuxLoader.merge(webpackConfig, {
+  plugins: ['vux-ui']
+})

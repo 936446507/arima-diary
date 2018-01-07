@@ -1,5 +1,5 @@
 <template>
-  <div class="header-wrap">
+  <div :style="{backgroundColor: background}" class="header-wrap">
     <div class="header">
       <div class="arrow"><i class="icon icon-arrow_left"></i></div>
       <slot></slot>
@@ -9,17 +9,23 @@
 
 <script>
 export default {
+  props: {
+    background: {
+      type: String,
+      default: 'white'
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../../assets/style/common.scss';
 .header-wrap {
-  @include border1px(rgba(0, 0, 0, .35));
+  @include border1px(transparent);
   position: fixed;
   top: 0;
   width: 100%;
-  height: .8rem;
+  height: 1rem;
   background-color: white;
   z-index: 99;
   .header {

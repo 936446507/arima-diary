@@ -60,6 +60,23 @@ $error-color: #FF4949;
     transform-origin: 0 0;
   }
 }
+@mixin border1pxVertical($color, $left: 100%) {
+  position: relative;
+  border: none;
+  &::before {
+    content: '';
+    position: absolute;
+    left: $left;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-color: $color;
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+  }
+}
 
 @mixin setImg($width: 100%, $radius: 0) {
   width: $width;
