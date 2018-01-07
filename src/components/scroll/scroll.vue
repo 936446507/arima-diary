@@ -16,6 +16,10 @@ export default {
       type: Boolean,
       default: true
     },
+    bounce: {
+      type: Boolean,
+      default: true
+    },
     data: {
       type: Array,
       default: null
@@ -33,7 +37,8 @@ export default {
       }
       this.scroll = new BScroll(this.$refs.wrapper, {
         probeType: this.probeType,
-        click: this.click
+        click: this.click,
+        bounce: this.bounce
       })
     },
     enable() {

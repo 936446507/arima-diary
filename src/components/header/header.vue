@@ -21,13 +21,15 @@ export default {
 <style lang="scss" scoped>
 @import '../../assets/style/common.scss';
 .header-wrap {
-  @include border1px(transparent);
+  @include border1px(rgba(0, 0, 0, .35));
   position: fixed;
   top: 0;
   width: 100%;
   height: 1rem;
   background-color: white;
   z-index: 99;
+  transition: all .5s linear;
+  overflow: hidden;
   .header {
     display: flex;
     align-items: center;

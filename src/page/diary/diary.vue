@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
-    <v-header class="diary-header-tool">
-      <div class="avatar"><img :src="avatar" alt=""></div>
+    <v-header class="diary-header-tool" ref="diaryHeaderTool">
+      <div v-show="avatarStatus" class="avatar"><img :src="avatar" alt=""></div>
     </v-header>
     <div class="diary-wrap">
-      <v-scroll class="scroll-wrap" ref="scrollWrap">
+      <v-scroll class="scroll-wrap" :probeType="2" :bounce="true" ref="scrollWrap">
         <div class="diary">
           <!-- 日記头部  作者信息之类 -->
           <header class="diary-header">
@@ -81,7 +81,6 @@
             </div>
         </div>
       </v-scroll>
-      
     </div>
     <!-- 底部固定工具条 -->
     <footer-tool class="footer-tool-wrap">
@@ -95,8 +94,9 @@
           <i class="icon icon-comment"></i>
           <span class="num">999</span>
         </li>
-        <li class="icon-item">
-          <i class="icon icon-favorite"></i>
+        <li @click.stop="favoriteDiary" class="icon-item">
+          <i :class="{'icon-favorite': !isFavoriteDiary, 
+            'icon-favorited': isFavoriteDiary}" class="icon"></i>
           <span class="num">999</span>
         </li>
       </ul>
@@ -119,9 +119,13 @@ export default {
     return {
       avatar: require('@/assets/images/logo.jpg'),
       emptyCommentBg: require('@/assets/images/empty-comment-bg.png'),
+      avatarStatus: false,
       // 评论文本域模态框状态
       isTextareaModalShow: false,
       actionSheetStatus: false,
+      // 是否已喜欢该日记
+      isFavoriteDiary: false,
+      scrollY: 0,
       menu: {
         menu1: '<textarea style="width: 100%;height: 4rem;border: none;" class="textarea">web</textarea>'
       }
@@ -129,15 +133,49 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
+      this.setHeaderToolStatus()
     })
   },
   methods: {
+    setHeaderToolStatus() {
+      let scroll = this.$refs.scrollWrap.scroll
+      scroll.on('scroll', (pos) => {
+        if (pos.y <= this.scrollY) {
+          console.log('down')
+          this.scrollY = pos.y
+          this.$refs.diaryHeaderTool.$el.style.transform = 'translateY(-1rem)'
+        } else {
+          console.log('up')
+          this.scrollY = pos.y
+          this.$refs.diaryHeaderTool.$el.style.transform = 'translateY(0)'
+          this.avatarStatus = true
+        }
+      })
+      scroll.on('scrollEnd', (pos) => {
+        if (pos.y === 0) {
+          this.avatarStatus = false
+        }
+      })
+    },
     showTextareaModal() {
       this.$refs.textareaModal.show()
     },
     // 滚动到评论区
     scrollToComment() {
-      this.$refs.scrollWrap.scroll.scrollToElement(this.$refs.commentWrap, 600, false, false)
+      console.log(this.$refs.scrollWrap)
+      this.$refs.scrollWrap.scrollToElement(this.$refs.commentWrap, 600)
+    },
+    // 添加喜欢日记
+    favoriteDiary() {
+      this.isFavoriteDiary = !this.isFavoriteDiary
+    },
+    // 底部数值大小操作
+    setFooterNumber(number, isRepeatSet) {
+      /*
+      number: 数值
+      isRepeatSet: 数值加一后再执行是否减一
+      */
+      return isRepeatSet ? --number : ++number
     }
   },
   components: {
@@ -175,7 +213,7 @@ export default {
   bottom: 1rem;
   width: 100%;
   .scroll-wrap {
-    height: 92%;
+    height: 100%;
   }
 }
 // 日記头部
@@ -313,6 +351,9 @@ export default {
         bottom: 0;
         font-size: .5rem;
         color: rgba(0, 0, 0, .5);
+        &.icon-favorited {
+          color: #ea6f5a;
+        }
       }
       .num {
         position: absolute;
