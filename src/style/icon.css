@@ -52,9 +52,9 @@
 .icon-arrow_left:before {
   content: "\e904";
 }
-.icon-plus:before {
-  content: "\ea0a";
+.icon-right:before {
+  content: "\e907";
 }
-.icon-checkmark:before {
-  content: "\ea10";
+.icon-plus:before {
+  content: "\e908";
 }

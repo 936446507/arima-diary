@@ -1,9 +1,10 @@
 <template>
   <div class="warpper">
-    <v-header background="transparent"></v-header>
+    <v-header class="header-tool" arrowColor="#fff" background="transparent"></v-header>
     <div class="user-wrap">
       <v-scroll class="scroll-wrap" ref="scrollWrap">
         <div class="user">
+          <!-- 头部视差滚动 -->
           <header class="user-header-wrap">
             <div class="user-header">
               <div class="avatar"><img :src="avatar" alt=""></div>
@@ -20,23 +21,25 @@
                   <i class="icon icon-input-edit"></i>
                   <span class="desc">编辑资料</span>
                 </div>
-                <div v-if="true" class="btn fllow-btn">
+                <div v-if="false" class="btn fllow-btn">
                   <i class="icon icon-plus"></i>
                   <span class="desc">关注</span>
                 </div>
-                <div v-if="true" class="btn fllow-btn">
-                  <i class="icon icon-checkmark"></i>
+                <div v-if="false" class="btn fllow-btn">
+                  <i class="icon icon-right"></i>
                   <span class="desc">已关注</span>
                 </div>                
               </div>
             </div>
-            
           </header>
           <main class="user-main-wrap">
             <tab :line-width=2 active-color='#ea6f5a' v-model="tabIndex">
-              <tab-item class="vux-center" :selected="activeTab === item" v-for="(item, index) in tabList" @click="activeTab = item" :key="index">{{item}}</tab-item>
+              <tab-item class="vux-center" :selected="activeTab === item" 
+                v-for="(item, index) in tabList" @click="activeTab = item" :key="index">
+                {{item}}
+              </tab-item>
             </tab>
-            <swiper v-model="tabIndex" height="100px" :show-dots="false">
+            <swiper v-model="tabIndex" :aspect-ratio="8.7" :show-dots="false">
               <swiper-item v-for="(item, index) in tabList" :key="index">
                 <div class="tab-swiper vux-center">{{item}} Container
                   <comment-list v-for="n in 15" :key="n"></comment-list>
@@ -46,9 +49,8 @@
           </main>
         </div>
       </v-scroll>
+    </div>
   </div>
-  </div>
-  
 </template>
 
 <script>
@@ -79,7 +81,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/style/common.scss';
+@import '../../style/common.scss';
+.header-tool::before {
+  background-color: transparent !important;
+}
 .user-wrap {
   position: fixed;
   top: 0;
@@ -100,7 +105,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: .75rem 0;
+    padding: 1rem 0;
     background-color: rgba(0, 0, 0, .1);
     color: white;
     .avatar {

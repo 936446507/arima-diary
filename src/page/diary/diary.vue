@@ -12,7 +12,12 @@
             <div class="user-info-wrap">
               <div class="user-avatar"><img :src="avatar" alt="有馬の日記"></div>
               <div class="user-name">有馬の日記</div>
-              <button class="fllow-btn">+ 关注</button>
+              <button class="btn fllow-btn">
+                <i class="icon icon-plus"></i><span class="desc">关注</span>
+              </button>
+              <button v-show="false" class="btn fllowed-btn">
+                <i class="icon icon-right"></i><span class="desc">已关注</span>
+              </button>
             </div>
             <div class="diary-info">
               <meta-list>
@@ -53,7 +58,7 @@
           <!-- 关注作者模块 -->
           <div class="fllow-user-wrap">
             <div class="fllow-user">
-              <header class="desc">关注作者，看更多关于TA的好日記</header>
+              <header class="header-desc">关注作者，看更多关于TA的好日記</header>
               <main class="detail">
                 <div class="user-avatar">
                   <img :src="avatar" alt="">
@@ -62,7 +67,12 @@
                   <h1 class="user-name">有馬の日記</h1>
                   <h3 class="user-intro">有馬の日記</h3>
                 </div>
-                <button class="fllow-btn">+ 关注</button>
+                <button class="btn fllow-btn">
+                  <i class="icon icon-plus"></i><span class="desc">关注</span>
+                </button>
+                <button v-show="false" class="btn fllowed-btn">
+                  <i class="icon icon-right"></i><span class="desc">已关注</span>
+                </button>
               </main>
             </div>
           </div>
@@ -141,11 +151,11 @@ export default {
       let scroll = this.$refs.scrollWrap.scroll
       scroll.on('scroll', (pos) => {
         if (pos.y <= this.scrollY) {
-          console.log('down')
+          // 往下滑
           this.scrollY = pos.y
           this.$refs.diaryHeaderTool.$el.style.transform = 'translateY(-1rem)'
         } else {
-          console.log('up')
+          // 往上滑
           this.scrollY = pos.y
           this.$refs.diaryHeaderTool.$el.style.transform = 'translateY(0)'
           this.avatarStatus = true
@@ -190,7 +200,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/style/common.scss';
+@import '../../style/common.scss';
 .textarea {
   width: 100%;
   height: 4rem;
@@ -214,6 +224,23 @@ export default {
   width: 100%;
   .scroll-wrap {
     height: 100%;
+  }
+}
+// 关注已关注按钮
+.btn {
+  width: 25%;
+  height: .6rem;
+  border: none;
+  border-radius: .25rem;
+  font-size: .25rem;
+  &.fllow-btn {
+    color: white;
+    background-color: $success-color;
+  }
+  &.fllowed-btn {
+    color: #ccc;
+    border: 1px solid #ccc;
+    background-color: white;
   }
 }
 // 日記头部
@@ -241,16 +268,8 @@ export default {
       padding-left: .25rem;
       font-size: .25rem;
     }
-    .fllow-btn {
-      width: 25%;
-      height: .6rem;
-      // padding: .125rem .25rem;
-      color: white;
-      border-radius: .25rem;
-      font-size: .25rem;
-      background-color: $success-color;
-      border: none;
-    }
+    
+    
   }
 }
 // 日記内容区
@@ -263,7 +282,7 @@ export default {
   .fllow-user {
     padding: 0 .15rem;
     border: .025rem solid rgba(0, 0, 0, .5);
-    .desc {
+    .heder-desc {
       padding: .1rem 0;
       font-size: .1rem;
       color: $default-color;
@@ -291,16 +310,6 @@ export default {
           font-size: .15rem;
           color: rgba(0, 0, 0, .5);
         }
-      }
-      .fllow-btn {
-        width: 25%;
-        height: .6rem;
-        // padding: .125rem .25rem;
-        color: white;
-        border-radius: .25rem;
-        font-size: .25rem;
-        background-color: #13CE66;
-        border: none;
       }
     }
   }

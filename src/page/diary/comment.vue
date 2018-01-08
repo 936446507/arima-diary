@@ -37,11 +37,11 @@
           </ul>
         </li>
         <div v-if="!isCommentDetail" class="more-content-btn">
-          还有 2 条评论，<span class="more-content">点击查看</span>
+          还有 2 条评论，<span @click.stop="goRouteLink(1)" class="more-content">点击查看</span>
         </div>
         <!-- 底部提示 -->
         <div v-if="isCommentDetail" class="end-tip">
-          <span class="tip">-- end --</span>
+          <span class="tip">-- 我是有底线的 --</span>
         </div>
       </ul>
     </div>
@@ -50,7 +50,8 @@
 
 <script>
 import MetaList from '@/components/meta-list/meta-list'
-import {getRouteInfo} from '@/assets/js/routeInfo'
+import {getRouteInfo} from '@/js/getRouteInfo'
+import {goRouterLink} from '@/js/goRouterLink'
 export default {
   // 单条评论
   name: 'comment',
@@ -63,13 +64,16 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      this.initCommentDetailState()
+      this._initCommentDetailState()
     })
   },
   methods: {
-    initCommentDetailState() {
+    _initCommentDetailState() {
       let routeInfo = getRouteInfo(this)
       this.isCommentDetail = routeInfo.name === 'commentDetail'
+    },
+    goRouteLink(id) {
+      this.$router.push({name: 'commentDetail', params: {id: id}})
     }
   },
   components: {
@@ -79,7 +83,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/style/common.scss';
+@import '../../style/common.scss';
 .comment-item {
   padding: .25rem 0;
   @include border1px(rgba(0, 0, 0, .35));

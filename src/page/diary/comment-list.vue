@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/style/common.scss';
+@import '../../style/common.scss';
 // 评论列表
 .comment-content {
   .comment-item {

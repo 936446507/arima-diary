@@ -1,7 +1,7 @@
 <template>
   <div :style="{backgroundColor: background}" class="header-wrap">
     <div class="header">
-      <div class="arrow"><i class="icon icon-arrow_left"></i></div>
+      <div class="arrow"><i :style="{color: arrowColor}" class="icon icon-arrow_left"></i></div>
       <slot></slot>
     </div>
   </div>
@@ -10,6 +10,10 @@
 <script>
 export default {
   props: {
+    arrowColor: {
+      type: String,
+      default: '#333'
+    },
     background: {
       type: String,
       default: 'white'
