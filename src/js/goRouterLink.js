@@ -1,3 +1,3 @@
-export function getRouterLink(routerLink, _this) {
+export function goRouterLink(routerLink, _this) {
   _this.$router.push(routerLink)
 }

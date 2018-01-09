@@ -37,7 +37,7 @@
           </ul>
         </li>
         <div v-if="!isCommentDetail" class="more-content-btn">
-          还有 2 条评论，<span @click.stop="goRouteLink(1)" class="more-content">点击查看</span>
+          还有 2 条评论，<span @click.stop="goCommentDetail(1)" class="more-content">点击查看</span>
         </div>
         <!-- 底部提示 -->
         <div v-if="isCommentDetail" class="end-tip">
@@ -72,8 +72,8 @@ export default {
       let routeInfo = getRouteInfo(this)
       this.isCommentDetail = routeInfo.name === 'commentDetail'
     },
-    goRouteLink(id) {
-      this.$router.push({name: 'commentDetail', params: {id: id}})
+    goCommentDetail(id) {
+      goRouterLink({name: 'commentDetail', params: {id: id}}, this)
     }
   },
   components: {

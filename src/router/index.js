@@ -40,7 +40,7 @@ export default new Router({
       component: User
     },
     {
-      path: '/diary',
+      path: '/diary/:id',
       name: 'diary',
       component: Diary
     },
