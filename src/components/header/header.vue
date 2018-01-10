@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/style/common.scss';
+@import '../../style/common.scss';
 .header-wrap {
   @include border1px(rgba(0, 0, 0, .35));
   position: fixed;

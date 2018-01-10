@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import {getStyle} from '@/assets/js/getStyle'
-import * as EventUtil from '@/assets/js/eventUtil'
+import {getStyle} from '@/js/getStyle'
+import * as EventUtil from '@/js/eventUtil'
 export default {
   data() {
     return {
