@@ -24,6 +24,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-diary:before {
+  content: "\e90a";
+}
+.icon-back:before {
+  content: "\e90c";
+}
+.icon-share:before {
+  content: "\e90d";
+}
+.icon-rate:before {
+  content: "\e90e";
+}
+.icon-set:before {
+  content: "\e90f";
+}
 .icon-man:before {
   content: "\e905";
 }
