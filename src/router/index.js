@@ -8,6 +8,8 @@ import Self from '@/page/self/self'
 import User from '@/page/user/user'
 import Diary from '@/page/diary/diary'
 import CommentDetail from '@/page/diary/comment-detail'
+import Login from '@/page/login/login'
+import Register from '@/page/register/register'
 
 Vue.use(Router)
 
@@ -48,6 +50,16 @@ export default new Router({
       path: '/comment/:id',
       name: 'commentDetail',
       component: CommentDetail
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
     }
   ]
 })
