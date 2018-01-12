@@ -1,29 +1,35 @@
 <template>
   <div class="wrapper">
-    <v-header arrow-color="white" background="transparent"></v-header>
-    <header class="header">
-      <div class="name">有馬の日記</div>
-      <div class="logo"><img :src="logo" alt=""></div>
-    </header>
-    <main class="main">
-      <div class="form">
-        <div class="form-item username">
-          <i class="icon"></i>
-          <input type="text" class="input username-input" placeholder="请输入用户名">
-        </div>
-        <div class="form-item password">
-          <i class="icon"></i>
-          <input type="text" class="input password-input" placeholder="请输入密码">
-        </div>
-        <button class="register-btn">注册</button>
-      </div>
-    </main>
-    <footer class="footer">已有账号，<span class="desc">立即登录</span></footer>
+    <v-header class="header-tool" arrow-color="white" background="transparent"></v-header>
+    <div class="register-wrap">
+      <v-scroll class="scroll-wrap">
+        <header class="header">
+          <div class="name">有馬の日記</div>
+          <div class="logo"><img :src="logo" alt=""></div>
+        </header>
+        <main class="main">
+          <div class="form">
+            <div class="form-item username">
+              <i class="icon"></i>
+              <input type="text" class="input username-input" placeholder="请输入用户名">
+            </div>
+            <div class="form-item password">
+              <i class="icon"></i>
+              <input type="text" class="input password-input" placeholder="请输入密码">
+            </div>
+            <button class="register-btn">注册</button>
+          </div>
+        </main>
+        <footer class="footer">已有账号，<span class="desc">立即登录</span></footer>
+      </v-scroll>
+    </div>
+    
   </div>
 </template>
 
 <script>
 import Header from '@/components/header/header'
+import Scroll from '@/components/scroll/scroll'
 export default {
   data() {
     return {
@@ -31,13 +37,27 @@ export default {
     }
   },
   components: {
-    'v-header': Header
+    'v-header': Header,
+    'v-scroll': Scroll
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../../style/common.less';
+.header-tool::before {
+  height: 0 !important;
+}
+.register-wrap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  .scroll-wrap {
+    height: 100%;
+  }
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -59,7 +79,7 @@ export default {
   }
 }
 .main {
-  padding: .75rem .25rem;
+  padding: 1rem .25rem;
   .form {
     .form-item {
       padding: .25rem 0;

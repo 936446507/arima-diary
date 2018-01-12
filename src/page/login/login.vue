@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <v-header arrowColor="white" background="transparent"></v-header>
+    <v-header class="header-tool" arrowColor="white" background="transparent"></v-header>
     <div class="login-wrap">
       <v-scroll class="scroll-wrap">
         <div class="login">
@@ -49,10 +49,14 @@ export default {
 
 <style lang="less" scoped>
 @import '../../style/common.less';
+.header-tool::before {
+  height: 0 !important;
+}
 .login-wrap {
-  position: fixed;
+  position: absolute;
   top: 0;
   bottom: 0;
+  width: 100%;
   .scroll-wrap {
     height: 100%;
   }
