@@ -1,6 +1,6 @@
 <template>
   <div class="fans-wrap">
-    <v-list title="粉丝">
+    <v-list title="关注">
       <ul class="fans-list">
         <li v-for="n in 10" :key="n" class="fans-item">
           <div class="avatar"><img :src="avatar" alt="avatar"></div>
