@@ -6,6 +6,7 @@ import Home from '@/page/home/home'
 import Notice from '@/page/notice/notice'
 import Self from '@/page/self/self'
 import User from '@/page/user/user'
+import Fans from '@/page/self/fans'
 import Diary from '@/page/diary/diary'
 import CommentDetail from '@/page/diary/comment-detail'
 import Login from '@/page/login/login'
@@ -50,6 +51,11 @@ export default new Router({
       path: '/comment/:id',
       name: 'commentDetail',
       component: CommentDetail
+    },
+    {
+      path: '/fans',
+      name: 'fans',
+      component: Fans
     },
     {
       path: '/login',

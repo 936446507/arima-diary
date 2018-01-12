@@ -21,7 +21,7 @@ export default {
   },
   components: {
     'v-header': Header,
-    'v-scoll': Scroll
+    'v-scroll': Scroll
   }
 }
 </script>
@@ -29,6 +29,15 @@ export default {
 <style lang="less" scoped>
 .title {
   font-size: .35rem;
-  colo: #333;
+  color: #333;
+}
+.list-wrap {
+  position: fixed;
+  top: 1rem;
+  bottom: 0;
+  width: 100%;
+  .scroll-wrap {
+    height: 100%;
+  }
 }
 </style>

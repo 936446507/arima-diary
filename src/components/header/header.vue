@@ -2,7 +2,7 @@
   <div :style="{backgroundColor: background}" class="header-wrap">
     <div class="header">
       <div class="arrow"><i :style="{color: arrowColor}" class="icon icon-arrow_left"></i></div>
-      <slot></slot>
+      <div class="item"> <slot></slot></div>
     </div>
   </div>
 </template>
@@ -44,6 +44,9 @@ export default {
       align-items: center;
       width: 5%;
       font-size: .35rem;
+    }
+    .item {
+      margin-left: .5rem;
     }
   }
 }
