@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <v-header>
-      <h1>关注</h1>
+      <h1 class="title">{{title}}</h1>
     </v-header>
     <div class="list-wrap">
       <v-scroll class="scroll-wrap">
@@ -27,5 +27,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+.title {
+  font-size: .35rem;
+  colo: #333;
+}
 </style>
