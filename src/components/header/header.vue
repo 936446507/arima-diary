@@ -34,6 +34,7 @@ export default {
   z-index: 99;
   transition: all .5s linear;
   overflow: hidden;
+  box-shadow: 0 0 5px #ccc;
   .header {
     display: flex;
     align-items: center;
