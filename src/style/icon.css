@@ -39,6 +39,12 @@
 .icon-set:before {
   content: "\e90f";
 }
+.icon-right:before {
+  content: "\e907";
+}
+.icon-plus:before {
+  content: "\e908";
+}
 .icon-man:before {
   content: "\e905";
 }
@@ -58,18 +64,15 @@
 .icon-favorite:before {
   content: "\e903";
 }
-.icon-favorited:before {
-  content: "\e90b";
-}
 .icon-view:before {
   content: "\e909";
+}
+.icon-favorited:before {
+  content: "\e90b";
 }
 .icon-arrow_left:before {
   content: "\e904";
 }
-.icon-right:before {
-  content: "\e907";
-}
-.icon-plus:before {
-  content: "\e908";
+.icon-arrow_right:before {
+  content: "\e910";
 }
