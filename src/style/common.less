@@ -17,10 +17,10 @@
 }
 
 // 多行文本溢出显示省略号 -webkit 移动端
-.texts-ellipsis {
+.texts-ellipsis(@line-clamp: 2) {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: @line-clamp;
   overflow: hidden;
 }
 // 跨浏览器兼容 多行文本溢出显示省略号

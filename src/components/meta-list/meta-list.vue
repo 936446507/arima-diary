@@ -22,6 +22,10 @@ export default {
   align-items: baseline;
   font-size: .25rem;
   color: $default-color;
+  .meta {
+    display: flex;
+    align-items: center;
+  }
   .meta::after {
     content: '';
     display: inline-block;

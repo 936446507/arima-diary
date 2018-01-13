@@ -1,8 +1,8 @@
 <template>
-  <div class="fans-wrap">
+  <div class="wrapper">
     <v-list title="关注">
-      <ul class="fans-list">
-        <li v-for="n in 10" :key="n" class="fans-item">
+      <ul class="list">
+        <li v-for="n in 10" :key="n" class="item">
           <div class="avatar"><img :src="avatar" alt="avatar"></div>
           <div class="info">
             <div class="base">
@@ -37,9 +37,9 @@ export default {
 
 <style lang="less" scoped>
 @import '../../style/common.less';
-.fans-list {
+.list {
   padding: 0 .25rem;
-  .fans-item {
+  .item {
     display: flex;
     align-items: center;
     padding: .25rem 0;
