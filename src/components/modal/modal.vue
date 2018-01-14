@@ -47,7 +47,7 @@ export default {
     },
     // 编辑输入框内容 change事件
     editInput(event) {
-      this.editedValue = event.target.value
+      this.editedValue = event.target.value.trim()
       console.log(event.target.value)
     },
     // 确定修改资料
