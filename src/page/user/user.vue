@@ -1,6 +1,7 @@
 <template>
   <div class="warpper">
-    <v-header class="header-tool" arrowColor="#fff" background="transparent"></v-header>
+    <v-header class="header-tool" arrowColor="white" :isIncreaseZIndex="true"
+      background="transparent" boxShadowColor="transparent"></v-header>
     <div class="user-wrap">
       <v-scroll class="scroll-wrap" ref="scrollWrap">
         <div class="user">
@@ -33,19 +34,31 @@
             </div>
           </header>
           <main class="user-main-wrap">
-            <tab :line-width=2 active-color='#ea6f5a' v-model="tabIndex">
+            <ul class="tab">
+              <li v-for="item in tabItems" :key="item.title" class="tab-item">
+                {{item.title}}
+              </li>
+            </ul>
+            <div class="tab-content-wrap">
+              <div class="tab-content">
+                <div v-for="item in contents" :key="item.content" class="content">
+                  {{item.content}}
+                </div>
+              </div>
+            </div>
+            <tab v-if="false" :line-width=2 active-color='#ea6f5a' v-model="tabIndex">
               <tab-item class="vux-center" :selected="activeTab === item" 
                 v-for="(item, index) in tabList" @click="activeTab = item" :key="index">
                 {{item}}
               </tab-item>
             </tab>
-            <swiper v-model="tabIndex" :aspect-ratio="8.7" :show-dots="false">
+            <swiper v-if="false" v-model="tabIndex" :aspect-ratio="8.7" :show-dots="false">
               <swiper-item v-for="(item, index) in tabList" :key="index">
                 <div class="tab-swiper vux-center">{{item}} Container
                   <comment-list v-for="n in 15" :key="n"></comment-list>
                 </div>
               </swiper-item>
-          </swiper>
+            </swiper>
           </main>
         </div>
       </v-scroll>
@@ -58,6 +71,7 @@ import Scroll from '@/components/scroll/scroll'
 import Header from '@/components/header/header'
 import {Tab, TabItem, Swiper, SwiperItem} from 'vux'
 import CommmentList from '@/page/diary/comment-list'
+// import * as EventUtil from '@/js/eventUtil'
 export default {
   data() {
     return {
@@ -65,7 +79,45 @@ export default {
       sex: 'man',
       tabIndex: 0,
       tabList: ['动态', '文章', '更多'],
-      activeTab: '文章'
+      activeTab: '文章',
+      tabItems: [
+        {
+          title: '动态'
+        },
+        {
+          title: '文章'
+        },
+        {
+          title: '更多'
+        }
+      ],
+      contents: [
+        {
+          content: 'tab1'
+        },
+        {
+          content: 'tab2'
+        },
+        {
+          content: 'tab3'
+        }
+      ]
+    }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.watchScrollEvent()
+    })
+  },
+  methods: {
+    watchScrollEvent() {
+      let scroll = this.$refs.scrollWrap.scroll
+      scroll.on('scroll', (pos) => {
+        console.log('pos', pos)
+      })
+      scroll.on('scrollEnd', (pos) => {
+        console.log('end', pos)
+      })
     }
   },
   components: {
@@ -80,11 +132,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../style/common.scss';
-.header-tool::before {
-  background-color: transparent !important;
-}
+<style lang="less" scoped>
+@import '../../style/common.less';
 .user-wrap {
   position: fixed;
   top: 0;
@@ -111,7 +160,7 @@ export default {
     .avatar {
       width: 20%;
       img {
-        @include setImg(100%, 50%)
+        .setImg(100%, 50%)
       }
     }
     .info {
@@ -143,7 +192,7 @@ export default {
         flex: 1;
         padding: 0 .125rem;
         &.fllow {
-          @include border1pxVertical(white)
+          .border1pxVertical(white)
         }
       }
     }
@@ -163,6 +212,32 @@ export default {
     
   }
   .user-main-wrap {
+    .tab {
+      display: flex;
+      align-items: center;
+      background-color: white;
+      box-shadow: 0 0 5px #ccc;
+      .tab-item {
+        flex: 1;
+        padding: .25rem 0;
+        text-align: center;
+      }
+    }
+    .tab-content-wrap {
+      position: relative;
+      overflow: hidden;
+      .tab-content {
+        position: relative;
+        height: 100px;
+        .content {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
   }
 }
 </style>

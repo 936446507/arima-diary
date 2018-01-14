@@ -24,6 +24,11 @@
           </ul>
         </header>
         <main class="main-list-wrap">
+          <ul class="list">
+            <li class="item">
+              <i class="icon icon-back"></i><span>写日记</span>
+            </li>
+          </ul>
           <ul class="main-list list">
             <li v-for="item in mainList" :key="item.desc" class="item">
               <i :class="item.iconClass" class="icon"></i><span class="desc">{{item.desc}}</span>
@@ -64,10 +69,6 @@ export default {
         {
           iconClass: 'icon-share',
           desc: '分享'
-        },
-        {
-          iconClass: 'icon-back',
-          desc: '反馈'
         },
         {
           iconClass: 'icon-rate',

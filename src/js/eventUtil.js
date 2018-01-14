@@ -1,3 +1,9 @@
+/*
+element: dom,
+type: eventType
+handler: function
+*/
+
 export function addHandler(element, type, handler) {
   if (element.addEventListener) {
     // DOM2级事件处理程序

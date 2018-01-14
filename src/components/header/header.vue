@@ -1,11 +1,11 @@
 <template>
-  <div :style="{backgroundColor: background}" 
+  <div :style="{'backgroundColor': background, 'box-shadow': `box-shadow: 0 0 5px ${boxShadowColor}`}" 
     :class="{'zIndex': isIncreaseZIndex}" class="header-wrap">
     <div class="header">
       <div @click.stop="backPrevPage" class="arrow">
         <i :style="{color: arrowColor}" class="icon icon-arrow_left"></i>
       </div>
-      <div class="item"> <slot></slot></div>
+      <div class="item"><slot></slot></div>
     </div>
   </div>
 </template>
@@ -24,6 +24,10 @@ export default {
     isIncreaseZIndex: {
       type: Boolean,
       default: false
+    },
+    boxShadowColor: {
+      type: String,
+      default: '#ccc'
     }
   },
   methods: {
@@ -34,10 +38,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../style/common.scss';
+<style lang="less" scoped>
+@import '../../style/common.less';
 .header-wrap {
-  @include border1px(rgba(0, 0, 0, .35));
   position: fixed;
   top: 0;
   width: 100%;
@@ -46,7 +49,6 @@ export default {
   // z-index: 99;
   transition: all .5s linear;
   overflow: hidden;
-  box-shadow: 0 0 5px #ccc;
   &.zIndex {
     z-index: 99;
   }
