@@ -15,6 +15,7 @@ import Diary from '@/page/diary/diary'
 import CommentDetail from '@/page/diary/comment-detail'
 import Login from '@/page/login/login'
 import Register from '@/page/register/register'
+import InputPage from '@/components/input-page/input-page'
 
 Vue.use(Router)
 
@@ -90,6 +91,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/inputPage',
+      name: 'inputPage',
+      component: InputPage
     }
   ]
 })

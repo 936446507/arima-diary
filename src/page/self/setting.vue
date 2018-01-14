@@ -1,22 +1,20 @@
 <template>
-  <div class="wrapper">
-    <v-list title="设置">
-      <ul class="list">
-        <li class="item">
-          <span class="title">个人资料</span>
-          <!-- <span class="prev-data"></span> -->
-          <i class="icon icon-arrow_right"></i>
-        </li>
-        <li class="item">
-          <span class="title">修改密码</span>
-          <!-- <span class="prev-data"></span> -->
-          <i class="icon icon-arrow_right"></i>
-        </li>
-        <li v-if="false" class="empty">还没有数据哦~</li>
-      </ul>
-      <button class="quit-account-btn">退出账号</button>
-    </v-list>
-  </div>
+  <v-list title="设置">
+    <ul class="list">
+      <li class="item">
+        <span class="title">个人资料</span>
+        <!-- <span class="prev-data"></span> -->
+        <i class="icon icon-arrow_right"></i>
+      </li>
+      <li class="item">
+        <span class="title">修改密码</span>
+        <!-- <span class="prev-data"></span> -->
+        <i class="icon icon-arrow_right"></i>
+      </li>
+      <li v-if="false" class="empty">还没有数据哦~</li>
+    </ul>
+    <button class="quit-account-btn">退出账号</button>
+  </v-list>
 </template>
 
 <script>

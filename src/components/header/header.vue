@@ -31,7 +31,7 @@ export default {
   width: 100%;
   height: 1rem;
   background-color: white;
-  z-index: 99;
+  // z-index: 99;
   transition: all .5s linear;
   overflow: hidden;
   box-shadow: 0 0 5px #ccc;

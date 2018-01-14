@@ -1,24 +1,35 @@
 <template>
-  <div class="wrapper">
+  <div class="personal-data-wrapper">
     <v-list title="设置">
       <ul class="list">
+        <!-- 头像个人主页 -->
         <li v-for="item in imgData" :key="item.title" class="item">
           <span class="title">{{item.title}}</span>
-          <div class="prev-data"><img :src="item.imgUrl" :style="{'border-radius': item.borderRadius}" class="prev-img" /></div>
+          <div class="prev-data">
+            <input type="file" class="file-input">
+            <img :src="item.imgUrl" 
+              :style="{'border-radius': item.borderRadius}" class="prev-img" />
+          </div>
           <i class="icon icon-arrow_right"></i>
         </li>
-        <li v-for="item in listData" :key="item.title" class="item">
+        <!-- 其他项 -->
+        <li v-for="item in listData" :key="item.title" 
+          @click.stop="editData(item.title, item.prevData)" class="item">
           <span class="title">{{item.title}}</span>
           <span class="prev-data">{{item.prevData}}</span>
           <i class="icon icon-arrow_right"></i>
         </li>
       </ul>
+      <!-- <input-page></input-page> -->      
     </v-list>
+    <v-modal ref="modal" :title="modalTitle" :prevData="modalPrevData"></v-modal>
   </div>
 </template>
 
 <script>
 import List from '@/components/list/list'
+import InputPage from '@/components/input-page/input-page'
+import Modal from '@/components/modal/modal'
 export default {
   data() {
     return {
@@ -56,11 +67,21 @@ export default {
           title: '博客地址',
           prevData: 'github.com/936446507'
         }
-      ]
+      ],
+      modalTitle: '',
+      modalPrevData: ''
+    }
+  },
+  methods: {
+    editData(modalTitle, modalPrevData) {
+      [this.modalTitle, this.modalPrevData] = [modalTitle, modalPrevData]
+      this.$refs.modal.showModal()
     }
   },
   components: {
-    'v-list': List
+    'v-list': List,
+    'input-page': InputPage,
+    'v-modal': Modal
   }
 }
 </script>
@@ -70,6 +91,7 @@ export default {
 .list {
   padding: 0 .25rem;
   .item {
+    position: relative;
     display: flex;
     align-items: center;
     padding: .25rem 0;
@@ -81,10 +103,6 @@ export default {
     .title {
       color: #333;
     }
-    .prev-img {
-      width: .75rem;
-      height: .75rem;
-    }
     .prev-data {
       flex: 1;
       height: .75rem;
@@ -93,6 +111,19 @@ export default {
       text-align: right;
       color: #999;
       font-size: .25rem;
+      .file-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        z-index: 99;
+      }
+      .prev-img {
+        width: .75rem;
+        height: .75rem;
+      }
     }
     .icon-arrow_right {
       font-size: .35rem;

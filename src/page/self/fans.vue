@@ -1,23 +1,21 @@
 <template>
-  <div class="wrapper">
-    <v-list title="粉丝">
-      <ul class="list">
-        <li v-for="n in 10" :key="n" class="item">
-          <div class="avatar"><img :src="avatar" alt="avatar"></div>
-          <div class="info">
-            <div class="base">
-              <span class="name">有馬の日記</span>
-              <span :class="sex" class="sex-icon">
-                <i :class="`icon-${sex}`" class="icon"></i>
-              </span>
-            </div>
-            <div class="job">前端工程师</div>
+  <v-list title="粉丝">
+    <ul class="list">
+      <li v-for="n in 10" :key="n" class="item">
+        <div class="avatar"><img :src="avatar" alt="avatar"></div>
+        <div class="info">
+          <div class="base">
+            <span class="name">有馬の日記</span>
+            <span :class="sex" class="sex-icon">
+              <i :class="`icon-${sex}`" class="icon"></i>
+            </span>
           </div>
-        </li>
-        <li v-if="false" class="empty">还没有数据哦~</li>
-      </ul>
-    </v-list>
-  </div>
+          <div class="job">前端工程师</div>
+        </div>
+      </li>
+      <li v-if="false" class="empty">还没有数据哦~</li>
+    </ul>
+  </v-list>
 </template>
 
 <script>
