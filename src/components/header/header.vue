@@ -1,5 +1,6 @@
 <template>
-  <div :style="{backgroundColor: background}" class="header-wrap">
+  <div :style="{backgroundColor: background}" 
+    :class="{'zIndex': isIncreaseZIndex}" class="header-wrap">
     <div class="header">
       <div @click.stop="backPrevPage" class="arrow">
         <i :style="{color: arrowColor}" class="icon icon-arrow_left"></i>
@@ -19,6 +20,10 @@ export default {
     background: {
       type: String,
       default: 'white'
+    },
+    isIncreaseZIndex: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -42,6 +47,9 @@ export default {
   transition: all .5s linear;
   overflow: hidden;
   box-shadow: 0 0 5px #ccc;
+  &.zIndex {
+    z-index: 99;
+  }
   .header {
     display: flex;
     align-items: center;

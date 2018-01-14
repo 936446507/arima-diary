@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
-    <v-header class="diary-header-tool" ref="diaryHeaderTool">
+    <v-header :isIncreaseZIndex="true" ref="diaryHeaderTool" 
+      class="diary-header-tool">
       <div v-show="avatarStatus" class="avatar"><img :src="avatar" alt=""></div>
     </v-header>
     <div class="diary-wrap">
@@ -101,13 +102,15 @@
       </div>
       <ul class="icon-list">
         <li @click.stop="scrollToComment" class="icon-item">
-          <i class="icon icon-comment"></i>
-          <span class="num">999</span>
+          <i class="icon icon-comment">
+            <span class="num">999</span>
+          </i>
         </li>
         <li @click.stop="favoriteDiary" class="icon-item">
           <i :class="{'icon-favorite': !isFavoriteDiary, 
-            'icon-favorited': isFavoriteDiary}" class="icon"></i>
-          <span class="num">999</span>
+            'icon-favorited': isFavoriteDiary}" class="icon">
+              <span class="num">999</span>
+            </i>
         </li>
       </ul>
     </footer-tool>
@@ -352,13 +355,14 @@ export default {
     flex: 1;
     padding-left: .5rem;
     .icon-item {
+      display: flex;
+      align-items: center;
       position: relative;
       flex: 1;
       height: 100%;
       .icon {
-        position: absolute;
-        bottom: 0;
-        font-size: .5rem;
+        position: relative;
+        font-size: .4rem;
         color: rgba(0, 0, 0, .5);
         &.icon-favorited {
           color: #ea6f5a;
@@ -366,15 +370,14 @@ export default {
       }
       .num {
         position: absolute;
-        top: .05rem;
-        right: .2rem;
-        width: .75rem;
-        padding: 0 .125rem;
+        top: -.1rem;
+        right: -.2rem;
+        padding: .025rem .05rem;
         text-align: center;
         background-color: #f56c6c;
         color: white;
-        border-radius: .25rem;
-        font-size: .25rem;
+        border-radius: .1rem;
+        font-size: .1rem;
       }
     }
   }
