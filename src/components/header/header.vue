@@ -1,7 +1,9 @@
 <template>
   <div :style="{backgroundColor: background}" class="header-wrap">
     <div class="header">
-      <div class="arrow"><i :style="{color: arrowColor}" class="icon icon-arrow_left"></i></div>
+      <div @click.stop="backPrevPage" class="arrow">
+        <i :style="{color: arrowColor}" class="icon icon-arrow_left"></i>
+      </div>
       <div class="item"> <slot></slot></div>
     </div>
   </div>
@@ -17,6 +19,11 @@ export default {
     background: {
       type: String,
       default: 'white'
+    }
+  },
+  methods: {
+    backPrevPage() {
+      this.$router.go(-1)
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="personal-data-wrapper">
-    <v-list title="设置">
+  <div class="personal-data-wrapper" ref="personalData">
+    <v-list title="个人资料">
       <ul class="list">
         <!-- 头像个人主页 -->
         <li v-for="item in imgData" :key="item.title" class="item">
@@ -19,8 +19,7 @@
           <span class="prev-data">{{item.prevData}}</span>
           <i class="icon icon-arrow_right"></i>
         </li>
-      </ul>
-      <!-- <input-page></input-page> -->      
+      </ul>     
     </v-list>
     <v-modal ref="modal" :title="modalTitle" :prevData="modalPrevData"></v-modal>
   </div>
@@ -28,7 +27,6 @@
 
 <script>
 import List from '@/components/list/list'
-import InputPage from '@/components/input-page/input-page'
 import Modal from '@/components/modal/modal'
 export default {
   data() {
@@ -80,7 +78,6 @@ export default {
   },
   components: {
     'v-list': List,
-    'input-page': InputPage,
     'v-modal': Modal
   }
 }
@@ -88,6 +85,21 @@ export default {
 
 <style lang="less" scoped>
 @import '../../style/common.less';
+.slide-enter, .slide-leave-to {
+  // opacity: 0;
+  transform: translateX(100%);
+}
+.slide-enter-active, .slide-leave-active {
+  transition: transform .3s linear;
+  transform: translateX(0);
+}
+// .personal-data-wrapper {
+//   transition: all .3s linear;
+//   transform: translateX(100%);
+//   &.translateRestore {
+//     transform: translateX(0)
+//   }
+// }
 .list {
   padding: 0 .25rem;
   .item {

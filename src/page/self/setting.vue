@@ -1,16 +1,11 @@
 <template>
   <v-list title="设置">
     <ul class="list">
-      <li class="item">
-        <span class="title">个人资料</span>
-        <!-- <span class="prev-data"></span> -->
+      <router-link v-for="item in settingList" :key="item.linkRouterName" 
+        :to="item.linkRouterName" tag="li" class="item">
+        <span class="title">{{item.title}}</span>
         <i class="icon icon-arrow_right"></i>
-      </li>
-      <li class="item">
-        <span class="title">修改密码</span>
-        <!-- <span class="prev-data"></span> -->
-        <i class="icon icon-arrow_right"></i>
-      </li>
+      </router-link>
       <li v-if="false" class="empty">还没有数据哦~</li>
     </ul>
     <button class="quit-account-btn">退出账号</button>
@@ -22,7 +17,17 @@ import List from '@/components/list/list'
 export default {
   data() {
     return {
-      avatar: require('@/assets/images/logo.jpg')
+      avatar: require('@/assets/images/logo.jpg'),
+      settingList: [
+        {
+          title: '个人资料',
+          linkRouterName: 'personalData'
+        },
+        {
+          title: '修改密码',
+          linkRouterName: ''
+        }
+      ]
     }
   },
   components: {
