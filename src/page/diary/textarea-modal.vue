@@ -1,83 +1,54 @@
 <template>
-  <div class="textarea-modal-wrap" ref="textareaModalWrap">
-    <div class="textarea-modal" ref="textareaModal">
+  <div class="textarea-modal-wrap">
+    <div :class="[isShowTextare ? 'translateRestore' : 'translate']" 
+      class="textarea-modal">
       <header class="header">
         <div @click.stop="hide" class="btn cancle-btn">取消</div>
         <div class="desc">评论</div>
         <div @click.stop="publishComment" class="btn publish-btn">发表</div>
       </header>
       <main class="textarea-wrap">
-        <textarea class="comment-textarea"></textarea>
+        <textarea v-model="textareaValue" ref="textarea"
+          class="comment-textarea"></textarea>
       </main>
     </div>
-    <div @click.stop="hide" v-show="isTextareaModalMarkShow" class="mask"></div>
+    <div @click.stop="hide" :class="[isShowTextare ? 'show' : 'hide']" 
+      class="mask"></div>
   </div>
-
 </template>
 
 <script>
-import {getStyle} from '@/js/getStyle'
-import * as EventUtil from '@/js/eventUtil'
 export default {
   data() {
     return {
-      isTextareaModalMarkShow: false
+      isShowTextare: false,
+      textareaValue: ''
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.initTextareaModal()
     })
   },
   methods: {
-    // 设置dom偏移量
-    setDomTranslate({dom, translateX = 0, translateY = 0}) {
-      console.log(dom, translateX, translateY)
-      dom.style.cssText = `transform:translate(${translateX}, ${translateY})`
-    },
-    initTextareaModal() {
-      let textareaModal = this.$refs.textareaModal
-      let textareaModalH = getStyle(textareaModal, 'height')
-
-      this.setDomTranslate({
-        dom: textareaModal,
-        translateY: textareaModalH
-      })
-    },
     show() {
-      this.isTextareaModalMarkShow = true
-      this.$refs.textareaModalWrap.style.zIndex = 100
-      this.$refs.textareaModal.style.transform = `translateY(0)`
-      this.isTextareaModalMarkShow = true
+      this.isShowTextare = true
+      this.$refs.textarea.focus()
     },
     hide() {
-      let refs = this.$refs
-      let textareaModalH = getStyle(refs.textareaModal, 'height')
-      this.isTextareaModalMarkShow = false
-      refs.textareaModal.style.transform = `translateY(${textareaModalH})`
-      EventUtil.addHandler(refs.textareaModal, 'transitionend', (event) => {
-        let zIndex = getStyle(refs.textareaModalWrap, 'z-index')
-        console.log(zIndex)
-        refs.textareaModalWrap.style.zIndex = (zIndex === -1) ? 100 : -1
-      })
+      this.isShowTextare = false
+      this.$refs.textarea.blur()
     },
     publishComment() {
       this.hide()
-    },
-    onEvent() {}
+    }
   },
   components: {
   }
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../style/common.scss';
-.textarea-modal-wrap {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+<style lang="less" scoped>
+@import '../../style/common.less';
   .textarea-modal {
     position: absolute;
     bottom: 0;
@@ -85,9 +56,15 @@ export default {
     padding: 0 .25rem;
     background-color: white;
     transition: all .3s linear;
-    z-index: 100;
+    z-index: 101;
+    &.translate {
+      transform: translateY(100%);
+    }
+    &.translateRestore {
+      transform: translateY(0);
+    }
     .header {
-      @include border1px(rgba(0, 0, 0, .5));
+      .border1px(rgba(0, 0, 0, .1));
       display: flex;
       padding: .25rem 0;
       .btn {width: 10%;}
@@ -110,7 +87,12 @@ export default {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, .5);
-    z-index: 1;
+    z-index: 100;
+    &.hide {
+      display: none;
+    }
+    &.show {
+      display: block;
+    }
   }
-}
 </style>
