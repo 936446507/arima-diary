@@ -15,7 +15,8 @@ import Diary from '@/page/diary/diary'
 import CommentDetail from '@/page/diary/comment-detail'
 import Login from '@/page/login/login'
 import Register from '@/page/register/register'
-import InputPage from '@/components/input-page/input-page'
+import Search from '@/page/search/search'
+import SearchDetail from '@/page/search/search-detail'
 
 Vue.use(Router)
 
@@ -93,9 +94,14 @@ export default new Router({
       component: Register
     },
     {
-      path: '/inputPage',
-      name: 'inputPage',
-      component: InputPage
+      path: '/search',
+      name: 'search',
+      component: Search
+    },
+    {
+      path: '/searchDetail',
+      name: 'searchDetail',
+      component: SearchDetail
     }
   ]
 })
