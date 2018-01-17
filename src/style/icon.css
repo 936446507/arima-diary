@@ -24,10 +24,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-refresh:before {
+  content: "\e911";
+  color: #666767;
+}
+.icon-history-recode:before {
+  content: "\e912";
+}
+.icon-delete:before {
+  content: "\e913";
+}
+.icon-search:before {
+  content: "\e914";
+  color: #999;
+}
 .icon-diary:before {
   content: "\e90a";
 }
-.icon-back:before {
+.icon-edit:before {
   content: "\e90c";
 }
 .icon-share:before {
@@ -64,6 +78,9 @@
 .icon-favorite:before {
   content: "\e903";
 }
+.icon-hot:before {
+  content: "\e920";
+}
 .icon-view:before {
   content: "\e909";
 }
@@ -76,3 +93,4 @@
 .icon-arrow_right:before {
   content: "\e910";
 }
+

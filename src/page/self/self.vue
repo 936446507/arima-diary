@@ -30,14 +30,18 @@
             </li>
           </ul>
           <ul class="main-list list">
-            <li v-for="item in mainList" :key="item.desc" class="item">
-              <i :class="item.iconClass" class="icon"></i><span class="desc">{{item.desc}}</span>
-            </li>
+            <router-link v-for="item in mainList" :key="item.desc" 
+              :to="item.linkRouterName" class="item">
+              <i :class="item.iconClass" class="icon"></i>
+              <span class="desc">{{item.desc}}</span>
+            </router-link>
           </ul>
           <ul class="other-list list">
-            <li v-for="item in otherList" :key="item.desc" class="item">
-              <i :class="item.iconClass" class="icon"></i><span class="desc">{{item.desc}}</span>
-            </li>
+            <router-link v-for="item in otherList" :key="item.desc" 
+              :to="item.linkRouterName" class="item" tag="li">
+              <i :class="item.iconClass" class="icon"></i>
+              <span class="desc">{{item.desc}}</span>
+            </router-link>
           </ul>
         </main>
       </div>
@@ -54,25 +58,30 @@ export default {
       mainList: [
         {
           iconClass: 'icon-diary',
-          desc: '我的日记'
+          desc: '我的日记',
+          linkRouterName: 'myDiary'
         },
         {
           iconClass: 'icon-favorite',
-          desc: '我的喜欢'
+          desc: '我的喜欢',
+          linkRouterName: 'myFavorite'
         }
       ],
       otherList: [
         {
           iconClass: 'icon-set',
-          desc: '设置'
+          desc: '设置',
+          linkRouterName: 'setting'
         },
         {
           iconClass: 'icon-share',
-          desc: '分享'
+          desc: '分享',
+          linkRouterName: ''
         },
         {
           iconClass: 'icon-rate',
-          desc: '评分'
+          desc: '评分',
+          linkRouterName: ''
         }
       ]
     }
@@ -149,7 +158,8 @@ export default {
         }
       .icon {
         padding: .25rem;
-        color: #ea6f5a;
+        color: #4FB0C6;
+        // color: #ea6f5a;
         // &.icon-diary {color: #519D9E}
         // &.icon-favorite {color: #ea6f5a}
         // &.icon-set {color: #77919d}

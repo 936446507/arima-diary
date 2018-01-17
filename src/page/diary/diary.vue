@@ -271,8 +271,6 @@ export default {
       padding-left: .25rem;
       font-size: .25rem;
     }
-    
-    
   }
 }
 // 日記内容区

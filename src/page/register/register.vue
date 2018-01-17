@@ -20,7 +20,9 @@
             <button class="register-btn">注册</button>
           </div>
         </main>
-        <footer class="footer">已有账号，<span class="desc">立即登录</span></footer>
+        <footer class="footer">已有账号，
+          <router-link :to="{name: 'login'}" tag="span" class="desc">立即登录</router-link>
+        </footer>
       </v-scroll>
     </div>
     

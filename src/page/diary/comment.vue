@@ -82,11 +82,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../style/common.scss';
+<style lang="less" scoped>
+@import '../../style/common.less';
 .comment-item {
   padding: .25rem 0;
-  @include border1px(rgba(0, 0, 0, .35));
+  .border1px(rgba(0, 0, 0, .35));
   &:last-child {
     border-bottom: none;
     &::before {
@@ -99,7 +99,7 @@ export default {
     .avatar {
       width: 10%;
       img {
-        @include setImg(100%, 50%);
+        .setImg(100%, 50%);
       }
     }
     .info {
@@ -117,7 +117,7 @@ export default {
           padding: 0 .1rem;
           border-radius: .15rem;
           color: white;
-          background-color: $default-color;
+          background-color: @default-color;
           font-size: .25rem;
         }
       }
@@ -153,13 +153,13 @@ export default {
         border-top: .025rem dashed #ccc;
         .respondent {
           font-size: .25rem;
-          color:$active-color;
+          color: @router-color;
         }
         .content-wrap {
           flex: 1;
           .aite-name {
             font-size: .25rem;
-            color:$active-color;
+            color: @router-color;
           }
           .sub-content {
             font-size: .25rem;
@@ -180,9 +180,9 @@ export default {
     .more-content-btn {
       padding: .1rem 0;
       color: #ccc;
-      @include border1px(rgba(0, 0, 0, .35), 0);
+      .border1px(rgba(0, 0, 0, .35), 0);
       .more-content {
-        color: $active-color;
+        color: @router-color;
       }
     }
     .end-tip {

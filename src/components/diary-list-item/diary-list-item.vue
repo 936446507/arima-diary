@@ -52,7 +52,7 @@ export default {
     .info {
       font-size: .25rem;
       .name {
-        color: @active-color;
+        color: @router-color;
       }
       .time {
         padding-left: .1rem;

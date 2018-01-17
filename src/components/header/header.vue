@@ -1,5 +1,5 @@
 <template>
-  <div :style="{'backgroundColor': background, 'box-shadow': `box-shadow: 0 0 5px ${boxShadowColor}`}" 
+  <div :style="{'backgroundColor': background, 'box-shadow': `0 0 5px ${boxShadowColor}`}" 
     :class="{'zIndex': isIncreaseZIndex}" class="header-wrap">
     <div class="header">
       <div @click.stop="backPrevPage" class="arrow">
@@ -64,6 +64,7 @@ export default {
       font-size: .35rem;
     }
     .item {
+      flex: 1;
       margin-left: .5rem;
     }
   }

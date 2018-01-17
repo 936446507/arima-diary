@@ -21,7 +21,9 @@
               <button class="login-btn">登录</button>
               <ul class="tool-list">
                 <li class="tool">忘记密码？</li>
-                <li class="tool">注册</li>
+                <router-link :to="{name: 'register'}" tag="li" class="tool">
+                  注册
+                </router-link>
               </ul>
             </div>
           </main>
