@@ -1,69 +1,64 @@
 <template>
-  <div class="spinner">
-    <div class="rect1"></div>
-    <div class="rect2"></div>
-    <div class="rect3"></div>
-    <div class="rect4"></div>
-    <div class="rect5"></div>
+  <div v-show="isLoadingShow" class="loading-wrap">
+    <div :style="{'width': `${size}rem`, 'height': `${size}rem`}" class="loading"></div>
+    <div v-if="desc" class="desc">{{desc}}</div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    size: {
+      type: Number
+    },
+    color: {
+      type: String
+    },
+    desc: {
+      type: String,
+      default: '正在加载更多'
+    }
+  },
+  data() {
+    return {
+      isLoadingShow: false
+    }
+  },
+  methods: {
+    hide() {
+      this.isLoadingShow = false
+    },
+    show() {
+      this.isLoadingShow = true
+    }
+  }
 }
 </script>
 
 <style lang="less" scoped>
-.spinner {
-  margin: 100px auto;
-  width: 50px;
-  height: 60px;
-  text-align: center;
-  font-size: 10px;
-}
- 
-.spinner > div {
-  background-color: #67CF22;
-  height: 100%;
-  width: 6px;
-  display: inline-block;
-  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
-  animation: stretchdelay 1.2s infinite ease-in-out;
-}
- 
-.spinner .rect2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
-}
- 
-.spinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
-}
- 
-.spinner .rect4 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
-}
- 
-.spinner .rect5 {
-  -webkit-animation-delay: -0.8s;
-  animation-delay: -0.8s;
-}
- 
-@-webkit-keyframes stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) } 
-  20% { -webkit-transform: scaleY(1.0) }
-}
- 
-@keyframes stretchdelay {
-  0%, 40%, 100% {
-    transform: scaleY(0.4);
-    -webkit-transform: scaleY(0.4);
-  }  20% {
-    transform: scaleY(1.0);
-    -webkit-transform: scaleY(1.0);
+@import '../../style/common.less';
+.loading-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loading{
+    background: transparent;
+    border-top: 2px solid @theme-color;
+    border-right: 2px solid @theme-color;
+    border-bottom: 2px solid @theme-color;
+    border-left: 2px solid transparent;
+    border-radius: 50%;
+    transition: transform 1s linear;
+    animation: rotate 1s linear infinite;
+  }
+  .desc {
+    padding-left: .25rem;
+    color: #999;
   }
 }
+@keyframes rotate{from{transform: rotate(0deg)}
+    to{transform: rotate(359deg)}
+}
+
 </style>
 
