@@ -34,10 +34,16 @@
             </div>
           </header>
           <main class="user-main-wrap">
-            <touch-tab :tabItems="tabItems" :defaltIndex="1">
+            <touch-tab :tabItems="tabItems" :defaltIndex="0">
               <div @touchstart.stop="start($event)" @touchmove.stop="move($event)"
                 @touchend.stop="end($event)" class="content">
                 <v-steps></v-steps>
+              </div>
+              <div class="content">
+                <v-diary></v-diary>
+              </div>
+              <div class="content">
+                <v-about :aboutDatas="aboutDatas"></v-about>
               </div>
             </touch-tab>
             <tab v-if="false" :line-width=2 active-color='#ea6f5a' v-model="tabIndex">
@@ -67,7 +73,9 @@ import {Tab, TabItem, Swiper, SwiperItem} from 'vux'
 import CommmentList from '@/page/diary/comment-list'
 import TouchTab from '@/components/touch-tab/touch-tab'
 import Steps from '@/page/user/steps'
-// import * as EventUtil from '@/js/eventUtil'
+import diary from '@/page/user/diary'
+import About from '@/page/user/about'
+
 export default {
   data() {
     return {
@@ -81,21 +89,51 @@ export default {
           title: '动态'
         },
         {
-          title: '文章'
+          title: '日记'
         },
         {
-          title: '更多'
+          title: '关于'
         }
       ],
-      contents: [
+      // 关于的数据
+      aboutDatas: [
         {
-          content: 'tab1'
+          title: '个人信息',
+          listDatas: [
+            {
+              subTitle: '性别',
+              subContent: '男'
+            },
+            {
+              subTitle: '年龄',
+              subContent: '20'
+            },
+            {
+              subTitle: '地区',
+              subContent: '广东省广州市'
+            },
+            {
+              subTitle: '大学',
+              subContent: '别人家的大学'
+            }
+          ]
         },
         {
-          content: 'tab2'
-        },
-        {
-          content: 'tab3'
+          title: '个人简介',
+          listDatas: [
+            {
+              subTitle: '职业',
+              subContent: 'web前端工程师'
+            },
+            {
+              subTitle: '签名',
+              subContent: '没有你的四月还是终究来了。'
+            },
+            {
+              subTitle: '博客地址',
+              subContent: 'http://github.com/936446507'
+            }
+          ]
         }
       ]
     }
@@ -125,7 +163,9 @@ export default {
     SwiperItem,
     'comment-list': CommmentList,
     'touch-tab': TouchTab,
-    'v-steps': Steps
+    'v-steps': Steps,
+    'v-diary': diary,
+    'v-about': About
   }
 }
 </script>

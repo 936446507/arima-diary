@@ -10,11 +10,6 @@
     <div class="tab-content-wrap">
       <div class="tab-content" ref="tabContent">
         <slot></slot>
-        <!-- <div v-for="(item, index) in contents" :key="item.content"
-          @touchstart.stop="start($event)" @touchmove.stop="move($event)"
-          @touchend.stop="end($event)" class="content">
-          {{item.content}}
-        </div> -->
       </div>
     </div>
   </div>
@@ -63,11 +58,10 @@ export default {
 
     // 设置content的translate偏移量
     setTabContentTranslate() {
-      let tabContents = this.$refs.tabContent.childNodes
+      let tabContents = this.$refs.tabContent.children
       let tabContentLen = tabContents.length
       let tabcontentW = getStyle({dom: tabContents[0], attr: 'width', isReturnNumber: true})
       let tabCurIndex = this.tabCurIndex
-
       tabContents[tabCurIndex].style.transform = 'translateX(0)'
 
       for (let i = 0; i < tabContentLen; i++) {
