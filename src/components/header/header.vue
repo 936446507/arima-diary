@@ -6,6 +6,7 @@
         <i :style="{color: arrowColor}" class="icon icon-arrow_left"></i>
       </div>
       <div class="item"><slot></slot></div>
+      <div class="tools-wrap"><slot name="tools"></slot></div>
     </div>
   </div>
 </template>

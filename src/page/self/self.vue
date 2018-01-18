@@ -26,12 +26,12 @@
         <main class="main-list-wrap">
           <ul class="list">
             <li class="item">
-              <i class="icon icon-back"></i><span>写日记</span>
+              <i class="icon icon-edit"></i><span>写日记</span>
             </li>
           </ul>
           <ul class="main-list list">
             <router-link v-for="item in mainList" :key="item.desc" 
-              :to="item.linkRouterName" class="item">
+              :to="item.linkRouterName" class="item" tag="li">
               <i :class="item.iconClass" class="icon"></i>
               <span class="desc">{{item.desc}}</span>
             </router-link>
