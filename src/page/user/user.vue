@@ -34,22 +34,12 @@
             </div>
           </header>
           <main class="user-main-wrap">
-            <ul class="tab">
-              <li v-for="(item, index) in tabItems" :key="item.title" 
-                :class="{'active': tabCurIndex === index}" 
-                @click.stop="selectTab(index)"  class="tab-item">
-                {{item.title}}
-              </li>
-            </ul>
-            <div class="tab-content-wrap">
-              <div class="tab-content" ref="tabContent">
-                <div v-for="(item, index) in contents" :key="item.content"
-                  @touchstart.stop="start($event)" @touchmove.stop="move($event)"
-                  @touchend.stop="end($event)" class="content">
-                  {{item.content}}
-                </div>
+            <touch-tab :tabItems="tabItems" :defaltIndex="1">
+              <div @touchstart.stop="start($event)" @touchmove.stop="move($event)"
+                @touchend.stop="end($event)" class="content">
+                <v-steps></v-steps>
               </div>
-            </div>
+            </touch-tab>
             <tab v-if="false" :line-width=2 active-color='#ea6f5a' v-model="tabIndex">
               <tab-item class="vux-center" :selected="activeTab === item" 
                 v-for="(item, index) in tabList" @click="activeTab = item" :key="index">
@@ -75,7 +65,8 @@ import Scroll from '@/components/scroll/scroll'
 import Header from '@/components/header/header'
 import {Tab, TabItem, Swiper, SwiperItem} from 'vux'
 import CommmentList from '@/page/diary/comment-list'
-import {getStyle, setStyle} from '@/js/style'
+import TouchTab from '@/components/touch-tab/touch-tab'
+import Steps from '@/page/user/steps'
 // import * as EventUtil from '@/js/eventUtil'
 export default {
   data() {
@@ -85,7 +76,6 @@ export default {
       // tabIndex: 0,
       // tabList: ['动态', '文章', '更多'],
       // activeTab: '文章',
-      tabCurIndex: 1,
       tabItems: [
         {
           title: '动态'
@@ -112,57 +102,10 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this._initTabStyle()
       this.watchScrollEvent()
     })
   },
   methods: {
-    _initTabStyle() {
-      let tabContent = this.$refs.tabContent
-      let tabContents = tabContent.childNodes
-      let tabContentLen = tabContents.length
-      let tabcontentW = getStyle({dom: tabContents[0], attr: 'width', isReturnNumber: true})
-
-      // 设置tab-content-wrap宽度
-      setStyle({
-        dom: tabContent.parentElement,
-        attr: 'width',
-        value: tabcontentW * tabContentLen + 'px'
-      })
-
-      // 设置content的translate偏移量
-      this.setTabContentTranslate()
-    },
-
-    // 设置content的translate偏移量
-    setTabContentTranslate() {
-      let tabContents = this.$refs.tabContent.childNodes
-      let tabContentLen = tabContents.length
-      let tabcontentW = getStyle({dom: tabContents[0], attr: 'width', isReturnNumber: true})
-      let tabCurIndex = this.tabCurIndex
-
-      tabContents[tabCurIndex].style.transform = 'translateX(0)'
-
-      for (let i = 0; i < tabContentLen; i++) {
-        tabContents[i].style.transform = `translateX(${(i - tabCurIndex) * tabcontentW}px)`
-      }
-    },
-
-    // tab点击选择
-    selectTab(curIndex) {
-      this.tabCurIndex = curIndex
-      this.setTabContentTranslate()
-    },
-
-    start(event) {
-      console.log('start', event.touches)
-    },
-    move(event) {
-      console.log('move', event.changedTouches)
-    },
-    end(event) {
-      console.log('end', event.touches)
-    },
     watchScrollEvent() {
       let scroll = this.$refs.scrollWrap.scroll
       scroll.on('scroll', (pos) => {
@@ -180,7 +123,9 @@ export default {
     TabItem,
     Swiper,
     SwiperItem,
-    'comment-list': CommmentList
+    'comment-list': CommmentList,
+    'touch-tab': TouchTab,
+    'v-steps': Steps
   }
 }
 </script>
@@ -265,40 +210,7 @@ export default {
     
   }
   .user-main-wrap {
-    .tab {
-      display: flex;
-      align-items: center;
-      background-color: white;
-      box-shadow: 0 0 5px #ccc;
-      .tab-item {
-        flex: 1;
-        padding: .25rem 0;
-        text-align: center;
-        box-sizing: border-box;
-        border-bottom: 2px solid transparent;
-        &.active {
-          color: @theme-color;
-          border-bottom: 2px solid @theme-color;
-        }
-      }
-    }
-    .tab-content-wrap {
-      position: relative;
-      overflow: hidden;
-      .tab-content {
-        position: relative;
-        height: 100px;
-        overflow: hidden;
-        .content {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          transition: all .5s ease-in-out;
-        }
-      }
-    }
+    background-color: rgba(0, 0, 0, 0.025);
   }
 }
 </style>
