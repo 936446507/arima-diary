@@ -1,36 +1,44 @@
 <template>
-  <div class="personal-data-wrapper" ref="personalData">
-    <v-list title="个人资料">
-      <ul class="list">
-        <!-- 头像个人主页 -->
-        <li v-for="item in imgData" :key="item.title" class="item">
-          <span class="title">{{item.title}}</span>
-          <div class="prev-data">
-            <input type="file" class="file-input">
-            <img :src="item.imgUrl" 
-              :style="{'border-radius': item.borderRadius}" class="prev-img" />
-          </div>
-          <i class="icon icon-arrow_right"></i>
-        </li>
-        <!-- 其他项 -->
-        <li v-for="item in listData" :key="item.title" 
-          @click.stop="editData(item.title, item.prevData)" class="item">
-          <span class="title">{{item.title}}</span>
-          <span class="prev-data">{{item.prevData}}</span>
-          <i class="icon icon-arrow_right"></i>
-        </li>
-      </ul>     
-    </v-list>
-    <v-modal ref="modal" :title="modalTitle" :prevData="modalPrevData"></v-modal>
-  </div>
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition">
+        <h1 class="title">个人资料</h1>
+      </v-header>
+      <v-list>
+        <ul class="list">
+          <!-- 头像个人主页 -->
+          <li v-for="item in imgData" :key="item.title" class="item">
+            <span class="title">{{item.title}}</span>
+            <div class="prev-data">
+              <input type="file" class="file-input">
+              <img :src="item.imgUrl" 
+                :style="{'border-radius': item.borderRadius}" class="prev-img" />
+            </div>
+            <i class="icon icon-arrow_right"></i>
+          </li>
+          <!-- 其他项 -->
+          <li v-for="item in listData" :key="item.title" 
+            @click.stop="editData(item.title, item.prevData)" class="item">
+            <span class="title">{{item.title}}</span>
+            <span class="prev-data">{{item.prevData}}</span>
+            <i class="icon icon-arrow_right"></i>
+          </li>
+        </ul>     
+      </v-list>
+      <v-modal ref="modal" :title="modalTitle" :prevData="modalPrevData"></v-modal>
+    </div>
+  </slide-transition>
 </template>
 
 <script>
+import Header from '@/components/header/header'
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import List from '@/components/list/list'
 import Modal from '@/components/modal/modal'
 export default {
   data() {
     return {
+      transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg'),
       imgData: [
         {
@@ -71,12 +79,17 @@ export default {
     }
   },
   methods: {
+    setTransition(transitionName) {
+      this.transitionName = transitionName
+    },
     editData(modalTitle, modalPrevData) {
       [this.modalTitle, this.modalPrevData] = [modalTitle, modalPrevData]
       this.$refs.modal.showModal()
     }
   },
   components: {
+    'v-header': Header,
+    'slide-transition': SlideTransition,
     'v-list': List,
     'v-modal': Modal
   }

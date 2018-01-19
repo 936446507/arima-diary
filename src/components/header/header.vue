@@ -68,6 +68,10 @@ export default {
     .item {
       flex: 1;
       margin-left: .5rem;
+      .title {
+        font-size: .35rem;
+        color: #333;
+      }
     }
   }
 }

@@ -1,8 +1,5 @@
 <template>
   <div class="list-wrapper">
-    <v-header>
-      <h1 class="title">{{title}}</h1>
-    </v-header>
     <div class="list-wrap">
       <v-scroll class="scroll-wrap">
         <slot></slot>
@@ -12,15 +9,10 @@
 </template>
 
 <script>
-import Header from '@/components/header/header'
+
 import Scroll from '@/components/scroll/scroll'
 export default {
-  props: {
-    title: String,
-    default: ''
-  },
   components: {
-    'v-header': Header,
     'v-scroll': Scroll
   }
 }
@@ -31,7 +23,7 @@ export default {
   font-size: .35rem;
   color: #333;
 }
-.list-wrap {
+.list-wrapper {
   position: fixed;
   top: 1rem;
   bottom: 0;
