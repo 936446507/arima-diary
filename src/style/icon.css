@@ -24,6 +24,18 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-rank:before {
+  content: "\e915";
+}
+.icon-home:before {
+  content: "\e916";
+}
+.icon-notice:before {
+  content: "\e917";
+}
+.icon-self:before {
+  content: "\e918";
+}
 .icon-refresh:before {
   content: "\e911";
   color: #666767;
