@@ -2,7 +2,7 @@
   <v-list title="设置">
     <ul class="list">
       <router-link v-for="item in settingList" :key="item.linkRouterName" 
-        :to="item.linkRouterName" tag="li" class="item">
+        :to="{name: item.linkRouterName}" tag="li" class="item">
         <span class="title">{{item.title}}</span>
         <i class="icon icon-arrow_right"></i>
       </router-link>

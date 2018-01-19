@@ -31,14 +31,14 @@
           </ul>
           <ul class="main-list list">
             <router-link v-for="item in mainList" :key="item.desc" 
-              :to="item.linkRouterName" class="item" tag="li">
+              :to="{name: item.linkRouterName}" class="item" tag="li">
               <i :class="item.iconClass" class="icon"></i>
               <span class="desc">{{item.desc}}</span>
             </router-link>
           </ul>
           <ul class="other-list list">
             <router-link v-for="item in otherList" :key="item.desc" 
-              :to="item.linkRouterName" class="item" tag="li">
+              :to="{name: item.linkRouterName}" class="item" tag="li">
               <i :class="item.iconClass" class="icon"></i>
               <span class="desc">{{item.desc}}</span>
             </router-link>

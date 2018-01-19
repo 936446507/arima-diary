@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="list-wrapper">
     <v-header>
       <h1 class="title">{{title}}</h1>
     </v-header>

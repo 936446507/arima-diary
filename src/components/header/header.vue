@@ -34,6 +34,7 @@ export default {
   methods: {
     backPrevPage() {
       this.$router.go(-1)
+      this.$emit('setTransition', 'slide-right')
     }
   }
 }

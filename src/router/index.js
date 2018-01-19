@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Index from '@/page/index/index'
 import Home from '@/page/home/home'
+import Rank from '@/page/rank/rank'
 import Notice from '@/page/notice/notice'
 import Self from '@/page/self/self'
 import User from '@/page/user/user'
@@ -31,6 +32,11 @@ export default new Router({
           path: '',
           name: 'home',
           component: Home
+        },
+        {
+          path: '/rank',
+          name: 'rank',
+          component: Rank
         },
         {
           path: 'notice',
@@ -76,7 +82,7 @@ export default new Router({
     },
     {
       path: '/setting',
-      name: 'seting',
+      name: 'setting',
       component: Setting
     },
     {
