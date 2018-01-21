@@ -50,8 +50,7 @@
 
 <script>
 import MetaList from '@/components/meta-list/meta-list'
-import {getRouteInfo} from '@/js/getRouteInfo'
-import {goRouterLink} from '@/js/goRouterLink'
+import {getRouteInfo, goRouterLink} from '@/js/router'
 export default {
   // 单条评论
   name: 'comment',
