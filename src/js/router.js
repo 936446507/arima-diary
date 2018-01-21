@@ -11,7 +11,7 @@ export function goRouterLink(params, _this) {
 功能：返回路由相关信息
 _this: vue实例对象
 */
-export function getRouteInfo(_this) {
+export function getRouterInfo(_this) {
   let routeInfo = {
     name: '',
     path: '',

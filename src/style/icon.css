@@ -24,6 +24,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-recommend-author:before {
+  content: "\e919";
+}
+.icon-search:before {
+  content: "\e91a";
+}
 .icon-rank:before {
   content: "\e915";
 }
@@ -45,10 +51,6 @@
 }
 .icon-delete:before {
   content: "\e913";
-}
-.icon-search:before {
-  content: "\e914";
-  color: #999;
 }
 .icon-diary:before {
   content: "\e90a";
@@ -105,4 +107,3 @@
 .icon-arrow_right:before {
   content: "\e910";
 }
-
