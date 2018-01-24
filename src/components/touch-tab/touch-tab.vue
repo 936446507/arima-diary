@@ -1,14 +1,14 @@
 <template>
   <div class="touch-tab-wrap">
     <ul class="tab">
-      <li v-for="(item, index) in tabItems" :key="item.title" 
+      <li v-for="(item, index) in tabItems" :key="item" 
         :class="{'active': tabCurIndex === index}" 
         @click.stop="selectTab(index)"  class="tab-item">
-        {{item.title}}
+        {{item}}
       </li>
     </ul>
     <div class="tab-content-wrap">
-      <div class="tab-content" ref="tabContent">
+      <div class="tab-content" ref="tabContent" :style="{height: contentH}">
         <slot></slot>
       </div>
     </div>
@@ -22,14 +22,15 @@ export default {
     tabItems: {
       type: Array
     },
-    defaltIndex: {
+    defaultIndex: {
       type: Number,
       default: 1
     }
   },
   data() {
     return {
-      tabCurIndex: 0
+      tabCurIndex: 0,
+      contentH: 0
     }
   },
   mounted() {
@@ -40,11 +41,11 @@ export default {
   methods: {
     _initTabStyle() {
       let tabContent = this.$refs.tabContent
-      let tabContents = tabContent.childNodes
+      let tabContents = tabContent.children
       let tabContentLen = tabContents.length
       let tabcontentW = getStyle({dom: tabContents[0], attr: 'width', isReturnNumber: true})
       // 将父组件传值的默认index赋值给tabCurIndex
-      this.tabCurIndex = this.defaltIndex
+      this.tabCurIndex = this.defaultIndex
       // 设置tab-content-wrap宽度
       setStyle({
         dom: tabContent.parentElement,
@@ -54,6 +55,7 @@ export default {
 
       // 设置content的translate偏移量
       this.setTabContentTranslate()
+      this.setTabContentH()
     },
 
     // 设置content的translate偏移量
@@ -69,6 +71,13 @@ export default {
       }
     },
 
+    // 设置tabContnet的高度
+    setTabContentH() {
+      let curTabContent = this.$refs.tabContent.children[this.tabCurIndex]
+      this.contentH = getStyle({dom: curTabContent, attr: 'height'})
+      console.log(getStyle({dom: curTabContent, attr: 'height'}))
+      console.log(curTabContent.getBoundingClientRect())
+    },
     // tab点击选择
     selectTab(curIndex) {
       this.tabCurIndex = curIndex
@@ -98,6 +107,7 @@ export default {
   .tab-item {
     flex: 1;
     padding: .25rem 0;
+    line-height: .35rem;
     text-align: center;
     box-sizing: border-box;
     border-bottom: 2px solid transparent;
@@ -112,14 +122,12 @@ export default {
   overflow: hidden;
   .tab-content {
     position: relative;
-    height: 100rem;
     overflow: hidden;
     .content {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
       transition: all .5s ease-in-out;
     }
   }
