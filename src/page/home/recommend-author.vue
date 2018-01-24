@@ -37,7 +37,7 @@
 <script>
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
-import {goRouterLink} from '@/js/router'
+
 export default {
   data() {
     return {

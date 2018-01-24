@@ -50,7 +50,7 @@
 
 <script>
 import MetaList from '@/components/meta-list/meta-list'
-import {getRouteInfo, goRouterLink} from '@/js/router'
+import {getRouterInfo, goRouterLink} from '@/js/router'
 export default {
   // 单条评论
   name: 'comment',
@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     _initCommentDetailState() {
-      let routeInfo = getRouteInfo(this)
+      let routeInfo = getRouterInfo(this)
       this.isCommentDetail = routeInfo.name === 'commentDetail'
     },
     goCommentDetail(id) {

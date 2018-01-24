@@ -8,14 +8,17 @@
       </li>
     </ul>
     <div class="tab-content-wrap">
-      <div class="tab-content" ref="tabContent" :style="{height: contentH}">
-        <slot></slot>
-      </div>
+      <v-scroll class="scroll-wrap">
+        <div class="tab-content" ref="tabContent" :style="{height: contentH}">
+          <slot></slot>
+        </div>
+      </v-scroll>
     </div>
   </div>
 </template>
 
 <script>
+import Scroll from '@/components/scroll/scroll'
 import {getStyle, setStyle} from '@/js/style'
 export default {
   props: {
@@ -93,21 +96,36 @@ export default {
     end(event) {
       console.log('end', event.touches)
     }
+  },
+  components: {
+    'v-scroll': Scroll
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../../style/common.less';
+.tab-content-wrap {
+    position: fixed;
+    top: 1.8rem;
+    bottom: 1rem;
+    width: 100%;
+  .scroll-wrap {
+    height: 100%;
+  }
+}
 .tab {
+  position: fixed;
+  top: 1rem;
+  width: 100%;
   display: flex;
   align-items: center;
   background-color: white;
   box-shadow: 0 0 5px #ccc;
   .tab-item {
     flex: 1;
-    padding: .25rem 0;
-    line-height: .35rem;
+    height: .8rem;
+    line-height: .8rem;
     text-align: center;
     box-sizing: border-box;
     border-bottom: 2px solid transparent;
@@ -118,7 +136,7 @@ export default {
   }
 }
 .tab-content-wrap {
-  position: relative;
+  // position: relative;
   overflow: hidden;
   .tab-content {
     position: relative;
