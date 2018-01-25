@@ -6,6 +6,7 @@ import Home from '@/page/home/home'
 import RecommendAuthor from '@/page/home/recommend-author'
 import Rank from '@/page/rank/rank'
 import Notice from '@/page/notice/notice'
+import NoticeFllow from '@/page/notice/fllow'
 import PersonalMesage from '@/page/notice/personal-message'
 import Self from '@/page/self/self'
 import User from '@/page/user/user'
@@ -121,6 +122,11 @@ export default new Router({
       path: '/recommendAuthor',
       name: 'recommendAuthor',
       component: RecommendAuthor
+    },
+    {
+      path: '/noticeFllow',
+      name: 'noticeFllow',
+      component: NoticeFllow
     },
     {
       path: '/personalMessage/:id',

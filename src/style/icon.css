@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-favorite-solid:before {
+  content: "\e91b";
+}
 .icon-recommend-author:before {
   content: "\e919";
 }
@@ -95,6 +98,9 @@
 .icon-hot:before {
   content: "\e920";
 }
+.icon-fllowed:before {
+  content: "\e914";
+}
 .icon-view:before {
   content: "\e909";
 }
@@ -106,4 +112,10 @@
 }
 .icon-arrow_right:before {
   content: "\e910";
+}
+.icon-zan-solid:before {
+  content: "\e91e";
+}
+.icon-checkmark:before {
+  content: "\ea10";
 }

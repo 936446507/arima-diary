@@ -24,7 +24,7 @@ export default {
     },
     isIncreaseZIndex: {
       type: Boolean,
-      default: false
+      default: true
     },
     boxShadowColor: {
       type: String,

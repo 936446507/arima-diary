@@ -7,9 +7,12 @@
       <v-scroll class="scroll-wrap">
         <div class="main">
           <ul class="notice-entry-list">
-            <li v-for="n in 6" :key="n" class="notice-entry">
-              <i class="icon icon-comment"></i><span class="desc">评论</span>
-            </li>
+            <router-link :to="{name: noticeEntry.linktoRouterName}" tag="li"
+              v-for="noticeEntry in noticeEntryList" :key="noticeEntry.iconClass"
+            class="notice-entry">
+              <i :class="noticeEntry.iconClass" class="icon"></i>
+              <span class="desc">{{noticeEntry.desc}}</span>
+            </router-link>
           </ul>
           <div class="personal-message-wrap">
             <header class="personal-message-header">
@@ -38,7 +41,24 @@ import Scroll from '@/components/scroll/scroll'
 export default {
   data() {
     return {
-      avatar: require('@/assets/images/logo.jpg')
+      avatar: require('@/assets/images/logo.jpg'),
+      noticeEntryList: [
+        {
+          iconClass: 'icon-comment',
+          desc: '评论',
+          linktoRouterName: 'noticeComment'
+        },
+        {
+          iconClass: 'icon-favorite',
+          desc: '喜欢和赞',
+          linktoRouterName: 'noticeFavorite'
+        },
+        {
+          iconClass: 'icon-fllowed',
+          desc: '关注',
+          linktoRouterName: 'noticeFllow'
+        }
+      ]
     }
   },
   components: {
@@ -74,6 +94,7 @@ export default {
     align-items: center;
     padding: .25rem 0;
     width: 32%;
+    line-height: .5rem;
     .icon {
       font-size: .4rem;
       color: @theme-color;
@@ -100,7 +121,6 @@ export default {
   }
   .personal-message-list {
     padding: 0 .25rem;
-    
     .personal-message-item {
       display: flex;
       align-items: center;
