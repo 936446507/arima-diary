@@ -100,7 +100,6 @@ export default {
 .self-header {
   display: flex;
   padding: .25rem;
-  
   .avatar {
     width: 15%;
     img {
@@ -130,11 +129,12 @@ export default {
 .header-meta-list {
   display: flex;
   justify-content: space-around;
-  padding: .25rem 0;
+  padding-bottom: .25rem;
   .border1px(rgba(0, 0, 0, .35));
   .meta {
     width: 100%;
     text-align: center;
+    font-size: .3rem;
     &:first-child {
       .border1pxVertical(rgba(0, 0, 0, .35)) 
     }

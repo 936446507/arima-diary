@@ -1,6 +1,8 @@
 <template>
   <div class="rank-wrap">
-    <main-header title="榜单"></main-header>
+    <main-header title="榜单">
+      <router-link :to="{name: 'search'}" tag="i" class="icon icon-search"></router-link>
+    </main-header>
     
           <touch-tab :tabItems="tabItems" :defaultIndex="0">
             <div class="content">

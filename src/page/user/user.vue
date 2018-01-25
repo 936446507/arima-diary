@@ -84,17 +84,7 @@ export default {
       // tabIndex: 0,
       // tabList: ['动态', '文章', '更多'],
       // activeTab: '文章',
-      tabItems: [
-        {
-          title: '动态'
-        },
-        {
-          title: '日记'
-        },
-        {
-          title: '关于'
-        }
-      ],
+      tabItems: ['动态', '日记', '关于'],
       // 关于的数据
       aboutDatas: [
         {
