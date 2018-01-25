@@ -16,13 +16,14 @@
               <span class="desc">简信</span><span class="new-personal-message">新简信</span>
             </header>
             <ul class="personal-message-list">
-              <li v-for="n in 10" :key="n" class="personal-message-item">
+              <router-link :to="{name: 'personalMessage', params: {id: 1}}" tag="li" 
+                v-for="n in 10" :key="n" class="personal-message-item">
                 <router-link :to="{name: 'user', params:{id: 1}}" tag="img" :src="avatar" alt="" class="avatar"></router-link>
                 <div class="detail">
                   <div class="info"><span class="username">有馬の日記</span><span class="time">1-25 00:00</span></div>
                   <div class="content">没有你的四月还是终究来了。</div>
                 </div>
-              </li>
+              </router-link>
             </ul>
           </div>
         </div>
