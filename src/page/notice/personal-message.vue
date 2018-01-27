@@ -11,14 +11,20 @@
               <span class="time">- 01-25: 00 -</span>
               <div class="message-main">
                 <img :src="avatar" alt="" class="avatar">
-                <div class="content">没有你的四月还是终究来了。</div>
+                <div class="content">
+                  <img :src="bubble" alt="" class="bubble">
+                  <span class="text">没有你的四月还是终究来了。</span>
+                </div>
               </div>
             </li>
             <li class="message">
               <span class="time">- 01-25: 00 -</span>
               <div class="message-main self">
                 <img :src="avatar" alt="" class="avatar">
-                <div class="content">没有你的四月还是终究来了。</div>
+                <div class="content">
+                  <img :src="selfBubble" alt="" class="self-bubble">
+                  <span class="text">没有你的四月还是终究来了。</span>
+                </div>
               </div>
             </li>
           </ul>
@@ -48,7 +54,9 @@ import { XTextarea, Group } from 'vux'
 export default {
   data() {
     return {
-      avatar: require('@/assets/images/logo.jpg')
+      avatar: require('@/assets/images/logo.jpg'),
+      bubble: require('@/assets/images/bubble.png'),
+      selfBubble: require('@/assets/images/self-bubble.png')
     }
   },
   components: {
@@ -89,7 +97,7 @@ export default {
     }
     .message-main {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       padding: .25rem 0;
       .avatar {
         width: .75rem;
@@ -101,17 +109,31 @@ export default {
         max-width: 4.5rem;
         margin-left: .25rem;
         padding: .1rem .25rem;
-        border: 1px solid #333;
+        border: 2px solid #6e6664;
         border-radius: .1rem;
         text-align: left;
         color: #333;
         &::before {
           content: '';
           position: absolute;
-          top: 9px;
+          top: .2rem;
           right: 100%;
           border: 6px solid transparent;
-          border-right-color: black;
+          border-right-color: #6e6664;
+        }
+        .bubble {
+          position: absolute;
+          top: -.45rem;
+          right: -.05rem;
+          width: .75rem;
+          height: .75rem;
+        }
+        .self-bubble {
+          position: absolute;
+          top: -0.5rem;
+          left: -0.05rem;
+          width: .75rem;
+          height: .75rem;
         }
       }
       &.self {
@@ -123,7 +145,7 @@ export default {
             right: inherit;
             left: 100%;
             border-right-color: transparent;
-            border-left-color: black;
+            border-left-color: #6e6664;
           }
         }
       }
