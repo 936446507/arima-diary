@@ -83,6 +83,7 @@ export default {
   display: flex;
   align-items: center;
   padding: .35rem 0 .25rem;
+  box-sizing: border-box;
   .border1px(rgba(0, 0, 0, .1));
   &:last-child {
     .border1px(transparent)

@@ -14,12 +14,7 @@ export function getStyle({dom, attr, isReturnNumber}) {
   } else {
     result = window.getComputedStyle(dom, false)[attr]
   }
-
-  if (isReturnNumber) {
-    return Number(result.split('px')[0])
-  } else {
-    return result
-  }
+  return isReturnNumber ? Number(result.split('px')[0]) : result
 }
 
 /*
