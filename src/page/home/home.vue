@@ -13,11 +13,11 @@
     <main class="main-wrap">
       <v-scroll ref="scrollWrap" class="scroll-wrap">
         <div class="main" ref="main">
-          <v-slider class="slider">
+          <v-slide class="slide">
             <div class="swipe-item" v-for="item in swipDatas" :key="item.imgUrl">
               <img :src="item.imgUrl" alt="">
             </div>
-          </v-slider>
+          </v-slide>
           <swiper v-model="tabIndex" :aspect-ratio="2535/375" :show-dots="false">
             <swiper-item v-for="(item, index) in tabItems" :key="index">
               <div ref="tabSwiper" class="tab-swiper vux-center">
@@ -34,7 +34,7 @@
 <script>
 import Scroll from '@/components/scroll/scroll'
 import MainHeader from '@/components/main-header/main-header'
-import Slider from '@/components/slider/slider'
+import Slide from '@/components/slide/slide'
 import TouchTab from '@/components/touch-tab/touch-tab'
 import DiaryListItem from '@/components/diary-list-item/diary-list-item'
 import {Tab, TabItem, Swiper, SwiperItem} from 'vux'
@@ -78,18 +78,18 @@ export default {
   methods: {
     setTabH(tabIndex = this.tabIndex) {
       let tabSwiper = this.$refs.tabSwiper[tabIndex]
-      console.log(this.$refs.diaryItem)
       console.log(tabSwiper)
       let tabW = getStyle({dom: tabSwiper, attr: 'width', isReturnNumber: true})
       let tabH = getStyle({dom: tabSwiper, attr: 'height', isReturnNumber: true})
       let diaryItemH = getStyle({dom: this.$refs.diaryItem[0].$el, attr: 'height', isReturnNumber: true})
       console.log(tabW, tabH, diaryItemH)
+      console.log(document.getElementsByClassName('item')[0].offsetHeight)
     }
   },
   components: {
     'v-scroll': Scroll,
     'main-header': MainHeader,
-    'v-slider': Slider,
+    'v-slide': Slide,
     'touch-tab': TouchTab,
     'diary-list-item': DiaryListItem,
     Tab,
