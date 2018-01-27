@@ -1,7 +1,7 @@
 <template>
   <v-header :isIncreaseZIndex="true">
     <div class="search-input-wrap">
-      <input type="text" class="search-input" placeholder="搜索文章、用户">
+      <input type="text" class="search-input" :placeholder="placeholder">
       <i class="icon icon-search"></i>
     </div>
   </v-header>
@@ -10,6 +10,12 @@
 <script>
 import Header from '@/components/header/header'
 export default {
+  props: {
+    placeholder: {
+      type: String,
+      default: '搜索文章、用户'
+    }
+  },
   components: {
     'v-header': Header
   }

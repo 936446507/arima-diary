@@ -23,6 +23,7 @@ import Login from '@/page/login/login'
 import Register from '@/page/register/register'
 import Search from '@/page/search/search'
 import SearchDetail from '@/page/search/search-detail'
+import SearchUser from '@/page/search/search-user'
 import Editor from '@/page/editor/editor'
 
 Vue.use(Router)
@@ -114,6 +115,11 @@ export default new Router({
       path: '/searchDetail',
       name: 'searchDetail',
       component: SearchDetail
+    },
+    {
+      path: '/searchUser',
+      name: 'searchUser',
+      component: SearchUser
     },
     {
       path: '/editor',

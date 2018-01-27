@@ -19,7 +19,11 @@
           </ul>
           <div class="personal-message-wrap">
             <header class="personal-message-header">
-              <span class="desc">简信</span><span class="new-personal-message">新简信</span>
+              <span class="desc">简信</span>
+              <router-link :to="{name: 'searchUser'}"
+                tag="span" class="new-personal-message">
+                新简信
+              </router-link>
             </header>
             <ul class="personal-message-list">
               <router-link :to="{name: 'personalMessage', params: {id: 1}}" tag="li" 
