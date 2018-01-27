@@ -10,8 +10,11 @@
             <router-link :to="{name: noticeEntry.linktoRouterName}" tag="li"
               v-for="noticeEntry in noticeEntryList" :key="noticeEntry.iconClass"
             class="notice-entry">
-              <i :class="noticeEntry.iconClass" class="icon"></i>
+              <i :class="noticeEntry.iconClass" class="icon">
+                <span class="num">666</span>
+              </i>
               <span class="desc">{{noticeEntry.desc}}</span>
+              
             </router-link>
           </ul>
           <div class="personal-message-wrap">
@@ -96,8 +99,19 @@ export default {
     width: 32%;
     line-height: .5rem;
     .icon {
+      position: relative;
       font-size: .4rem;
       color: @theme-color;
+      .num {
+        position: absolute;
+        top: -.1rem;
+        right: -.2rem;
+        padding: .025rem .05rem;
+        background-color: #ea6f5a;
+        color: white;
+        font-size: .1rem;
+        border-radius: .1rem;
+      }
     }
   }
 }

@@ -1,21 +1,38 @@
 <template>
-  <div class="fllow-wrap">
+  <div class="favorite-wrap">
     <v-header :isIncreaseZIndex="true">
-      <h1 class="title">关注</h1>
+      <h1 class="title">喜欢和赞</h1>
     </v-header>
     <main class="main-wrap">
       <v-scroll class="scroll-wrap">
         <div class="main">
           <ul class="notice-list">
-            <li v-for="n in 10" :key="n" class="notice-item">
-              <i class="icon icon-checkmark"></i>
+            <!-- 喜欢 -->
+            <li v-for="n in 5" :key="n" class="notice-item">
+              <i class="icon icon-favorite-solid"></i>
               <div class="detail">
                 <div class="info">
                   <router-link :to="{name: 'user', params: {id: 1}}"
                   class="username" tag="span">
                     桐山零
                   </router-link>
-                  关注了你
+                  喜欢了你的日记
+                  <router-link :to="{name: 'diary', params: {id: 1}}" class="diary-name"><< 有馬の日記 >></router-link>
+                </div>
+                <div class="time">01-25 00:00</div>
+              </div>
+            </li>
+            <!-- 赞 -->
+            <li v-for="n in 5" :key="n" class="notice-item">
+              <i class="icon icon-zan-solid"></i>
+              <div class="detail">
+                <div class="info">
+                  <router-link :to="{name: 'user', params: {id: 1}}"
+                  class="username" tag="span">
+                    桐山零
+                  </router-link>
+                  赞了你的评论
+                  <router-link :to="{name: 'commentDetail', params: {id: 1}}" tag="span" class="comment">'' 有馬の日記 ''</router-link>
                 </div>
                 <div class="time">01-25 00:00</div>
               </div>
@@ -68,7 +85,7 @@ export default {
       line-height: .4rem;
       .info {
         font-size: .275rem;
-        .username {color: @router-color}
+        .username, .diary-name, .comment {color: @router-color}
       }
       .time {color: rgba(0, 0, 0, .35)}
     }
