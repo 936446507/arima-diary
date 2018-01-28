@@ -5,29 +5,37 @@
         <!-- 头部栏 -->
         <header class="self-header-wrap">
           <div class="self-header">
-            <div class="avatar"><img :src="avatar" alt=""></div>
+            <router-link :to="{name:'user', params: {id: 1}}"
+              tag="div" class="avatar">
+              <img :src="avatar" alt="">
+            </router-link>
             <div class="self-info-wrap">
               <div class="self-info">
-                <div class="name">有馬の日記</div>
+                <router-link :to="{name:'user', params: {id: 1}}"
+                  tag="div" class="name">
+                  有馬の日記
+                </router-link>
                 <div class="sex-icon" :class="sex"><i class="icon" :class="'icon-' + sex"></i></div>
               </div>
               <div class="sign">没有你的四月还是终究来了。</div>
             </div>
           </div>
           <ul class="header-meta-list">
-            <li class="meta">
+            <router-link :to="{name:'fllow', params: {id: 1}}"
+              tag="li" class="meta">
               <span class="title">关注</span><span class="number">666</span>
-            </li>
-            <li class="meta">
+            </router-link>
+            <router-link :to="{name:'fans', params: {id: 1}}"
+              tag="li" class="meta">
               <span class="title">粉丝</span><span class="number">666</span>
-            </li>
+            </router-link>
           </ul>
         </header>
         <main class="main-list-wrap">
           <ul class="list">
-            <li class="item">
+            <router-link :to="{name: 'editor'}" tag="li" class="item">
               <i class="icon icon-edit"></i><span>写日记</span>
-            </li>
+            </router-link>
           </ul>
           <ul class="main-list list">
             <router-link v-for="item in mainList" :key="item.desc" 

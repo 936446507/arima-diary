@@ -1,30 +1,34 @@
 <template>
-  <div class="editor-wrap">
-    <v-header>
-      <button slot="tools" class="finisth-btn">发表</button>
-    </v-header>
-    <div class="editor">
-      <div class="title-input-wrap">
-        <input class="title-input" type="text" placeholder="输入你的标题吧~">
-      </div>
-      <div class="editor-content-wrap">
-        <mavon-editor @change="change"
-          v-model="value" :toolbars="toolbars" :toolbarsFlag="true" 
-          :subfield="false" :ishljs="true" default_open="edit"
-          placeholder="赶紧记录你的日记吧~" :style="{'height': '100%'}">
-        </mavon-editor>
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
+        <button slot="tools" class="finisth-btn">发表</button>
+      </v-header>
+      <div class="editor">
+        <div class="title-input-wrap">
+          <input class="title-input" type="text" placeholder="输入你的标题吧~">
+        </div>
+        <div class="editor-content-wrap">
+          <mavon-editor @change="change"
+            v-model="value" :toolbars="toolbars" :toolbarsFlag="true" 
+            :subfield="false" :ishljs="true" default_open="edit"
+            placeholder="赶紧记录你的日记吧~" :style="{'height': '100%'}">
+          </mavon-editor>
+        </div>
       </div>
     </div>
-  </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 export default {
   data() {
     return {
+      transitionName: 'slide-left',
       toolbars: {
         bold: true, // 粗体
         italic: true, // 斜体
@@ -68,9 +72,15 @@ export default {
       // value -> markdown
       // render -> html
       console.log(value, render)
+    },
+
+    // 设置过渡
+    setTransition(transitionName) {
+      this.transitionName = transitionName
     }
   },
   components: {
+    'slide-transition': SlideTransition,
     'v-header': Header,
     'mavon-editor': mavonEditor
   }

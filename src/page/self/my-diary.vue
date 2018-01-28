@@ -1,7 +1,10 @@
 <template>
   <slide-transition :transitionName="transitionName">
     <div class="wrapper router-view">
-      <v-list title="我的日记">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
+        <h1 class="title">{{headerTitle}}</h1>
+      </v-header>
+      <v-list>
         <ul class="list">
           <diary-list-item v-for="n in 10" :key="n"></diary-list-item>
           <li v-if="false" class="empty">还没有数据哦~</li>
@@ -13,8 +16,10 @@
 
 <script>
 import SlideTransition from '@/components/slide-transition/slide-transition'
+import Header from '@/components/header/header'
 import List from '@/components/list/list'
 import DiaryListItem from '@/components/diary-list-item/diary-list-item'
+import {getRouterInfo} from '@/js/router'
 export default {
   data() {
     return {
@@ -23,8 +28,22 @@ export default {
       sex: 'man'
     }
   },
+  methods: {
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
+    }
+  },
+  computed: {
+    headerTitle() {
+      let routerInfo = getRouterInfo(this)
+      return routerInfo.name === 'myDiary' ? '我的日记' : '我的喜欢'
+    }
+  },
   components: {
     'slide-transition': SlideTransition,
+    'v-header': Header,
     'v-list': List,
     'diary-list-item': DiaryListItem
   }

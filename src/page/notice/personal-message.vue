@@ -1,65 +1,77 @@
 <template>
-  <div class="personal-message-wrap">
-    <v-header :isIncreaseZIndex="true">
-      <h1 class="username">桐山零</h1>
-    </v-header>
-    <main class="main-wrap">
-      <v-scroll class="scroll-wrap">
-        <div class="main">
-          <ul class="message-list">
-            <li v-for="n in 5" :key="n" class="message">
-              <span class="time">- 01-25: 00 -</span>
-              <div class="message-main">
-                <img :src="avatar" alt="" class="avatar">
-                <div class="content">
-                  <img :src="bubble" alt="" class="bubble">
-                  <span class="text">没有你的四月还是终究来了。</span>
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
+        <h1 class="username">桐山零</h1>
+      </v-header>
+      <main class="main-wrap">
+        <v-scroll class="scroll-wrap">
+          <div class="main">
+            <ul class="message-list">
+              <li v-for="n in 5" :key="n" class="message">
+                <span class="time">- 01-25: 00 -</span>
+                <div class="message-main">
+                  <img :src="avatar" alt="" class="avatar">
+                  <div class="content">
+                    <img :src="bubble" alt="" class="bubble">
+                    <span class="text">没有你的四月还是终究来了。</span>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li class="message">
-              <span class="time">- 01-25: 00 -</span>
-              <div class="message-main self">
-                <img :src="avatar" alt="" class="avatar">
-                <div class="content">
-                  <img :src="selfBubble" alt="" class="self-bubble">
-                  <span class="text">没有你的四月还是终究来了。</span>
+              </li>
+              <li class="message">
+                <span class="time">- 01-25: 00 -</span>
+                <div class="message-main self">
+                  <img :src="avatar" alt="" class="avatar">
+                  <div class="content">
+                    <img :src="selfBubble" alt="" class="self-bubble">
+                    <span class="text">没有你的四月还是终究来了。</span>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          </div>
+        </v-scroll>
+      </main>
+      <footer class="footer-wrap">
+        <div class="footer">
+          <div class="textarea">
+            <group :gutter="0">
+              <x-textarea :show-counter="false" :rows="1"
+                autosize placeholder="在这里输入内容"
+                >
+              </x-textarea>
+            </group>
+          </div>
+          <button class="send-btn">发送</button>
         </div>
-      </v-scroll>
-    </main>
-    <footer class="footer-wrap">
-      <div class="footer">
-        <div class="textarea">
-          <group :gutter="0">
-            <x-textarea :show-counter="false" :rows="1"
-              autosize placeholder="在这里输入内容"
-              >
-            </x-textarea>
-          </group>
-        </div>
-        <button class="send-btn">发送</button>
-      </div>
-    </footer>
-  </div>
+      </footer>
+    </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 import { XTextarea, Group } from 'vux'
 export default {
   data() {
     return {
+      transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg'),
       bubble: require('@/assets/images/bubble.png'),
       selfBubble: require('@/assets/images/self-bubble.png')
     }
   },
+  methods: {
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
+    }
+  },
   components: {
+    'slide-transition': SlideTransition,
     'v-header': Header,
     'v-scroll': Scroll,
     XTextarea,

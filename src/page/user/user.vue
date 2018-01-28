@@ -1,72 +1,77 @@
 <template>
-  <div class="warpper">
-    <v-header class="header-tool" arrowColor="white" :isIncreaseZIndex="true"
-      background="transparent" boxShadowColor="transparent"></v-header>
-    <div class="user-wrap">
-      <v-scroll class="scroll-wrap" ref="scrollWrap">
-        <div class="user">
-          <!-- 头部视差滚动 -->
-          <header class="user-header-wrap">
-            <div class="user-header">
-              <div class="avatar"><img :src="avatar" alt=""></div>
-              <div class="info">
-                <div class="name">桐山零</div>
-                <div class="sex-icon" :class="sex"><i class="icon" :class="'icon-' + sex"></i></div>
-              </div>
-              <ul class="meta-list">
-                <li class="item fllow">关注 10</li>
-                <li class="item fans">粉丝 10</li>
-              </ul>
-              <div class="btn-wrap">
-                <div class="btn edit-btn">
-                  <i class="icon icon-input-edit"></i>
-                  <span class="desc">编辑资料</span>
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header class="header-tool" arrowColor="white" :isIncreaseZIndex="true"
+        background="transparent" boxShadowColor="transparent"
+         @setTransition="setTransition">
+        </v-header>
+      <div class="user-wrap">
+        <v-scroll class="scroll-wrap" ref="scrollWrap">
+          <div class="user">
+            <!-- 头部视差滚动 -->
+            <header class="user-header-wrap">
+              <div class="user-header">
+                <div class="avatar"><img :src="avatar" alt=""></div>
+                <div class="info">
+                  <div class="name">桐山零</div>
+                  <div class="sex-icon" :class="sex"><i class="icon" :class="'icon-' + sex"></i></div>
                 </div>
-                <div v-if="false" class="btn fllow-btn">
-                  <i class="icon icon-plus"></i>
-                  <span class="desc">关注</span>
+                <ul class="meta-list">
+                  <li class="item fllow">关注 10</li>
+                  <li class="item fans">粉丝 10</li>
+                </ul>
+                <div class="btn-wrap">
+                  <div class="btn edit-btn">
+                    <i class="icon icon-input-edit"></i>
+                    <span class="desc">编辑资料</span>
+                  </div>
+                  <div v-if="false" class="btn fllow-btn">
+                    <i class="icon icon-plus"></i>
+                    <span class="desc">关注</span>
+                  </div>
+                  <div v-if="false" class="btn fllow-btn">
+                    <i class="icon icon-right"></i>
+                    <span class="desc">已关注</span>
+                  </div>                
                 </div>
-                <div v-if="false" class="btn fllow-btn">
-                  <i class="icon icon-right"></i>
-                  <span class="desc">已关注</span>
-                </div>                
               </div>
-            </div>
-          </header>
-          <main class="user-main-wrap">
-            <touch-tab :tabItems="tabItems" :defaltIndex="0">
-              <div @touchstart.stop="start($event)" @touchmove.stop="move($event)"
-                @touchend.stop="end($event)" class="content">
-                <v-steps></v-steps>
-              </div>
-              <div class="content">
-                <v-diary></v-diary>
-              </div>
-              <div class="content">
-                <v-about :aboutDatas="aboutDatas"></v-about>
-              </div>
-            </touch-tab>
-            <tab v-if="false" :line-width=2 active-color='#ea6f5a' v-model="tabIndex">
-              <tab-item class="vux-center" :selected="activeTab === item" 
-                v-for="(item, index) in tabList" @click="activeTab = item" :key="index">
-                {{item}}
-              </tab-item>
-            </tab>
-            <swiper v-if="false" v-model="tabIndex" :aspect-ratio="8.7" :show-dots="false">
-              <swiper-item v-for="(item, index) in tabList" :key="index">
-                <div class="tab-swiper vux-center">{{item}} Container
-                  <comment-list v-for="n in 15" :key="n"></comment-list>
+            </header>
+            <main class="user-main-wrap">
+              <touch-tab :tabItems="tabItems" :defaltIndex="0">
+                <div @touchstart.stop="start($event)" @touchmove.stop="move($event)"
+                  @touchend.stop="end($event)" class="content">
+                  <v-steps></v-steps>
                 </div>
-              </swiper-item>
-            </swiper>
-          </main>
-        </div>
-      </v-scroll>
+                <div class="content">
+                  <v-diary></v-diary>
+                </div>
+                <div class="content">
+                  <v-about :aboutDatas="aboutDatas"></v-about>
+                </div>
+              </touch-tab>
+              <tab v-if="false" :line-width=2 active-color='#ea6f5a' v-model="tabIndex">
+                <tab-item class="vux-center" :selected="activeTab === item" 
+                  v-for="(item, index) in tabList" @click="activeTab = item" :key="index">
+                  {{item}}
+                </tab-item>
+              </tab>
+              <swiper v-if="false" v-model="tabIndex" :aspect-ratio="8.7" :show-dots="false">
+                <swiper-item v-for="(item, index) in tabList" :key="index">
+                  <div class="tab-swiper vux-center">{{item}} Container
+                    <comment-list v-for="n in 15" :key="n"></comment-list>
+                  </div>
+                </swiper-item>
+              </swiper>
+            </main>
+          </div>
+        </v-scroll>
+      </div>
     </div>
-  </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Scroll from '@/components/scroll/scroll'
 import Header from '@/components/header/header'
 import {Tab, TabItem, Swiper, SwiperItem} from 'vux'
@@ -79,6 +84,7 @@ import About from '@/page/user/about'
 export default {
   data() {
     return {
+      transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg'),
       sex: 'man',
       // tabIndex: 0,
@@ -142,9 +148,15 @@ export default {
       scroll.on('scrollEnd', (pos) => {
         console.log('end', pos)
       })
+    },
+
+    // 设置过渡
+    setTransition(transitionName) {
+      this.transitionName = transitionName
     }
   },
   components: {
+    'slide-transition': SlideTransition,
     'v-scroll': Scroll,
     'v-header': Header,
     Tab,

@@ -65,7 +65,7 @@ export default {
       } else if (routerName === 'user') {
         [this.isUserInfoShow, this.isContentSplitShow, this.isTimeShow] =
           [false, false, true]
-      } else if (routerName === 'myDiary') {
+      } else if (routerName === 'myDiary' || routerName === 'myFavorite') {
         [this.isUserInfoShow, this.isContentSplitShow, this.isTimeShow] =
           [true, false, true]
       }

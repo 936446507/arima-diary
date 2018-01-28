@@ -1,52 +1,64 @@
 <template>
-  <div class="personal-data-wrapper" ref="personalData">
-    <v-list title="个人资料">
-      <ul class="list">
-        <!-- 头像个人主页 -->
-        <li v-for="item in imgData" :key="item.title" class="item">
-          <span class="title">{{item.title}}</span>
-          <div class="prev-data">
-            <input type="file" class="file-input">
-            <img :src="item.imgUrl" 
-              :style="{'border-radius': item.borderRadius}" class="prev-img" />
-          </div>
-          <i class="icon icon-arrow_right"></i>
-        </li>
-        <!-- 其他项 -->
-        <li v-for="item in listData" :key="item.title" 
-          @click.stop="editData(item)" class="item">
-          <span class="title">{{item.title}}</span>
-          <span class="prev-data">{{item.prevData}}</span>
-          <i class="icon icon-arrow_right"></i>
-        </li>
-      </ul>     
-    </v-list>
-    <v-modal ref="modal" :title="modalTitle" :prevData="modalPrevData"></v-modal>
-    <!-- 性别 -->
-    <actionsheet v-model="sexShow" :menus="sexMenus"
-      @on-click-menu="setSex" show-cancel>
-    </actionsheet>
-    <!-- 生日 -->
-    <datetime v-model="birthday" @on-change="setBirthday" :show.sync="birthdayShow"></datetime>
-    <!-- 地区 -->
-    <x-address style="display:none;" title="地区" v-model="address" 
-      @on-shadow-change="onShadowChange"  @on-hide="setAddress" hide-district
-      :list="addressData" placeholder="请选择你所在地区" :show.sync="addressShow">
-    </x-address>
-    <!-- 职业 -->
-    <actionsheet v-model="jobShow" :menus="jobMenus" show-cancel @on-click-menu="setJob"></actionsheet>
-    <!-- 提示 -->
-    <toast v-model="tipShow" text="修改成功" type="text" position="middle"></toast>
-  </div>
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
+        <h1 class="title">个人资料</h1>
+      </v-header>
+      <v-list title="个人资料">
+        <ul class="list">
+          <!-- 头像个人主页 -->
+          <li v-for="item in imgData" :key="item.title" class="item">
+            <span class="title">{{item.title}}</span>
+            <div class="prev-data">
+              <input type="file" class="file-input">
+              <img :src="item.imgUrl" 
+                :style="{'border-radius': item.borderRadius}" class="prev-img" />
+            </div>
+            <i class="icon icon-arrow_right"></i>
+          </li>
+          <!-- 其他项 -->
+          <li v-for="item in listData" :key="item.title" 
+            @click.stop="editData(item)" class="item">
+            <span class="title">{{item.title}}</span>
+            <span class="prev-data">{{item.prevData}}</span>
+            <i class="icon icon-arrow_right"></i>
+          </li>
+        </ul>     
+      </v-list>
+      <v-modal ref="modal" :title="modalTitle" :prevData="modalPrevData"></v-modal>
+      <!-- 性别 -->
+      <actionsheet v-model="sexShow" :menus="sexMenus"
+        @on-click-menu="setSex" show-cancel>
+      </actionsheet>
+      <!-- 生日 -->
+      <datetime v-model="birthday" @on-change="setBirthday" 
+        :show.sync="birthdayShow">
+      </datetime>
+      <!-- 地区 -->
+      <x-address style="display:none;" title="地区" v-model="address" 
+        @on-shadow-change="onShadowChange"  @on-hide="setAddress" hide-district
+        :list="addressData" placeholder="请选择你所在地区" :show.sync="addressShow">
+      </x-address>
+      <!-- 职业 -->
+      <actionsheet v-model="jobShow" :menus="jobMenus" 
+        show-cancel @on-click-menu="setJob">
+      </actionsheet>
+      <!-- 提示 -->
+      <toast v-model="tipShow" text="修改成功" type="text" position="middle"></toast>
+    </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
+import Header from '@/components/header/header'
 import List from '@/components/list/list'
 import Modal from '@/components/modal/modal'
 import {Actionsheet, XAddress, Toast, Datetime, ChinaAddressV4Data, Value2nameFilter as getAddressName} from 'vux'
 export default {
   data() {
     return {
+      transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg'),
       imgData: [
         {
@@ -234,9 +246,16 @@ export default {
         [this.modalTitle, this.modalPrevData] = [item.title, item.prevData]
         this.$refs.modal.showModal()
       }
+    },
+
+    // 设置过渡动画
+    setTransition(transitionName) {
+      this.transitionName = transitionName
     }
   },
   components: {
+    'slide-transition': SlideTransition,
+    'v-header': Header,
     'v-list': List,
     'v-modal': Modal,
     Actionsheet,
@@ -249,21 +268,7 @@ export default {
 
 <style lang="less" scoped>
 @import '../../style/common.less';
-.slide-enter, .slide-leave-to {
-  // opacity: 0;
-  transform: translateX(100%);
-}
-.slide-enter-active, .slide-leave-active {
-  transition: transform .3s linear;
-  transform: translateX(0);
-}
-// .personal-data-wrapper {
-//   transition: all .3s linear;
-//   transform: translateX(100%);
-//   &.translateRestore {
-//     transform: translateX(0)
-//   }
-// }
+
 .list {
   padding: 0 .25rem;
   .item {

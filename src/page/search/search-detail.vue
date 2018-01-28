@@ -1,55 +1,111 @@
 <template>
-  <div class="wrapper">
-    <search-header></search-header>
-    <div class="search-detail-wrap">
-      <v-scroll class="scroll-wrap">
-        <div class="search-detail">
-          <!-- 相关用户 -->
-          <div class="relate-user-wrap">
-            <header class="relate-user-header">
-              <span class="title">相关用户</span>
-              <i class="icon icon-arrow_right"></i>
-            </header>
-            
-            <ul class="relate-user-list">
-              <li v-for="n in 5" :key="n" class="relate-user-item">
-                <img alt="avatar" class="avatar" :src="avatar">
-                <span class="username">桐山零</span>
-              </li>
-            </ul>
-          </div>
-          <!-- 搜索到的日记 -->
-          <div class="searched-diary-wrap">
-            <ul class="search-diary-list">
-              <diary-list-item v-for="n in 10" :key="n"></diary-list-item>
-            </ul>
-          </div>
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
+        <div class="search-input-wrap">
+          <input v-model="searchValue" type="text" class="search-input" placeholder="搜索文章、用户">
+          <i @click.stop="search" class="icon icon-search"></i>
         </div>
-      </v-scroll>
+      </v-header>
+      <div class="search-detail-wrap">
+        <v-scroll class="scroll-wrap">
+          <div class="search-detail">
+            <!-- 相关用户 -->
+            <div class="relate-user-wrap">
+              <header class="relate-user-header">
+                <span class="title">相关用户</span>
+                <i class="icon icon-arrow_right"></i>
+              </header>
+              
+              <ul class="relate-user-list">
+                <li v-for="n in 5" :key="n" class="relate-user-item">
+                  <img alt="avatar" class="avatar" :src="avatar">
+                  <span class="username">桐山零</span>
+                </li>
+              </ul>
+            </div>
+            <!-- 搜索到的日记 -->
+            <div class="searched-diary-wrap">
+              <ul class="search-diary-list">
+                <diary-list-item v-for="n in 10" :key="n"></diary-list-item>
+              </ul>
+            </div>
+          </div>
+        </v-scroll>
+      </div>
+      <toast v-model="tipShow" width="2.5rem" 
+        type="text" position="middle" text="请输入搜索内容">
+      </toast>
     </div>
-  </div>
+  </slide-transition>
 </template>
 
 <script>
-import SearchHeader from '@/page/search/search-header'
+import SlideTransition from '@/components/slide-transition/slide-transition'
+import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 import DiaryListItem from '@/components/diary-list-item/diary-list-item'
+import {Toast} from 'vux'
+import {goRouterLink} from '@/js/router'
 export default {
   data() {
     return {
-      avatar: require('@/assets/images/logo.jpg')
+      transitionName: 'slide-left',
+      avatar: require('@/assets/images/logo.jpg'),
+      searchValue: '',
+      tipShow: false
+    }
+  },
+  methods: {
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
+    },
+
+    // 搜索
+    search() {
+      let searchValue = this.searchValue
+      if (searchValue) {
+        goRouterLink({
+          name: 'searchDetail',
+          query: {query: searchValue}
+        }, this)
+      } else {
+        this.tipShow = true
+      }
     }
   },
   components: {
-    'search-header': SearchHeader,
+    'slide-transition': SlideTransition,
+    'v-header': Header,
     'v-scroll': Scroll,
-    'diary-list-item': DiaryListItem
+    'diary-list-item': DiaryListItem,
+    Toast
   }
 }
 </script>
 
 <style lang="less" scoped>
 @import '../../style/common.less';
+// 头部搜索框
+.search-input-wrap {
+  display: flex;
+  padding: .15rem .25rem;
+  border: 1px solid #ccc;
+  border-radius: .25rem;
+  font-size: .3rem;
+  .search-input {
+    flex: 1;
+    padding-right: .15rem;
+  }
+  .icon-search {
+    display: inline-block;
+    padding-left: .25rem;
+    font-size: .3rem;
+    border-left: 1px solid rgba(0, 0, 0, .1)
+  }
+}
 .search-detail-wrap {
   position: fixed;
   top: 1rem;

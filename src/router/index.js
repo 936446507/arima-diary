@@ -12,7 +12,6 @@ import NoticeFllow from '@/page/notice/fllow'
 import PersonalMesage from '@/page/notice/personal-message'
 import Self from '@/page/self/self'
 import User from '@/page/user/user'
-import Fans from '@/page/self/fans'
 import Fllow from '@/page/self/fllow'
 import MyDiary from '@/page/self/my-diary'
 import Setting from '@/page/self/setting'
@@ -72,18 +71,23 @@ export default new Router({
       component: CommentDetail
     },
     {
-      path: '/fans',
+      path: '/fans/:id',
       name: 'fans',
-      component: Fans
+      component: Fllow
     },
     {
-      path: '/fllow',
+      path: '/fllow/:id',
       name: 'fllow',
       component: Fllow
     },
     {
       path: '/myDiary',
       name: 'myDiary',
+      component: MyDiary
+    },
+    {
+      path: '/myFavorite',
+      name: 'myFavorite',
       component: MyDiary
     },
     {

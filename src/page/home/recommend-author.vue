@@ -1,50 +1,62 @@
 <template>
-  <div class="recommend-author-wrap">
-    <v-header :isIncreaseZIndex="true">
-      <h1 class="title">推荐作者</h1>
-    </v-header>
-    <main class="main-wrap">
-      <v-scroll class="scroll-wrap">
-        <ul class="user-list">
-          <li v-for="n in 10" :key="n" class="user-item">
-            <router-link :to="{name: 'user', params: {id: 1}}"  
-              tag="div" class="avatar"><img src="" alt="" :src="avatar">
-            </router-link>
-            <div class="detail">
-              <header class="header">
-                <router-link :to="{name: 'user', params: {id: 1}}"
-                  tag="span" class="username">桐山零</router-link>
-                <div class="fllow-btn">
-                  <i class="icon icon-plus"></i><span class="desc">关注</span>
-                </div>
-              </header>
-              <div class="sign">没有你的四月还是终究来了。</div>
-              <ul class="recomment-diary-list">
-                <li v-for="n in 2" :key="n" class="recomment-diary-item">
-                  <i class="icon icon-diary"></i>
-                  <router-link :to="{name: 'diary', params: {id: 1}}"
-                    tag="span" class="diary-name">有馬の日記</router-link>
-                </li>
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </v-scroll>
-    </main>
-  </div>
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
+        <h1 class="title">推荐作者</h1>
+      </v-header>
+      <main class="main-wrap">
+        <v-scroll class="scroll-wrap">
+          <ul class="user-list">
+            <li v-for="n in 10" :key="n" class="user-item">
+              <router-link :to="{name: 'user', params: {id: 1}}"  
+                tag="div" class="avatar"><img src="" alt="" :src="avatar">
+              </router-link>
+              <div class="detail">
+                <header class="header">
+                  <router-link :to="{name: 'user', params: {id: 1}}"
+                    tag="span" class="username">桐山零</router-link>
+                  <div class="fllow-btn">
+                    <i class="icon icon-plus"></i><span class="desc">关注</span>
+                  </div>
+                </header>
+                <div class="sign">没有你的四月还是终究来了。</div>
+                <ul class="recomment-diary-list">
+                  <li v-for="n in 2" :key="n" class="recomment-diary-item">
+                    <i class="icon icon-diary"></i>
+                    <router-link :to="{name: 'diary', params: {id: 1}}"
+                      tag="span" class="diary-name">有馬の日記</router-link>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </v-scroll>
+      </main>
+    </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 
 export default {
   data() {
     return {
+      transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg')
     }
   },
+  methods: {
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
+    }
+  },
   components: {
+    'slide-transition': SlideTransition,
     'v-header': Header,
     'v-scroll': Scroll
   }

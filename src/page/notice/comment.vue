@@ -1,53 +1,65 @@
 <template>
-  <div class="comment-wrap">
-    <v-header :isIncreaseZIndex="true">
-      <h1 class="title">评论</h1>
-    </v-header>
-    <main class="main-wrap">
-      <v-scroll class="scroll-wrap">
-        <div class="main">
-          <ul class="comment-list">
-            <li class="comment">
-              <header class="header">
-                <router-link :to="{name: 'user', params: {id: 1}}"
-                  tag="div" class="user">
-                  <img src="" alt="" :src="avatar" class="avatar">
-                  <span class="username">桐山零</span>
-                </router-link>
-                <button class="reply-btn">回复</button>
-              </header>
-              <main class="content">
-                在文章
-                <router-link :to="{name: 'diary', params: {id: 1}}" 
-                  tag="span"  class="router diary-name">
-                  << 有馬の日記 >>
-                </router-link>
-                添加了一条新评论
-                <div class="comment-content">
-                  <router-link :to="{name: 'user', params: {id: 1}}" 
-                    tag="span"  class="router aite-name">@桐山零</router-link>
-                  有馬の日記
-                </div>
-              </main>
-              <footer class="time">01-27 00:00</footer>
-            </li>
-          </ul>
-        </div>
-      </v-scroll>
-    </main>
-  </div>
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
+        <h1 class="title">评论</h1>
+      </v-header>
+      <main class="main-wrap">
+        <v-scroll class="scroll-wrap">
+          <div class="main">
+            <ul class="comment-list">
+              <li class="comment">
+                <header class="header">
+                  <router-link :to="{name: 'user', params: {id: 1}}"
+                    tag="div" class="user">
+                    <img src="" alt="" :src="avatar" class="avatar">
+                    <span class="username">桐山零</span>
+                  </router-link>
+                  <button class="reply-btn">回复</button>
+                </header>
+                <main class="content">
+                  在文章
+                  <router-link :to="{name: 'diary', params: {id: 1}}" 
+                    tag="span"  class="router diary-name">
+                    << 有馬の日記 >>
+                  </router-link>
+                  添加了一条新评论
+                  <div class="comment-content">
+                    <router-link :to="{name: 'user', params: {id: 1}}" 
+                      tag="span"  class="router aite-name">@桐山零</router-link>
+                    有馬の日記
+                  </div>
+                </main>
+                <footer class="time">01-27 00:00</footer>
+              </li>
+            </ul>
+          </div>
+        </v-scroll>
+      </main>
+    </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 export default {
   data() {
     return {
+      transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg')
     }
   },
+  methods: {
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
+    }
+  },
   components: {
+    'slide-transition': SlideTransition,
     'v-header': Header,
     'v-scroll': Scroll
   }
@@ -56,6 +68,7 @@ export default {
 
 <style lang="less" scoped>
 @import '../../style/common.less';
+.wrapper {height: 100%;}
 .title {
   color: #333;
   font-size: .35rem;

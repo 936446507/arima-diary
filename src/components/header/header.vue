@@ -33,8 +33,8 @@ export default {
   },
   methods: {
     backPrevPage() {
-      this.$router.go(-1)
       this.$emit('setTransition', 'slide-right')
+      this.$router.go(-1)
     }
   }
 }
@@ -68,6 +68,10 @@ export default {
     .item {
       flex: 1;
       margin-left: .5rem;
+      .title {
+        font-size: .35rem;
+        color: #333;
+      }
     }
   }
 }
