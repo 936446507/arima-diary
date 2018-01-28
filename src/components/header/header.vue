@@ -29,12 +29,18 @@ export default {
     boxShadowColor: {
       type: String,
       default: '#ccc'
+    },
+    // 返回的页数
+    backPrevPageStep: {
+      type: Number,
+      default: -1
     }
   },
   methods: {
     backPrevPage() {
       this.$emit('setTransition', 'slide-right')
-      this.$router.go(-1)
+      console.log(this.backPrevPageStep)
+      this.$router.go(this.backPrevPageStep)
     }
   }
 }

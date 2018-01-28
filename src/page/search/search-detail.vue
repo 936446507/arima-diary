@@ -1,7 +1,8 @@
 <template>
   <slide-transition :transitionName="transitionName">
     <div class="wrapper router-view">
-      <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true"
+        :backPrevPageStep="-this.searchNumber">
         <div class="search-input-wrap">
           <input v-model="searchValue" type="text" class="search-input" placeholder="搜索文章、用户">
           <i @click.stop="search" class="icon icon-search"></i>
@@ -53,7 +54,9 @@ export default {
       transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg'),
       searchValue: '',
-      tipShow: false
+      tipShow: false,
+      // 搜索的次数
+      searchNumber: 0
     }
   },
   methods: {
@@ -71,6 +74,7 @@ export default {
           name: 'searchDetail',
           query: {query: searchValue}
         }, this)
+        this.searchNumber += 1
       } else {
         this.tipShow = true
       }
