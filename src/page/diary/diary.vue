@@ -1,147 +1,191 @@
 <template>
-  <div class="wrapper">
-    <v-header :isIncreaseZIndex="true" ref="diaryHeaderTool" 
-      class="diary-header-tool">
-      <div v-show="avatarStatus" class="avatar"><img :src="avatar" alt=""></div>
-    </v-header>
-    <div class="diary-wrap">
-      <v-scroll class="scroll-wrap" :probeType="2" :bounce="true" ref="scrollWrap">
-        <div class="diary">
-          <!-- 日記头部  作者信息之类 -->
-          <header class="diary-header">
-            <h1 class="title">有馬の日記</h1>
-            <div class="user-info-wrap">
-              <div class="user-avatar"><img :src="avatar" alt="有馬の日記"></div>
-              <div class="user-name">有馬の日記</div>
-              <button class="btn fllow-btn">
-                <i class="icon icon-plus"></i><span class="desc">关注</span>
-              </button>
-              <button v-show="false" class="btn fllowed-btn">
-                <i class="icon icon-right"></i><span class="desc">已关注</span>
-              </button>
-            </div>
-            <div class="diary-info">
-              <meta-list>
-                <li class="meta">2018-1-1 00:00</li>
-                <li class="meta">阅读 666</li>
-                <li class="meta">评论 666</li>
-                <li class="meta">喜欢 666</li>
-              </meta-list>
-            </div>
-          </header>
-          <!-- 日記内容 -->
-          <main class="diary-content">
-            先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
-            首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
-            并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
-            诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
-            作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
-            商业转载请联系作者获得授权，非商业转载请注明出处。
-            先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
-            首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
-            并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
-            诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
-            作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
-            商业转载请联系作者获得授权，非商业转载请注明出处。
-            先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
-            首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
-            并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
-            诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
-            作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
-            商业转载请联系作者获得授权，非商业转载请注明出处。
-            先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
-            首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
-            并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
-            诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
-            作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
-            商业转载请联系作者获得授权，非商业转载请注明出处。
-          </main>
-          <!-- 关注作者模块 -->
-          <div class="fllow-user-wrap">
-            <div class="fllow-user">
-              <header class="header-desc">关注作者，看更多关于TA的好日記</header>
-              <main class="detail">
-                <div class="user-avatar">
-                  <img :src="avatar" alt="">
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true"
+      ref="diaryHeaderTool" class="diary-header-tool">
+      <router-link :to="{name: 'user', params: {id: 1}}"
+        tag="div" v-show="avatarStatus" class="avatar">
+        <img :src="avatar" alt="">
+        </router-link>
+      </v-header>
+      <div class="diary-wrap">
+        <v-scroll class="scroll-wrap" :probeType="2"
+          :bounce="true" ref="scrollWrap">
+          <div class="diary">
+            <!-- 日記头部  作者信息之类 -->
+            <header class="diary-header">
+              <h1 class="title">有馬の日記</h1>
+              <div class="user-info-wrap">
+                <router-link :to="{name: 'user', params: {id: 1}}"
+                  tag="div" class="user-avatar">
+                  <img :src="avatar" alt="有馬の日記">
+                </router-link>
+                <router-link :to="{name: 'user', params: {id: 1}}"
+                  tag="div" class="user-name">
+                  有馬の日記
+                </router-link>
+                <!-- 关注按钮 -->
+                <div @click.stop="fllowUser" class="tool-wrap">
+                  <button v-show="!isHadFllowed" class="btn fllow-btn">
+                    <i class="icon icon-plus"></i><span class="desc">关注</span>
+                  </button>
+                  <button v-show="isHadFllowed" class="btn fllowed-btn">
+                    <i class="icon icon-right"></i><span class="desc">已关注</span>
+                  </button>
                 </div>
-                <div class="user-info-wrap">
-                  <h1 class="user-name">有馬の日記</h1>
-                  <h3 class="user-intro">有馬の日記</h3>
-                </div>
-                <button class="btn fllow-btn">
-                  <i class="icon icon-plus"></i><span class="desc">关注</span>
-                </button>
-                <button v-show="false" class="btn fllowed-btn">
-                  <i class="icon icon-right"></i><span class="desc">已关注</span>
-                </button>
-              </main>
-            </div>
-          </div>
-          <!-- 评论区 -->
-          <div class="comment-wrap" ref="commentWrap">
-            <!-- 头部信息栏 -->
-            <header class="comment-header-meta">
-              <span class="comment-num">评论 666</span>
+              </div>
+              <div class="diary-info">
+                <meta-list>
+                  <li class="meta">2018-1-1 00:00</li>
+                  <li class="meta">阅读 666</li>
+                  <li class="meta">评论 666</li>
+                  <li class="meta">喜欢 666</li>
+                </meta-list>
+              </div>
             </header>
-            <comment-list v-for="n in 5" :key="n"></comment-list>
-            <!-- 没有评论 -->
-            <div v-if="false" class="empty-comment">
-              <img :src="emptyCommentBg" alt="">
-              <p class="desc">我在等着你的评论呢~</p>
+            <!-- 日記内容 -->
+            <main class="diary-content">
+              先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
+              首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
+              并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
+              诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
+              作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
+              商业转载请联系作者获得授权，非商业转载请注明出处。
+              先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
+              首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
+              并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
+              诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
+              作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
+              商业转载请联系作者获得授权，非商业转载请注明出处。
+              先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
+              首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
+              并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
+              诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
+              作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
+              商业转载请联系作者获得授权，非商业转载请注明出处。
+              先聊聊凶手吧，姑且叫他X君。我们不谈是谁，只谈犯罪心理。这也是本剧最大的亮点。
+              首先，X君的童年，非常不幸。他有一个混蛋哥哥，终日以猥亵女童为乐。
+              并且在哥哥的胁迫下，X君也沦为了帮凶：他负责诱骗女童，看门把风，并在哥哥实施猥亵后，进行善后。
+              诱拐成功的快感，间接实现的罪恶，使得X君幼小的心灵，开始扭曲。
+              作者：子戈链接：https://www.jianshu.com/p/b26e65ba7b77來源：简书著作权归作者所有。
+              商业转载请联系作者获得授权，非商业转载请注明出处。
+            </main>
+            <!-- 关注作者模块 -->
+            <div class="fllow-user-wrap">
+              <div class="fllow-user">
+                <header class="header-desc">关注作者，看更多关于TA的好日記</header>
+                <main class="detail">
+                  <router-link :to="{name: 'user', params: {id: 1}}"
+                    tag="div" class="user-avatar">
+                    <img :src="avatar" alt="">
+                  </router-link>
+                  <div class="user-info-wrap">
+                    <router-link :to="{name: 'user', params: {id: 1}}"
+                      tag="h1" class="user-name">
+                      有馬の日記
+                    </router-link>
+                    <h3 class="user-intro">有馬の日記</h3>
+                  </div>
+                  <div @click.stop="fllowUser" class="tool-wrap">
+                    <button v-show="!isHadFllowed" class="btn fllow-btn">
+                      <i class="icon icon-plus"></i><span class="desc">关注</span>
+                    </button>
+                    <button v-show="isHadFllowed" class="btn fllowed-btn">
+                      <i class="icon icon-right"></i><span class="desc">已关注</span>
+                    </button>
+                  </div>
+                </main>
+              </div>
             </div>
-            </div>
-        </div>
-      </v-scroll>
-    </div>
-    <!-- 底部固定工具条 -->
-    <footer-tool class="footer-tool-wrap">
-      <!-- 模拟input输入框 -->
-      <div @click.stop="showTextareaModal" class="imitate-input">
-        <i class="icon icon-input-edit"></i>
-        <span class="desc">请输入评论</span>
+            <!-- 评论区 -->
+            <div class="comment-wrap" ref="commentWrap">
+              <!-- 头部信息栏 -->
+              <header class="comment-header-meta">
+                <span class="comment-num">评论 666</span>
+              </header>
+              <!-- 评论列表 -->
+              <div class="comment-content-wrap">
+                <ul class="comment-content">
+                  <v-comment @applySubComment="applySubComment"></v-comment>
+                </ul>
+              </div>
+              <!-- 没有评论 -->
+              <div v-if="false" class="empty-comment">
+                <img :src="emptyCommentBg" alt="">
+                <p class="desc">我在等着你的评论呢~</p>
+              </div>
+              </div>
+          </div>
+        </v-scroll>
       </div>
-      <ul class="icon-list">
-        <li @click.stop="scrollToComment" class="icon-item">
-          <i class="icon icon-comment">
-            <span class="num">999</span>
-          </i>
-        </li>
-        <li @click.stop="favoriteDiary" class="icon-item">
-          <i :class="{'icon-favorite': !isFavoriteDiary, 
-            'icon-favorited': isFavoriteDiary}" class="icon">
+      <!-- 底部固定工具条 -->
+      <footer-tool class="footer-tool-wrap">
+        <!-- 模拟input输入框 -->
+        <div @click.stop="showTextareaModal" class="imitate-input">
+          <i class="icon icon-input-edit"></i>
+          <span class="desc">请输入评论</span>
+        </div>
+        <ul class="icon-list">
+          <li @click.stop="scrollToComment" class="icon-item">
+            <i class="icon icon-comment">
               <span class="num">999</span>
             </i>
-        </li>
-      </ul>
-    </footer-tool>
-    <!-- 评论文本域模态框状态 -->
-    <textarea-modal ref="textareaModal"></textarea-modal>
-  </div>
+          </li>
+          <li @click.stop="favoriteDiary" class="icon-item">
+            <i :class="{'icon-favorite': !isFavoriteDiary, 
+              'icon-favorited': isFavoriteDiary}" class="icon">
+                <span class="num">999</span>
+              </i>
+          </li>
+        </ul>
+      </footer-tool>
+      <!-- 评论文本域模态框状态 -->
+      <textarea-modal ref="textareaModal"></textarea-modal>
+      <!-- 提示 -->
+      <toast v-model="tipShow" position="middle" type="text" :text="tipText"></toast>
+       <!-- 工具菜单- 添加子评论等 -->
+      <actionsheet v-model="toolActionSheetShow" theme="android"
+        :menus="toolMenus" @on-click-menu="selectMunu">
+      </actionsheet>
+    </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 import MetaList from '@/components/meta-list/meta-list'
-import CommentList from './comment-list'
-import footerTool from './footer-tool'
-import textareaModal from './textarea-modal'
+import Comment from '@/page/diary/comment'
+import footerTool from '@/page/diary/footer-tool'
+import textareaModal from '@/page/diary/textarea-modal'
+import {Actionsheet, Toast} from 'vux'
 
 export default {
   data() {
     return {
+      transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg'),
       emptyCommentBg: require('@/assets/images/empty-comment-bg.png'),
       avatarStatus: false,
+      // 是否已关注了作者
+      isHadFllowed: false,
       // 评论文本域模态框状态
       isTextareaModalShow: false,
       actionSheetStatus: false,
       // 是否已喜欢该日记
       isFavoriteDiary: false,
       scrollY: 0,
-      menu: {
-        menu1: '<textarea style="width: 100%;height: 4rem;border: none;" class="textarea">web</textarea>'
-      }
+      // 提示框
+      tipShow: false,
+      tipText: '',
+      // 工具菜单
+      toolActionSheetShow: false,
+      toolMenus: {
+        menu1: '回复'
+      },
+      // 点击子评论
+      activeCommentItem: {}
     }
   },
   mounted() {
@@ -150,6 +194,7 @@ export default {
     })
   },
   methods: {
+    // 设置头部工具条状态
     setHeaderToolStatus() {
       let scroll = this.$refs.scrollWrap.scroll
       scroll.on('scroll', (pos) => {
@@ -170,18 +215,39 @@ export default {
         }
       })
     },
+    // 显示评论文本域
     showTextareaModal() {
       this.$refs.textareaModal.show()
     },
+
+    // 关注作者
+    fllowUser() {
+      this.isHadFllowed = !this.isHadFllowed
+      this.tipShow = true
+      this.tipText = this.isHadFllowed ? '关注成功' : '已取消关注'
+    },
+
     // 滚动到评论区
     scrollToComment() {
       console.log(this.$refs.scrollWrap)
       this.$refs.scrollWrap.scrollToElement(this.$refs.commentWrap, 600)
     },
+
+    //  选择弹出层菜单
+    selectMunu(menuKey, menuItem) {
+      console.log(menuKey, menuItem)
+    },
+
+    // 添加子评论回复
+    applySubComment(arg) {
+      this.toolActionSheetShow = arg.toolActionSheetShow
+      console.log(arg)
+    },
     // 添加喜欢日记
     favoriteDiary() {
       this.isFavoriteDiary = !this.isFavoriteDiary
     },
+
     // 底部数值大小操作
     setFooterNumber(number, isRepeatSet) {
       /*
@@ -189,21 +255,30 @@ export default {
       isRepeatSet: 数值加一后再执行是否减一
       */
       return isRepeatSet ? --number : ++number
+    },
+
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
     }
   },
   components: {
+    'slide-transition': SlideTransition,
     'v-header': Header,
     'v-scroll': Scroll,
     'meta-list': MetaList,
-    'comment-list': CommentList,
+    'v-comment': Comment,
     'footer-tool': footerTool,
-    'textarea-modal': textareaModal
+    'textarea-modal': textareaModal,
+    Actionsheet,
+    Toast
   }
 }
 </script>
 
-<style lang="scss" scoped>
-@import '../../style/common.scss';
+<style lang="less" scoped>
+@import '../../style/common.less';
 .textarea {
   width: 100%;
   height: 4rem;
@@ -213,10 +288,10 @@ export default {
   .avatar {
     display: flex;
     align-items: center;
-    width: 7%;
+    width: .5rem;
     margin-left: .25rem;
     img {
-      @include setImg(100%, 50%)
+      .setImg(100%, 50%)
     }
   }
 }
@@ -229,16 +304,17 @@ export default {
     height: 100%;
   }
 }
-// 关注已关注按钮
+// 关注 已关注按钮
 .btn {
-  width: 25%;
+  width: 100%;
   height: .6rem;
   border: none;
   border-radius: .25rem;
   font-size: .25rem;
+  padding: 0 .5rem;
   &.fllow-btn {
     color: white;
-    background-color: $success-color;
+    background-color: @success-color;
   }
   &.fllowed-btn {
     color: #ccc;
@@ -258,16 +334,15 @@ export default {
     padding: .25rem 0;
     font-size: 0;
     .user-avatar {
-      width: 10%;
+      width: .75rem;
       img {
-        @include setImg(100%, 50%);
+        .setImg(100%, 50%);
       }
     }
     .user-name {
       flex: 1;
       align-self: center;
       box-sizing: border-box;
-      width:65%;
       padding-left: .25rem;
       font-size: .25rem;
     }
@@ -283,20 +358,21 @@ export default {
   .fllow-user {
     padding: 0 .15rem;
     border: .025rem solid rgba(0, 0, 0, .5);
-    .heder-desc {
+    .header-desc {
       padding: .1rem 0;
       font-size: .1rem;
-      color: $default-color;
-      @include border1px(rgba(0, 0, 0, .5))
+      color: @default-color;
+      .border1px(rgba(0, 0, 0, .5))
     }
     .detail {
       display: flex;
+      align-items: center;
       padding: .25rem 0;
       font-size: 0;
       .user-avatar {
-        width: 10%;
+        width: .75rem;
         img {
-          @include setImg(100%, 50%);
+          .setImg(100%, 50%);
         }
       }
       .user-info-wrap {
@@ -304,6 +380,7 @@ export default {
         align-self: center;
         box-sizing: border-box;
         padding-left: .25rem;
+        line-height: .5rem;
         .user-name {
           font-size: .35rem;
         }
@@ -322,7 +399,113 @@ export default {
     padding: .1rem .25rem;
     background-color: rgba(0, 0, 0, .05);
     .comment-num {
-      color: $error-color;
+      color: @error-color;
+    }
+  }
+  // 评论列表
+  .comment-content {
+    .comment-item {
+      padding: .25rem 0;
+      .border1px(rgba(0, 0, 0, .35));
+      &:last-child {
+        border-bottom: none;
+        &::before {
+          height: 0;
+        }
+      }
+      .user-wrap {
+        display: flex;
+        padding: 0 .25rem;
+        .avatar {
+          width: 10%;
+          img {
+            .setImg(100%, 50%);
+          }
+        }
+        .info {
+          flex: 1;
+          align-self: center;
+          box-sizing: border-box;
+          padding-left: .25rem;
+          .name-wrap {
+            font-size: 0;
+            .name {
+              font-size: .25rem;
+            }
+            .author-flag {
+              margin-left: .15rem;
+              padding: 0 .1rem;
+              border-radius: .15rem;
+              color: white;
+              background-color: @default-color;
+              font-size: .25rem;
+            }
+          }
+        }
+        .tool-group {
+          display: flex;
+          width: 30%;
+          justify-content: center;
+          align-items: center;
+          .btn {
+            flex: 1;
+            font-size: .35rem;
+            &.zan-btn {
+              display: flex;
+              align-items: center;
+              .num {
+                padding-left: .1rem;
+                font-size: .25rem;
+              }
+            }
+          }
+        }
+      }
+      .content {
+        padding: .15rem .25rem;
+      }
+      .sub-comment-wrap {
+        padding: 0 .25rem;
+        .sub-comment-list {
+          .sub-comment-item {
+            display: flex;
+            padding: .15rem 0;
+            border-top: .025rem dashed #ccc;
+            .respondent {
+              font-size: .25rem;
+              color: @router-color;
+            }
+            .content-wrap {
+              flex: 1;
+              .aite-name {
+                font-size: .25rem;
+                color: @router-color;
+              }
+              .sub-content {
+                font-size: .25rem;
+              }
+            }
+            .tool-group {
+              width: 20%;
+              .btn {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                height: 100%;
+                font-size: .35rem;
+              }
+            }
+          }
+        }
+        .more-content-btn {
+          padding: .1rem 0;
+          color: #ccc;
+          .border1px(rgba(0, 0, 0, .35), 0);
+          .more-content {
+            color: @router-color;
+          }
+        }
+      }
     }
   }
   .empty-comment {

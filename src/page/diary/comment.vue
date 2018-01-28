@@ -1,12 +1,16 @@
 <template>
   <li class="comment-item">
     <div class="user-wrap">
-      <div class="avatar">
+      <router-link :to="{name: 'user', params: {id: 1}}"
+        tag="div" class="avatar">
         <img :src="avatar" alt="">
-      </div>
+      </router-link>
       <div class="info">
         <div class="name-wrap">
-          <span class="name">有馬の日记</span>
+          <router-link :to="{name: 'user', params: {id: 1}}" 
+            tag="span"  class="name">
+          有馬の日记
+          </router-link>
           <span class="author-flag">作者</span>
         </div>
         <div class="meta-list-wrap">
@@ -26,13 +30,19 @@
       <ul class="sub-comment-list">
         <li v-for="n in 2" :key="n" class="sub-comment-item">
           <!-- 回复者 -->
-          <span class="respondent">桐山零：</span>
+          <router-link :to="{name: 'user', params: {id: 1}}"
+            tag="span" class="respondent">
+            桐山零：
+          </router-link>
           <div class="content-wrap">
             <!-- 被回复者 -->
-            <span class="aite-name">@有馬の日记</span>
-            <span class="sub-content">有馬の日记</span>
+            <router-link :to="{name: 'user', params: {id: 1}}"
+              tag="span" class="aite-name">
+              @有馬の日记
+            </router-link>
+            <span @click.stop="apply(commentItem)" class="sub-content">有馬の日记</span>
           </div>
-          <ul class="tool-group">
+          <ul v-if="false" class="tool-group">
             <li class="btn comment-btn"><i class="icon icon-comment"></i></li>
           </ul>
         </li>
@@ -54,6 +64,12 @@ import {getRouterInfo, goRouterLink} from '@/js/router'
 export default {
   // 单条评论
   name: 'comment',
+  props: {
+    commentItem: {
+      type: Object,
+      default: () => { return {} }
+    }
+  },
   data() {
     return {
       // 是否为评论详情组件
@@ -67,12 +83,21 @@ export default {
     })
   },
   methods: {
+    // 初始化评论详情页评论列表
     _initCommentDetailState() {
       let routeInfo = getRouterInfo(this)
       this.isCommentDetail = routeInfo.name === 'commentDetail'
     },
+
+    // 跳转到评论详情页
     goCommentDetail(id) {
       goRouterLink({name: 'commentDetail', params: {id: id}}, this)
+    },
+
+    // 添加子评论回复
+    apply(commentItem) {
+      // true -> 工具菜单显示状态
+      this.$emit('applySubComment', {commentItem, toolActionSheetShow: true})
     }
   },
   components: {
@@ -106,6 +131,7 @@ export default {
       align-self: center;
       box-sizing: border-box;
       padding-left: .25rem;
+      line-height: .35rem;
       .name-wrap {
         font-size: 0;
         .name {
@@ -148,19 +174,23 @@ export default {
     .sub-comment-list {
       .sub-comment-item {
         display: flex;
-        padding: .25rem 0;
         border-top: .025rem dashed #ccc;
+        span {padding: .25rem 0;}
         .respondent {
           font-size: .25rem;
           color: @router-color;
         }
         .content-wrap {
+          display: flex;
+          align-items: center;
           flex: 1;
           .aite-name {
             font-size: .25rem;
             color: @router-color;
           }
           .sub-content {
+            flex: 1;
+            padding: .25rem 0 .25rem .25rem;
             font-size: .25rem;
           }
         }

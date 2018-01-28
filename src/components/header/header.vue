@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import * as eventUtil from '@/js/eventUtil'
 export default {
   props: {
     arrowColor: {
@@ -36,11 +37,18 @@ export default {
       default: -1
     }
   },
+  created() {
+    eventUtil.addHandler(window, 'popstate', () => {
+      this.emitEvent()
+    })
+  },
   methods: {
     backPrevPage() {
-      this.$emit('setTransition', 'slide-right')
-      console.log(this.backPrevPageStep)
+      this.emitEvent()
       this.$router.go(this.backPrevPageStep)
+    },
+    emitEvent() {
+      this.$emit('setTransition', 'slide-right')
     }
   }
 }

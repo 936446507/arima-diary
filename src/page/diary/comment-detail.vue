@@ -1,27 +1,31 @@
 <template>
-  <div class="wrapper">
-    <v-header class="comment-detail-header">
+   <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true"
+        class="comment-detail-header">
       <span class="desc">评论详情</span>
-    </v-header>
-    <div class="comment-detail-wrap">
-      <v-scroll class="scroll-wrap">
-        <div class="comment-detail">
-          <v-comment v-for="n in 10" :key="n" class="comment-item"></v-comment>
-        </div>
-      </v-scroll>
-    </div>
-    <footer-tool class="footer-tool-wrap">
-      <div @click.stop="showTextareaModal" class="comment-input-wrap">
-        添加一条评论吧~
+      </v-header>
+      <div class="comment-detail-wrap">
+        <v-scroll class="scroll-wrap">
+          <div class="comment-detail">
+            <v-comment class="comment-item"></v-comment>
+          </div>
+        </v-scroll>
       </div>
-      <button class="publish-btn">发表</button>
-    </footer-tool>
-    <!-- 评论文本域模态框状态 -->
-    <textarea-modal ref="textareaModal"></textarea-modal>
-  </div> 
+      <footer-tool class="footer-tool-wrap">
+        <div @click.stop="showTextareaModal" class="comment-input-wrap">
+          添加一条评论吧~
+        </div>
+        <button class="publish-btn">发表</button>
+      </footer-tool>
+      <!-- 评论文本域模态框状态 -->
+      <textarea-modal ref="textareaModal"></textarea-modal>
+    </div>
+   </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 import Comment from './comment'
@@ -30,6 +34,7 @@ import textareaModal from './textarea-modal'
 export default {
   data() {
     return {
+      transitionName: 'slide-left'
     }
   },
   created() {
@@ -39,9 +44,16 @@ export default {
   methods: {
     showTextareaModal() {
       this.$refs.textareaModal.show()
+    },
+
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
     }
   },
   components: {
+    'slide-transition': SlideTransition,
     'v-header': Header,
     'v-scroll': Scroll,
     'v-comment': Comment,
