@@ -16,13 +16,15 @@
               <div class="form">
                 <div class="form-item username">
                   <i class="icon"></i>
-                  <input type="text" class="input username-input" placeholder="请输入用户名">
+                  <input v-model="username" type="text" 
+                    class="input username-input" placeholder="请输入用户名">
                 </div>
                 <div class="form-item password">
                   <i class="icon"></i>
-                  <input type="text" class="input password-input" placeholder="请输入密码">
+                  <input v-model="password" type="text" 
+                    class="input password-input" placeholder="请输入密码">
                 </div>
-                <button class="login-btn">登录</button>
+                <button @click.stop="login" class="login-btn">登录</button>
                 <ul class="tool-list">
                   <li class="tool">忘记密码？</li>
                   <router-link :to="{name: 'register'}" tag="li" class="tool">
@@ -34,6 +36,7 @@
           </div>
         </v-scroll>
       </div>
+      <toast v-model="tipShow" :text="tipText" type="text" width="4rem"></toast>
     </div>
   </slide-transition>
 </template>
@@ -42,24 +45,43 @@
 import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
+import {Toast} from 'vux'
+import * as store from '@/js/store'
+// 本地存储仓库ID
+const storeId = 1
 export default {
   data() {
     return {
       logo: require('../../assets/images/logo.jpg'),
-      transitionName: 'slide-left'
+      transitionName: 'slide-left',
+      username: '',
+      password: '',
+      tipShow: false,
+      tipText: ''
     }
   },
   methods: {
+    // 登录
+    login() {
+      let [username, password] = [this.username, this.password]
+      if (!username || !password) {
+        this.tipText = '请输入用户名与密码'
+        this.tipShow = true
+      } else {
+        let userInfo = Object.assign({}, {userId: 1, username: '有馬の日記', loginStatus: true})
+        store.saveToLocal(storeId, 'userInfo', userInfo)
+      }
+    },
     // 设置过渡
     setTransition(transitionName) {
-      console.log(transitionName)
       this.transitionName = transitionName
     }
   },
   components: {
     'slide-transition': SlideTransition,
     'v-header': Header,
-    'v-scroll': Scroll
+    'v-scroll': Scroll,
+    Toast
   }
 }
 </script>

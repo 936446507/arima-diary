@@ -8,12 +8,19 @@ import '@/style/reset.css'
 import '@/style/icon.css'
 import 'vue2-animate/dist/vue2-animate.min.css'
 
+import Vuex from 'vuex'
+import store from './vuex/store'
+
 Vue.config.productionTip = false
+
+Vue.use(Vuex)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  Vuex,
+  store,
   template: '<App/>',
   components: { App }
 })

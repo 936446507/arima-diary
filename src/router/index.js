@@ -26,7 +26,17 @@ import SearchUser from '@/page/search/search-user'
 import Editor from '@/page/editor/editor'
 import TouchSlide from '@/components/touch-slide/touch-slide'
 
+import * as store from '@/js/store'
+
 Vue.use(Router)
+
+const storeId = 1
+// 获取登录状态
+function getLoginStatus() {
+  let userInfo = store.loadFromLocal(storeId, 'userInfo')
+  let isLogin = userInfo ? userInfo.loginStatus : false
+  return isLogin
+}
 
 export default new Router({
   routes: [
@@ -89,22 +99,54 @@ export default new Router({
     {
       path: '/myDiary',
       name: 'myDiary',
-      component: MyDiary
+      component: MyDiary,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/myFavorite',
       name: 'myFavorite',
-      component: MyDiary
+      component: MyDiary,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/setting',
       name: 'setting',
-      component: Setting
+      component: Setting,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/personalData',
       name: 'personalData',
-      component: PersonalData
+      component: PersonalData,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/login',
@@ -129,12 +171,28 @@ export default new Router({
     {
       path: '/searchUser',
       name: 'searchUser',
-      component: SearchUser
+      component: SearchUser,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/editor',
       name: 'editor',
-      component: Editor
+      component: Editor,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/recommendAuthor',
@@ -144,22 +202,54 @@ export default new Router({
     {
       path: '/noticeComment',
       name: 'noticeComment',
-      component: NoticeComment
+      component: NoticeComment,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/noticeFavorite',
       name: 'noticeFavorite',
-      component: NoticeFavorite
+      component: NoticeFavorite,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/noticeFllow',
       name: 'noticeFllow',
-      component: NoticeFllow
+      component: NoticeFllow,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/personalMessage/:id',
       name: 'personalMessage',
-      component: PersonalMesage
+      component: PersonalMesage,
+      beforeEnter: (to, from, next) => {
+        let isLogin = getLoginStatus()
+        if (!isLogin) {
+          next({name: 'login'})
+        } else {
+          next()
+        }
+      }
     }
   ]
 })

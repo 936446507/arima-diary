@@ -13,8 +13,15 @@
           </router-link>
           <li v-if="false" class="empty">还没有数据哦~</li>
         </ul>
-        <button class="quit-account-btn">退出账号</button>
+        <button @click.stop="openQuitConfirm" class="quit-account-btn">退出账号</button>
       </v-list>
+      <!-- 退出账号提示框 -->
+      <div v-transfer-dom>
+        <confirm v-model="quitConfirmShow" title="退出账号？"
+          @on-confirm="quitAccount">
+          <p style="text-align:center;">确定退出账号？</p>
+        </confirm>
+      </div>
     </div>
   </slide-transition>
 </template>
@@ -23,11 +30,17 @@
 import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import List from '@/components/list/list'
+import {Confirm, TransferDomDirective as TransferDom} from 'vux'
+import * as store from '@/js/store'
+import {goRouterLink} from '@/js/router'
+
+const storeId = 1
 export default {
   data() {
     return {
       transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg'),
+      quitConfirmShow: false,
       settingList: [
         {
           title: '个人资料',
@@ -41,6 +54,15 @@ export default {
     }
   },
   methods: {
+    // 打开退出账号确认框
+    openQuitConfirm() {
+      this.quitConfirmShow = true
+    },
+    // 退出账号
+    quitAccount() {
+      store.removeLocal(storeId, 'userInfo')
+      goRouterLink({name: 'self'})
+    },
     // 设置过渡
     setTransition(transitionName) {
       this.transitionName = transitionName
@@ -49,7 +71,11 @@ export default {
   components: {
     'slide-transition': SlideTransition,
     'v-header': Header,
-    'v-list': List
+    'v-list': List,
+    Confirm
+  },
+  directives: {
+    TransferDom
   }
 }
 </script>

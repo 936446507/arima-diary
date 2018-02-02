@@ -21,22 +21,24 @@
                   <li class="item fans">粉丝 10</li>
                 </ul>
                 <div class="btn-wrap">
-                  <div class="btn edit-btn">
+                  <div v-if="isLogin && isSelf" class="btn edit-btn">
                     <i class="icon icon-input-edit"></i>
                     <span class="desc">编辑资料</span>
                   </div>
-                  <div v-if="false" class="btn fllow-btn">
-                    <i class="icon icon-plus"></i>
-                    <span class="desc">关注</span>
+                  <div @click.stop="fllowUser" v-else class="fllow-btn-wrap">
+                    <div v-show="!isHadFllowed" class="btn fllow-btn">
+                      <i class="icon icon-plus"></i>
+                      <span class="desc">关注</span>
+                    </div>
+                    <div v-show="isHadFllowed" class="btn fllow-btn">
+                      <i class="icon icon-right"></i>
+                      <span class="desc">已关注</span>
+                    </div> 
                   </div>
-                  <div v-if="false" class="btn fllow-btn">
-                    <i class="icon icon-right"></i>
-                    <span class="desc">已关注</span>
-                  </div>                
                 </div>
               </div>
             </header>
-            <main class="user-main-wrap">
+            <main v-if="false" class="user-main-wrap">
               <touch-tab :tabItems="tabItems" :defaltIndex="0">
                 <div @touchstart.stop="start($event)" @touchmove.stop="move($event)"
                   @touchend.stop="end($event)" class="content">
@@ -80,10 +82,14 @@ import TouchTab from '@/components/touch-tab/touch-tab'
 import Steps from '@/page/user/steps'
 import diary from '@/page/user/diary'
 import About from '@/page/user/about'
-
+import {goRouterLink} from '@/js/router'
 export default {
   data() {
     return {
+      // 是否为用户本人
+      isSelf: false,
+      // 是否已经关注用户
+      isHadFllowed: false,
       transitionName: 'slide-left',
       avatar: require('@/assets/images/logo.jpg'),
       sex: 'man',
@@ -140,6 +146,14 @@ export default {
     })
   },
   methods: {
+    // 关注用户
+    fllowUser() {
+      if (!this.isLogin) {
+        goRouterLink({name: 'login'}, this)
+      } else {
+        this.isHadFllowed = !this.isHadFllowed
+      }
+    },
     watchScrollEvent() {
       let scroll = this.$refs.scrollWrap.scroll
       scroll.on('scroll', (pos) => {
@@ -153,6 +167,12 @@ export default {
     // 设置过渡
     setTransition(transitionName) {
       this.transitionName = transitionName
+    }
+  },
+  computed: {
+    // 登录状态
+    isLogin() {
+      return this.$store.getters.getLoginStatus
     }
   },
   components: {

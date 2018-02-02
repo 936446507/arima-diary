@@ -169,6 +169,7 @@ import CommentDetail from '@/page/diary/comment-detail'
 import CommentTextarea from '@/page/diary/comment-textarea'
 import footerTool from '@/page/diary/footer-tool'
 import {Actionsheet, Toast, Popup, XTextarea} from 'vux'
+import {goRouterLink} from '@/js/router'
 
 export default {
   data() {
@@ -300,13 +301,19 @@ export default {
     },
     // 关注作者
     fllowUser() {
-      this.isHadFllowed = !this.isHadFllowed
-      this.tipShow = true
-      this.tipText = this.isHadFllowed ? '关注成功' : '已取消关注'
+      if (!this.isLogin) {
+        goRouterLink({name: 'login'}, this)
+      } else {
+        this.isHadFllowed = !this.isHadFllowed
+        this.tipShow = true
+        this.tipText = this.isHadFllowed ? '关注成功' : '已取消关注'
+      }
     },
     // 点赞
     giveZan(commentItem) {
-
+      if (!this.isLogin) {
+        goRouterLink({name: 'login'}, this)
+      }
     },
     // 滚动到评论区
     scrollToComment() {
@@ -327,13 +334,19 @@ export default {
     },
     // 添加主评论回复
     applyComment(commentItem) {
-      this.isApplyComment = true
-      this.showTextareaModal()
+      if (!this.isLogin) {
+        goRouterLink({name: 'login'}, this)
+      } else {
+        this.isApplyComment = true
+        this.showTextareaModal()
+      }
     },
-    // 添加子评论回复 接收自组件返回的评论数据
+    // 添加子评论回复 接收子组件返回的评论数据
     applySubComment(arg) {
-      this.toolActionSheetShow = arg.toolActionSheetShow
-      this.curClickSubCommentItem = arg.subCommentItem
+      if (this.isLogin) {
+        this.toolActionSheetShow = arg.toolActionSheetShow
+        this.curClickSubCommentItem = arg.subCommentItem
+      }
     },
     // 查看评论详情
     seeCommentDetail(commentItem) {
@@ -342,11 +355,19 @@ export default {
     },
     // 添加喜欢日记
     favoriteDiary() {
-      this.isFavoriteDiary = !this.isFavoriteDiary
+      if (!this.isLogin) {
+        goRouterLink({name: 'login'}, this)
+      } else {
+        this.isFavoriteDiary = !this.isFavoriteDiary
+      }
     },
     // 显示评论文本域
     showTextareaModal() {
-      this.$refs.commentTextarea.showTextareaModal()
+      if (!this.isLogin) {
+        goRouterLink({name: 'login'}, this)
+      } else {
+        this.$refs.commentTextarea.showTextareaModal()
+      }
     },
 
     // 复制评论内容
@@ -385,6 +406,10 @@ export default {
       }
 
       return toolMenus
+    },
+    // 登录状态
+    isLogin() {
+      return this.$store.getters.getLoginStatus
     }
   },
   components: {
