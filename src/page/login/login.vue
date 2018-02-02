@@ -1,48 +1,63 @@
 <template>
-  <div class="wrapper">
-    <v-header class="header-tool" arrowColor="white" background="transparent"></v-header>
-    <div class="login-wrap">
-      <v-scroll class="scroll-wrap">
-        <div class="login">
-          <header class="header">
-            <div class="name">有馬の日記</div>
-            <div class="logo"><img :src="logo" alt=""></div>
-          </header>
-          <main class="main">
-            <div class="form">
-              <div class="form-item username">
-                <i class="icon"></i>
-                <input type="text" class="input username-input" placeholder="请输入用户名">
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true"
+        class="header-tool" arrowColor="white" background="transparent"
+        boxShadowColor="transparent">
+      </v-header>
+      <div class="login-wrap">
+        <v-scroll class="scroll-wrap">
+          <div class="login">
+            <header class="header">
+              <div class="name">有馬の日記</div>
+              <div class="logo"><img :src="logo" alt=""></div>
+            </header>
+            <main class="main">
+              <div class="form">
+                <div class="form-item username">
+                  <i class="icon"></i>
+                  <input type="text" class="input username-input" placeholder="请输入用户名">
+                </div>
+                <div class="form-item password">
+                  <i class="icon"></i>
+                  <input type="text" class="input password-input" placeholder="请输入密码">
+                </div>
+                <button class="login-btn">登录</button>
+                <ul class="tool-list">
+                  <li class="tool">忘记密码？</li>
+                  <router-link :to="{name: 'register'}" tag="li" class="tool">
+                    注册
+                  </router-link>
+                </ul>
               </div>
-              <div class="form-item password">
-                <i class="icon"></i>
-                <input type="text" class="input password-input" placeholder="请输入密码">
-              </div>
-              <button class="login-btn">登录</button>
-              <ul class="tool-list">
-                <li class="tool">忘记密码？</li>
-                <router-link :to="{name: 'register'}" tag="li" class="tool">
-                  注册
-                </router-link>
-              </ul>
-            </div>
-          </main>
-        </div>
-      </v-scroll>
+            </main>
+          </div>
+        </v-scroll>
+      </div>
     </div>
-  </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 export default {
   data() {
     return {
-      logo: require('../../assets/images/logo.jpg')
+      logo: require('../../assets/images/logo.jpg'),
+      transitionName: 'slide-left'
+    }
+  },
+  methods: {
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
     }
   },
   components: {
+    'slide-transition': SlideTransition,
     'v-header': Header,
     'v-scroll': Scroll
   }

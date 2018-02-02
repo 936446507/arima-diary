@@ -1,44 +1,58 @@
 <template>
-  <div class="wrapper">
-    <v-header class="header-tool" arrow-color="white" background="transparent"></v-header>
-    <div class="register-wrap">
-      <v-scroll class="scroll-wrap">
-        <header class="header">
-          <div class="name">有馬の日記</div>
-          <div class="logo"><img :src="logo" alt=""></div>
-        </header>
-        <main class="main">
-          <div class="form">
-            <div class="form-item username">
-              <i class="icon"></i>
-              <input type="text" class="input username-input" placeholder="请输入用户名">
+  <slide-transition :transitionName="transitionName">
+    <div class="wrapper router-view">
+      <v-header @setTransition="setTransition" :isIncreaseZIndex="true"
+        class="header-tool" arrow-color="white" boxShadowColor="transparent"
+        background="transparent">
+      </v-header>
+      <div class="register-wrap">
+        <v-scroll class="scroll-wrap">
+          <header class="header">
+            <div class="name">有馬の日記</div>
+            <div class="logo"><img :src="logo" alt=""></div>
+          </header>
+          <main class="main">
+            <div class="form">
+              <div class="form-item username">
+                <i class="icon"></i>
+                <input type="text" class="input username-input" placeholder="请输入用户名">
+              </div>
+              <div class="form-item password">
+                <i class="icon"></i>
+                <input type="text" class="input password-input" placeholder="请输入密码">
+              </div>
+              <button class="register-btn">注册</button>
             </div>
-            <div class="form-item password">
-              <i class="icon"></i>
-              <input type="text" class="input password-input" placeholder="请输入密码">
-            </div>
-            <button class="register-btn">注册</button>
-          </div>
-        </main>
-        <footer class="footer">已有账号，
-          <router-link :to="{name: 'login'}" tag="span" class="desc">立即登录</router-link>
-        </footer>
-      </v-scroll>
+          </main>
+          <footer class="footer">已有账号，
+            <router-link :to="{name: 'login'}" tag="span" class="desc">立即登录</router-link>
+          </footer>
+        </v-scroll>
+      </div>
     </div>
-    
-  </div>
+  </slide-transition>
 </template>
 
 <script>
+import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 export default {
   data() {
     return {
-      logo: require('../../assets/images/logo.jpg')
+      logo: require('../../assets/images/logo.jpg'),
+      transitionName: 'slide-left'
+    }
+  },
+  methods: {
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
     }
   },
   components: {
+    'slide-transition': SlideTransition,
     'v-header': Header,
     'v-scroll': Scroll
   }
