@@ -24,6 +24,7 @@ import Search from '@/page/search/search'
 import SearchDetail from '@/page/search/search-detail'
 import SearchUser from '@/page/search/search-user'
 import Editor from '@/page/editor/editor'
+import TouchSlide from '@/components/touch-slide/touch-slide'
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
           component: Self
         }
       ]
+    },
+    {
+      path: '/touchSlide',
+      name: 'touchSlide',
+      component: TouchSlide
     },
     {
       path: '/user/:id',
