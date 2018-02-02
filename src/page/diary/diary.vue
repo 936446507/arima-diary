@@ -2,9 +2,9 @@
   <slide-transition :transitionName="transitionName">
     <div class="wrapper router-view">
       <v-header @setTransition="setTransition" :isIncreaseZIndex="true"
-      ref="diaryHeaderTool" class="diary-header-tool">
-      <router-link :to="{name: 'user', params: {id: 1}}"
-        tag="div" v-show="avatarStatus" class="avatar">
+        ref="diaryHeaderTool" class="diary-header-tool">
+        <router-link :to="{name: 'user', params: {id: 1}}"
+          tag="div" v-show="avatarStatus" class="avatar">
         <img :src="avatar" alt="">
         </router-link>
       </v-header>
@@ -101,12 +101,16 @@
             <div class="comment-wrap" ref="commentWrap">
               <!-- 头部信息栏 -->
               <header class="comment-header-meta">
-                <span class="comment-num">评论 666</span>
+                <span class="comment-num">评论 {{commentList.length}}</span>
               </header>
               <!-- 评论列表 -->
               <div class="comment-content-wrap">
                 <ul class="comment-content">
-                  <v-comment @applySubComment="applySubComment"></v-comment>
+                  <v-comment v-for="commentItem in commentList" 
+                    :key="commentItem.commentId" :commentItem="commentItem" 
+                    @applyComment="applyComment" @applySubComment="applySubComment"
+                    @giveZan="giveZan" @seeCommentDetail="seeCommentDetail">
+                  </v-comment>
                 </ul>
               </div>
               <!-- 没有评论 -->
@@ -139,13 +143,17 @@
           </li>
         </ul>
       </footer-tool>
-      <!-- 评论文本域模态框状态 -->
-      <textarea-modal ref="textareaModal"></textarea-modal>
+      <!-- 评论详情组件 -->
+      <comment-detail v-show="commentDetailShow"
+        :commentItem="curClickCommentDetail">
+      </comment-detail>
+      <!-- 评论文本域组件 -->
+      <comment-textarea ref="commentTextarea" :isApplyComment="isApplyComment"></comment-textarea>
       <!-- 提示 -->
       <toast v-model="tipShow" position="middle" type="text" :text="tipText"></toast>
        <!-- 工具菜单- 添加子评论等 -->
       <actionsheet v-model="toolActionSheetShow" theme="android"
-        :menus="toolMenus" @on-click-menu="selectMunu">
+        :menus="toolMenus" @on-click-menu="selectMenu">
       </actionsheet>
     </div>
   </slide-transition>
@@ -157,9 +165,10 @@ import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 import MetaList from '@/components/meta-list/meta-list'
 import Comment from '@/page/diary/comment'
+import CommentDetail from '@/page/diary/comment-detail'
+import CommentTextarea from '@/page/diary/comment-textarea'
 import footerTool from '@/page/diary/footer-tool'
-import textareaModal from '@/page/diary/textarea-modal'
-import {Actionsheet, Toast} from 'vux'
+import {Actionsheet, Toast, Popup, XTextarea} from 'vux'
 
 export default {
   data() {
@@ -170,9 +179,6 @@ export default {
       avatarStatus: false,
       // 是否已关注了作者
       isHadFllowed: false,
-      // 评论文本域模态框状态
-      isTextareaModalShow: false,
-      actionSheetStatus: false,
       // 是否已喜欢该日记
       isFavoriteDiary: false,
       scrollY: 0,
@@ -181,21 +187,98 @@ export default {
       tipText: '',
       // 工具菜单
       toolActionSheetShow: false,
-      toolMenus: {
-        menu1: '回复'
-      },
       // 点击子评论
-      activeCommentItem: {}
+      curClickSubCommentItem: {},
+      // 用于评论文本域的，是否是回复主评论
+      isApplyComment: true,
+      // 点击的查看详情的评论
+      curClickCommentDetail: {},
+      commentDetailShow: false,
+      commentList: [
+        {
+          commentId: 1,
+          avatar: require('@/assets/images/logo.jpg'),
+          userId: 1,
+          username: '有馬の日记',
+          time: '2018-01-01 00:00',
+          isZaned: false,
+          zan: 999,
+          content: '有馬の日记',
+          subComment: [
+            {
+              respondentId: 1,
+              respondent: '桐山零',
+              aiteId: 2,
+              aiteName: '有馬の日记',
+              content: '有馬の日记'
+            },
+            {
+              respondentId: 2,
+              respondent: '桐山零',
+              aiteId: 2,
+              aiteName: '有馬の日记',
+              content: '有馬の日记'
+            },
+            {
+              respondentId: 3,
+              respondent: '桐山零',
+              aiteId: 2,
+              aiteName: '有馬の日记',
+              content: '有馬の日记'
+            },
+            {
+              respondentId: 4,
+              respondent: '桐山零',
+              aiteId: 2,
+              aiteName: '有馬の日记',
+              content: '有馬の日记'
+            }
+          ]
+        },
+        {
+          commentId: 2,
+          avatar: require('@/assets/images/logo.jpg'),
+          userId: 1,
+          username: '有馬の日记',
+          time: '2018-01-01 00:00',
+          isZaned: true,
+          zan: 999,
+          content: '有馬の日记',
+          subComment: [
+            {
+              respondentId: 1,
+              respondent: '桐山零',
+              aiteId: 2,
+              aiteName: '有馬の日记',
+              content: '有馬の日记'
+            },
+            {
+              respondentId: 2,
+              respondent: '桐山零',
+              aiteId: 2,
+              aiteName: '有馬の日记',
+              content: '有馬の日记'
+            },
+            {
+              respondentId: 3,
+              respondent: '桐山零',
+              aiteId: 2,
+              aiteName: '有馬の日记',
+              content: '有馬の日记'
+            }
+          ]
+        }
+      ]
     }
   },
   mounted() {
     this.$nextTick(() => {
-      this.setHeaderToolStatus()
+      this._setHeaderToolStatus()
     })
   },
   methods: {
     // 设置头部工具条状态
-    setHeaderToolStatus() {
+    _setHeaderToolStatus() {
       let scroll = this.$refs.scrollWrap.scroll
       scroll.on('scroll', (pos) => {
         if (pos.y <= this.scrollY) {
@@ -215,18 +298,16 @@ export default {
         }
       })
     },
-    // 显示评论文本域
-    showTextareaModal() {
-      this.$refs.textareaModal.show()
-    },
-
     // 关注作者
     fllowUser() {
       this.isHadFllowed = !this.isHadFllowed
       this.tipShow = true
       this.tipText = this.isHadFllowed ? '关注成功' : '已取消关注'
     },
+    // 点赞
+    giveZan(commentItem) {
 
+    },
     // 滚动到评论区
     scrollToComment() {
       console.log(this.$refs.scrollWrap)
@@ -234,18 +315,48 @@ export default {
     },
 
     //  选择弹出层菜单
-    selectMunu(menuKey, menuItem) {
+    selectMenu(menuKey, menuItem) {
       console.log(menuKey, menuItem)
+      if (menuKey === 'menu1' || menuItem === '回复') {
+        this.textareaValue = `@${this.curClickSubCommentItem.respondent}`
+        this.isApplyComment = false
+        this.showTextareaModal()
+      } else if (menuKey === 'menu2' || menuItem === '复制') {
+        this.cloneComment(this.curClickSubCommentItem.content)
+      }
     },
-
-    // 添加子评论回复
+    // 添加主评论回复
+    applyComment(commentItem) {
+      this.isApplyComment = true
+      this.showTextareaModal()
+    },
+    // 添加子评论回复 接收自组件返回的评论数据
     applySubComment(arg) {
       this.toolActionSheetShow = arg.toolActionSheetShow
-      console.log(arg)
+      this.curClickSubCommentItem = arg.subCommentItem
+    },
+    // 查看评论详情
+    seeCommentDetail(commentItem) {
+      this.commentDetailShow = true
+      this.curClickCommentDetail = commentItem
     },
     // 添加喜欢日记
     favoriteDiary() {
       this.isFavoriteDiary = !this.isFavoriteDiary
+    },
+    // 显示评论文本域
+    showTextareaModal() {
+      this.$refs.commentTextarea.showTextareaModal()
+    },
+
+    // 复制评论内容
+    cloneComment(content) {
+      let aux = document.createElement('input')
+      aux.setAttribute('value', content)
+      document.body.appendChild(aux)
+      aux.select()
+      document.execCommand('copy')
+      document.body.removeChild(aux)
     },
 
     // 底部数值大小操作
@@ -263,6 +374,19 @@ export default {
       this.transitionName = transitionName
     }
   },
+  computed: {
+    // 工具菜单
+    toolMenus() {
+      let toolMenus = {
+        menu1: '回复',
+        menu2: '复制',
+        menu3: '查看详情',
+        menu4: '删除'
+      }
+
+      return toolMenus
+    }
+  },
   components: {
     'slide-transition': SlideTransition,
     'v-header': Header,
@@ -270,9 +394,12 @@ export default {
     'meta-list': MetaList,
     'v-comment': Comment,
     'footer-tool': footerTool,
-    'textarea-modal': textareaModal,
+    'comment-detail': CommentDetail,
+    'comment-textarea': CommentTextarea,
     Actionsheet,
-    Toast
+    Toast,
+    Popup,
+    XTextarea
   }
 }
 </script>

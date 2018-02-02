@@ -1,5 +1,6 @@
 <template>
   <li class="comment-item">
+    <!-- 头部用户信息 -->
     <div class="user-wrap">
       <router-link :to="{name: 'user', params: {id: 1}}"
         tag="div" class="avatar">
@@ -9,45 +10,55 @@
         <div class="name-wrap">
           <router-link :to="{name: 'user', params: {id: 1}}" 
             tag="span"  class="name">
-          有馬の日记
+          {{commentItem.username}}
           </router-link>
           <span class="author-flag">作者</span>
         </div>
         <div class="meta-list-wrap">
           <meta-list>
             <li class="meta">1楼</li>
-            <li class="meta">2018.1.1 00:00</li>
+            <li class="meta">{{commentItem.time}}</li>
           </meta-list>
         </div>
       </div>
       <ul class="tool-group">
-        <li class="btn comment-btn"><i class="icon icon-comment"></i></li>
-        <li class="btn zan-btn"><i class="icon icon-zan"></i><span class="num">999</span></li>
+        <li @click.stop="applyComment(commentItem)" class="btn comment-btn">
+          <i class="icon icon-comment"></i>
+        </li>
+        <li @click.stop="giveZan(commentItem)"
+          :class="{'zaned': commentItem.isZaned}"  class="btn zan-btn">
+          <i class="icon icon-zan"></i>
+          <span class="num">{{commentItem.zan}}</span>
+        </li>
       </ul>
     </div>
-    <div class="content">有馬の日记</div>
+    <div class="content">{{commentItem.content}}</div>
+    <!-- 子评论 -->
     <div class="sub-comment-wrap">
       <ul class="sub-comment-list">
-        <li v-for="n in 2" :key="n" class="sub-comment-item">
+        <li v-for="(subComment, index) in commentItem.subComment" :key="subComment.respondentId"
+          v-if="index < 3" class="sub-comment-item">
           <!-- 回复者 -->
-          <router-link :to="{name: 'user', params: {id: 1}}"
+          <router-link :to="{name: 'user', params: {id: subComment.respondentId}}"
             tag="span" class="respondent">
-            桐山零：
+            {{subComment.respondent}}：
           </router-link>
           <div class="content-wrap">
             <!-- 被回复者 -->
-            <router-link :to="{name: 'user', params: {id: 1}}"
+            <router-link :to="{name: 'user', params: {id: subComment.aiteId}}"
               tag="span" class="aite-name">
-              @有馬の日记
+              @{{subComment.aiteName}}
             </router-link>
-            <span @click.stop="apply(commentItem)" class="sub-content">有馬の日记</span>
+            <span @click.stop="applySubComment(subComment)" class="sub-content">{{subComment.content}}</span>
           </div>
           <ul v-if="false" class="tool-group">
-            <li class="btn comment-btn"><i class="icon icon-comment"></i></li>
+            <li class="btn comment-btn">
+              <i class="icon icon-comment"></i>
+            </li>
           </ul>
         </li>
-        <div v-if="!isCommentDetail" class="more-content-btn">
-          还有 2 条评论，<span @click.stop="goCommentDetail(1)" class="more-content">点击查看</span>
+        <div v-if="!isCommentDetail && commentItem.subComment.length > 3" class="more-content-btn">
+          还有 {{commentItem.subComment.length - 3}} 条评论，<span @click.stop="goCommentDetail(1)" class="more-content">点击查看</span>
         </div>
         <!-- 底部提示 -->
         <div v-if="isCommentDetail" class="end-tip">
@@ -93,11 +104,18 @@ export default {
     goCommentDetail(id) {
       goRouterLink({name: 'commentDetail', params: {id: id}}, this)
     },
-
+    // 点赞
+    giveZan(commentItem) {
+      this.$emit('giveZan', commentItem)
+    },
+    // 添加主评论回复
+    applyComment(commentItem) {
+      this.$emit('applyComment', commentItem)
+    },
     // 添加子评论回复
-    apply(commentItem) {
+    applySubComment(subCommentItem) {
       // true -> 工具菜单显示状态
-      this.$emit('applySubComment', {commentItem, toolActionSheetShow: true})
+      this.$emit('applySubComment', {subCommentItem, toolActionSheetShow: true})
     }
   },
   components: {
@@ -158,6 +176,10 @@ export default {
         &.zan-btn {
           display: flex;
           align-items: center;
+          &.zaned {
+            // 已经点赞样式
+            color: #f56c6c;
+          }
           .num {
             padding-left: .1rem;
             font-size: .25rem;

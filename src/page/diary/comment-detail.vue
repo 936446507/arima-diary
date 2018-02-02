@@ -8,7 +8,7 @@
       <div class="comment-detail-wrap">
         <v-scroll class="scroll-wrap">
           <div class="comment-detail">
-            <v-comment class="comment-item"></v-comment>
+            <v-comment :commentItem="commentItem" class="comment-item"></v-comment>
           </div>
         </v-scroll>
       </div>
@@ -19,7 +19,6 @@
         <button class="publish-btn">发表</button>
       </footer-tool>
       <!-- 评论文本域模态框状态 -->
-      <textarea-modal ref="textareaModal"></textarea-modal>
     </div>
    </slide-transition>
 </template>
@@ -30,11 +29,51 @@ import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 import Comment from './comment'
 import footerTool from './footer-tool'
-import textareaModal from './textarea-modal'
+import {Group, XTextarea} from 'vux'
 export default {
   data() {
     return {
-      transitionName: 'slide-left'
+      transitionName: 'slide-left',
+      commentValue: '',
+      commentItem: {
+        commentId: 1,
+        avatar: require('@/assets/images/logo.jpg'),
+        userId: 1,
+        username: '有馬の日记',
+        time: '2018-01-01 00:00',
+        zan: 999,
+        content: '有馬の日记',
+        subComment: [
+          {
+            respondentId: 1,
+            respondent: '桐山零',
+            aiteId: 2,
+            aiteName: '有馬の日记',
+            content: '有馬の日记'
+          },
+          {
+            respondentId: 2,
+            respondent: '桐山零',
+            aiteId: 2,
+            aiteName: '有馬の日记',
+            content: '有馬の日记'
+          },
+          {
+            respondentId: 3,
+            respondent: '桐山零',
+            aiteId: 2,
+            aiteName: '有馬の日记',
+            content: '有馬の日记'
+          },
+          {
+            respondentId: 4,
+            respondent: '桐山零',
+            aiteId: 2,
+            aiteName: '有馬の日记',
+            content: '有馬の日记'
+          }
+        ]
+      }
     }
   },
   created() {
@@ -58,7 +97,8 @@ export default {
     'v-scroll': Scroll,
     'v-comment': Comment,
     'footer-tool': footerTool,
-    'textarea-modal': textareaModal
+    Group,
+    XTextarea
   }
 }
 </script>
