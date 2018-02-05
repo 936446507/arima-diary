@@ -36,9 +36,8 @@
         <div class="footer">
           <div class="textarea">
             <group :gutter="0">
-              <x-textarea :show-counter="false" :rows="1"
-                autosize placeholder="在这里输入内容"
-                >
+              <x-textarea :show-counter="false" :rows="2"
+                autosize placeholder="在这里输入内容">
               </x-textarea>
             </group>
           </div>
@@ -110,7 +109,7 @@ export default {
     .message-main {
       display: flex;
       align-items: flex-start;
-      padding: .25rem 0;
+      padding-top: .5rem;
       .avatar {
         width: .75rem;
         height: .75rem;
