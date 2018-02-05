@@ -61,7 +61,7 @@ export default {
     // 退出账号
     quitAccount() {
       store.removeLocal(storeId, 'userInfo')
-      goRouterLink({name: 'self'})
+      goRouterLink({name: 'self'}, this)
     },
     // 设置过渡
     setTransition(transitionName) {

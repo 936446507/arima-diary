@@ -23,6 +23,15 @@
               </div>
               <div class="job">前端工程师</div>
             </div>
+            <!-- 关注按钮 -->
+            <div @click.stop="fllowUser" class="tool-wrap">
+              <button v-show="!isHadFllowed" class="btn fllow-btn">
+                <i class="icon icon-plus"></i><span class="desc">关注</span>
+              </button>
+              <button v-show="isHadFllowed" class="btn fllowed-btn">
+                <i class="icon icon-right"></i><span class="desc">已关注</span>
+              </button>
+            </div>
           </li>
           <li v-if="false" class="empty">还没有数据哦~</li>
         </ul>
@@ -35,7 +44,7 @@
 import SlideTransition from '@/components/slide-transition/slide-transition'
 import Header from '@/components/header/header'
 import List from '@/components/list/list'
-import {getRouterInfo} from '@/js/router'
+import {goRouterLink, getRouterInfo} from '@/js/router'
 export default {
   data() {
     return {
@@ -45,6 +54,13 @@ export default {
     }
   },
   methods: {
+    fllowUser() {
+      if (!this.isLogin) {
+        goRouterLink({name: 'login'}, this)
+      } else {
+        this.isHadFllowed = !this.isHadFllowed
+      }
+    },
     // 设置过渡
     setTransition(transitionName) {
       this.transitionName = transitionName
@@ -54,6 +70,13 @@ export default {
     headerTitle() {
       let routerInfo = getRouterInfo(this)
       return routerInfo.name === 'fllow' ? '关注' : '粉丝'
+    },
+    isLogin() {
+      return this.$store.getters.getLoginStatus
+    },
+    isHadFllowed() {
+      let routerInfo = getRouterInfo(this)
+      return routerInfo.name === 'fllow'
     }
   },
   components: {
@@ -98,7 +121,23 @@ export default {
       }
       .job {color: #ccc}
     }
-    
+    // 关注 已关注按钮
+    .btn {
+      width: 1.5rem;
+      height: .6rem;
+      border: none;
+      border-radius: .25rem;
+      font-size: .25rem;
+      &.fllow-btn {
+        color: white;
+        background-color: @success-color;
+      }
+      &.fllowed-btn {
+        color: #ccc;
+        border: 1px solid #ccc;
+        background-color: white;
+      }
+    }
   }
   .empty {
     padding: .5rem 0;

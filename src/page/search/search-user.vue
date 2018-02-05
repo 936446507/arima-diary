@@ -99,15 +99,19 @@ export default {
         height: .75rem;
         border-radius: 50%;
       }
-      .username {padding: 0 .25rem;}
+      .username {
+        padding: 0 .25rem;
+        font-size: .35rem;
+      }
     }
     .write-letter-btn {
       padding: .075rem .15rem;
       font-size: .2rem;
       border: 1px solid @success-color;
-      border-radius: .05rem;
+      border-radius: .1rem;
       outline: none;
       background-color: transparent;
+      color: @success-color;
     }
   }
 }
