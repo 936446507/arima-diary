@@ -1,6 +1,12 @@
 <template>
   <div v-show="isLoadingShow" class="loading-wrap">
-    <div :style="{'width': `${size}rem`, 'height': `${size}rem`}" class="loading"></div>
+    <div class="loading">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
     <div v-if="desc" class="desc">{{desc}}</div>
   </div>
 </template>
@@ -8,12 +14,6 @@
 <script>
 export default {
   props: {
-    size: {
-      type: Number
-    },
-    color: {
-      type: String
-    },
     desc: {
       type: String,
       default: '正在加载更多'
@@ -36,29 +36,42 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '../../style/common.less';
-.loading-wrap {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .loading{
-    background: transparent;
-    border-top: 2px solid @theme-color;
-    border-right: 2px solid @theme-color;
-    border-bottom: 2px solid @theme-color;
-    border-left: 2px solid transparent;
-    border-radius: 50%;
-    transition: transform 1s linear;
-    animation: rotate 1s linear infinite;
+.loading{
+  width: 80px;
+  height: 40px;
+  margin: 0 auto;
+  margin-top:100px;
+}
+.loading span{
+  display: inline-block;
+  width: 8px;
+  height: 100%;
+  border-radius: 4px;
+  background: lightgreen;
+  -webkit-animation: load 1s ease infinite;
+}
+@-webkit-keyframes load{
+  0%,100%{
+      height: 40px;
+      background: lightgreen;
   }
-  .desc {
-    padding-left: .25rem;
-    color: #999;
+  50%{
+      height: 70px;
+      margin: -15px 0;
+      background: lightblue;
   }
 }
-@keyframes rotate{from{transform: rotate(0deg)}
-    to{transform: rotate(359deg)}
+.loading span:nth-child(2){
+  -webkit-animation-delay:0.2s;
 }
-
+.loading span:nth-child(3){
+  -webkit-animation-delay:0.4s;
+}
+.loading span:nth-child(4){
+  -webkit-animation-delay:0.6s;
+}
+.loading span:nth-child(5){
+  -webkit-animation-delay:0.8s;
+}
 </style>
 

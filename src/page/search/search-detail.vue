@@ -48,6 +48,8 @@ import Scroll from '@/components/scroll/scroll'
 import DiaryListItem from '@/components/diary-list-item/diary-list-item'
 import {Toast} from 'vux'
 import {goRouterLink} from '@/js/router'
+import * as store from '@/js/store'
+const storeId = 1
 export default {
   data() {
     return {
@@ -56,28 +58,36 @@ export default {
       searchValue: '',
       tipShow: false,
       // 搜索的次数
-      searchNumber: 0
+      searchNumber: 0,
+      historyList: []
     }
   },
   methods: {
-    // 设置过渡
-    setTransition(transitionName) {
-      console.log(transitionName)
-      this.transitionName = transitionName
+    // 存储搜索记录
+    saveHistory(content) {
+      if (!this.historyList) this.historyList = []
+      this.historyList.push(content)
+      store.saveToLocal(storeId, 'history', this.historyList)
     },
-
     // 搜索
     search() {
       let searchValue = this.searchValue
       if (searchValue) {
+        this.saveHistory(searchValue)
         goRouterLink({
           name: 'searchDetail',
           query: {query: searchValue}
         }, this)
         this.searchNumber += 1
+        this.searchValue = ''
       } else {
         this.tipShow = true
       }
+    },
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
     }
   },
   components: {

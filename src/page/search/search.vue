@@ -4,7 +4,7 @@
       <v-header @setTransition="setTransition" :isIncreaseZIndex="true">
         <div class="search-input-wrap">
           <input v-model="searchValue" type="text" class="search-input" placeholder="搜索文章、用户">
-          <i @click.stop="search" class="icon icon-search"></i>
+          <i @click.stop="search(searchValue)" class="icon icon-search"></i>
         </div>
       </v-header>
       <div class="search-wrap">
@@ -22,20 +22,21 @@
                 </button>
               </header>
               <ul class="hot-search-list">
-                <li v-for="n in 10" :key="n" class="hot-search-item">content</li>
+                <li v-for="n in 8" :key="n" class="hot-search-item">content</li>
               </ul>
             </div>
-            <div class="search-history-wrap">
+            <div v-if="historyList.length" class="search-history-wrap">
               <ul class="search-history-list">
-                <li v-for="n in 10" :key="n" class="search-history-item">
+                <li v-for="(item, index) in historyList" :key="index" 
+                  @click.stop="search(item, true)" class="search-history-item">
                   <i class="icon icon-history-recode"></i>
-                  <span class="search-content">桐山零</span>
-                  <i class="icon icon-delete"></i>
+                  <span class="search-content">{{item}}</span>
+                  <i @click.stop="clearHistory(index)" class="icon icon-delete"></i>
                 </li>
               </ul>
             </div>
-            <div class="clear-history-wrap">
-              <button class="clear-history-btn">清除搜索记录</button>
+            <div v-if="historyList.length" class="clear-history-wrap">
+              <button @click.stop="clearAllHistory" class="clear-history-btn">清除搜索记录</button>
             </div>
           </div>
         </v-scroll>
@@ -53,32 +54,66 @@ import Header from '@/components/header/header'
 import Scroll from '@/components/scroll/scroll'
 import {Toast} from 'vux'
 import {goRouterLink} from '@/js/router'
+import * as store from '@/js/store'
+const storeId = 1
 export default {
   data() {
     return {
       transitionName: 'slide-left',
       searchValue: '',
-      tipShow: false
+      tipShow: false,
+      historyList: []
     }
   },
+  created() {
+    this.getHistoryList()
+  },
   methods: {
-    // 设置过渡
-    setTransition(transitionName) {
-      console.log(transitionName)
-      this.transitionName = transitionName
+    // 获取搜索记录列表
+    getHistoryList() {
+      this.historyList = store.loadFromLocal(storeId, 'history', [])
+      console.log(this.historyList)
     },
-
+    // 存储搜索记录
+    saveHistory(content) {
+      if (!this.historyList) this.historyList = []
+      this.historyList.push(content)
+      store.saveToLocal(storeId, 'history', this.historyList)
+    },
+    // 清除指定搜索记录
+    clearHistory(historyIndex) {
+      this.historyList.forEach((item, index, array) => {
+        if (historyIndex === index) {
+          array.splice(index, 1)
+        }
+      })
+      store.saveToLocal(storeId, 'history', this.historyList)
+      this.getHistoryList()
+    },
+    // 清除所有搜索记录
+    clearAllHistory() {
+      store.removeLocal(storeId, 'history')
+      this.getHistoryList()
+    },
     // 搜索
-    search() {
-      let searchValue = this.searchValue
+    search(searchValue, isSearchHistory = false) {
+      // isSearchHistory 是否搜索往期的历史记录
       if (searchValue) {
         goRouterLink({
           name: 'searchDetail',
           query: {query: searchValue}
         }, this)
+        if (!isSearchHistory) {
+          this.saveHistory(searchValue)
+        }
       } else {
         this.tipShow = true
       }
+    },
+    // 设置过渡
+    setTransition(transitionName) {
+      console.log(transitionName)
+      this.transitionName = transitionName
     }
   },
   components: {
