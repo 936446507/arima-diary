@@ -59,7 +59,7 @@ export default {
     // 初始化显示
     _initShow() {
       let routerName = getRouterInfo(this).name
-      if (routerName === 'home' || routerName === 'rank') {
+      if (routerName === 'home' || routerName === 'rank' || routerName === 'searchDetail') {
         [this.isUserInfoShow, this.isContentSplitShow, this.isTimeShow] =
           [true, true, false]
       } else if (routerName === 'user') {
