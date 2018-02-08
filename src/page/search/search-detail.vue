@@ -13,16 +13,17 @@
           <div class="search-detail">
             <!-- 相关用户 -->
             <div class="relate-user-wrap">
-              <header class="relate-user-header">
+              <router-link :to="{name: 'relateUser'}"
+                tag="header" class="relate-user-header">
                 <span class="title">相关用户</span>
                 <i class="icon icon-arrow_right"></i>
-              </header>
-              
+              </router-link>
               <ul class="relate-user-list">
-                <li v-for="n in 5" :key="n" class="relate-user-item">
+                <router-link :to="{name: 'user', params: {id: 1}}" tag="li"
+                  v-for="n in 5" :key="n" class="relate-user-item">
                   <img alt="avatar" class="avatar" :src="avatar">
                   <span class="username">桐山零</span>
-                </li>
+                </router-link>
               </ul>
             </div>
             <!-- 搜索到的日记 -->

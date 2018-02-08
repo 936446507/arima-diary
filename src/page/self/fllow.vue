@@ -69,7 +69,13 @@ export default {
   computed: {
     headerTitle() {
       let routerInfo = getRouterInfo(this)
-      return routerInfo.name === 'fllow' ? '关注' : '粉丝'
+      if (routerInfo.name === 'fllow') {
+        return '关注'
+      } else if (routerInfo.name === 'fans') {
+        return '粉丝'
+      } else if (routerInfo.name === 'relateUser') {
+        return '相关用户'
+      }
     },
     isLogin() {
       return this.$store.getters.getLoginStatus

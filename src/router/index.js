@@ -169,6 +169,11 @@ export default new Router({
       component: SearchDetail
     },
     {
+      path: '/relateUser',
+      name: 'relateUser',
+      component: Fllow
+    },
+    {
       path: '/searchUser',
       name: 'searchUser',
       component: SearchUser,
